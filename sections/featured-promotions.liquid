@@ -1,0 +1,290 @@
+{% comment %}
+** Featured promotions - dynamic **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% if blocks.size > 0 %}
+<section
+  class="featured-promotions"
+  data-id="{{ object.id }}"
+>
+  <div class="featured-promotions__wrapper featured-promotions__wrapper--{{ section.settings.features_per_row }}-column">
+    {% for block in blocks %}
+      {% comment %} Content settings {% endcomment %}
+      {%- assign image = block.settings.image -%}
+      {% if block.settings.button_text and block.settings.link and block.settings.button_text2 and block.settings.link2 %}
+        {%- assign multiple_buttons = true -%}
+      {% endif %}
+      {% comment %} End content settings {% endcomment %}
+      <div class="featured-promotions__block" {{ block.shopify_attributes }}>
+
+        {% if block.settings.background_link and block.settings.link == blank and block.settings.link2 == blank %}
+          <a class="featured-promotions__background-link" href="{{ block.settings.background_link }}">
+        {% endif %}
+
+          <div class="featured-promotions__image">
+            {% if image != blank %}
+              {%
+                render 'rimg',
+                img: image,
+                size: '1024x1024',
+                lazy: true,
+                canvas: true,
+                focal_point: image.presentation.focal_point,
+              %}
+            {% else %}
+              {% capture i %}{% cycle "1", "2", "3", "5", "6" %}{% endcapture %}
+              {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
+            {% endif %}
+
+
+            <div class="featured-promotions__content-wrapper
+              featured-promotions__content-wrapper--position-{{ block.settings.position }}
+              featured-promotions__content-wrapper--align-{{ block.settings.alignment }}
+              featured-promotions__content-wrapper--overlay-{{ block.settings.overlay }}"
+            >
+              <div class="featured-promotions__content
+                featured-promotions__content--background-{{ block.settings.show_background }}"
+              >
+                {% if block.settings.title %}
+                  <h2>{{ block.settings.title | strip_html }}</h2>
+                {% endif %}
+
+                {% if block.settings.content %}
+                  {{ block.settings.content }}
+                {% endif %}
+
+                <div class="featured-promotions__buttons
+                  {% if multiple_buttons == true %}featured-promotions__buttons--multiple-buttons{% endif %}"
+                >
+                  {% if block.settings.button_text != blank and block.settings.link %}
+                    <a class="featured-promotions__button featured-promotions__button--{{ block.settings.button_style }}" href="{{ block.settings.link }}">
+                      {{ block.settings.button_text | strip_html }}
+                    </a>
+                  {% endif %}
+
+                  {% if block.settings.button_text2 != blank and block.settings.link2 %}
+                    <a class="featured-promotions__button featured-promotions__button--{{ block.settings.button_style2 }}" href="{{ block.settings.link2 }}">
+                      {{ block.settings.button_text2 | strip_html }}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% if block.settings.background_link and block.settings.link == blank and block.settings.link2 == blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% comment %}Add general settings so that they show up in section options{% endcomment %}
+{% capture settings %}
+  {
+    "font": {{ settings.promotions_font }},
+    "font_weight": {{ settings.promotions_weight }},
+    "font_text_transform": {{ settings.promotions_font_style }},
+    "font_style": {{ settings.promotions_font_text }},
+    "font_size": {{ settings.promotions_size }},
+    "text_shadow": {{ settings.promotions_shadow }}
+  }
+{% endcapture %}
+
+{% schema %}
+{
+  "name": "Featured promotions",
+  "class": "featured-promotions-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "range",
+      "id": "features_per_row",
+      "label": "Promotions per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promotion",
+      "name": "Promotion",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "420px wide minimum"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Promotion"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>Include the details of your promo here.</p>"
+        },
+        {
+          "type": "select",
+          "id": "overlay",
+          "label": "Overlay",
+          "options": [
+            {
+              "value": "gradient",
+              "label": "Gradient"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            }
+          ],
+          "default": "gradient"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_background",
+          "label": "Show box background",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "background_link",
+          "label": "Background link",
+          "info": "Enabled when button links are blank"
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "First button text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "First button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "First button style",
+          "default": "tertiary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "button_text2",
+          "label": "Second button text"
+        },
+        {
+          "type": "url",
+          "id": "link2",
+          "label": "Second button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style2",
+          "label": "Second button style",
+          "default": "tertiary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Alignment"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Text position",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "bottom"
+        },
+        {
+          "type": "text_alignment",
+          "id": "alignment",
+          "label": "Text alignment"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured promotions",
+      "category": "Image",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "promotion"
+        },
+        {
+          "type": "promotion"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

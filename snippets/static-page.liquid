@@ -1,0 +1,81 @@
+{%- comment -%}
+  @param page_object {String}
+    Will use this page object instead of the current page
+  @param page_width {String}
+    Page width definition to add to class
+  @param hide_title {Boolean}
+    If true, do not show the heading
+  @param sidebar {Boolean}
+{%- endcomment -%}
+
+{% if page_object %}
+  {% assign static_page = pages[page_object] %}
+{% else %}
+  {% assign static_page = page %}
+{% endif %}
+
+{% assign toggle = section.settings.toggle %}
+
+{% if sidebar %}
+  <div
+    class="section-with-sidebar"
+    data-section-type="static-page"
+    data-section-id="{{ static_page.id }}"
+  >
+    <div class="section-with-sidebar__wrapper">
+      <aside
+        class="
+          sidebar
+          collection-page__sidebar
+        "
+        data-sidebar
+        aria-label="{{ 'general.accessibility.sidebar' | t }}"
+        data-has-toggle="{{ toggle }}"
+      >
+        {%
+          render 'sidebar-content',
+          toggle: toggle
+        %}
+      </aside>
+{% endif %}
+
+<section
+  class="
+    static-page
+    {% if page_width %}static-page--width-{{ page_width }}{% endif %}
+  "
+  {% if sidebar == false %}
+    data-section-type="static-page"
+    data-section-id="{{ static_page.id }}"
+  {% endif %}
+>
+  {% unless hide_title %}
+    <div class="static-page__header">
+      {% if template.name == 'index' %}
+        <h2 class="static-page__heading">{{ static_page.title }}</h2>
+      {% else %}
+        <h1 class="static-page__heading">{{ static_page.title }}</h1>
+      {% endif %}
+    </div>
+  {% endunless %}
+
+  {% if static_page.content != blank %}
+    {%- comment -%}
+      To allow for multi-column content, we split the content and use display: grid.
+    {%- endcomment -%}
+    {%- assign columns = static_page.content | split: '<!-- split -->' -%}
+
+    <div class="static-page__wrapper static-page__wrapper--{{ columns.size }}-column" data-rich-text-area>
+      {% for column in columns %}
+        <div class="static-page__column">
+          {{ column }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+{% if sidebar %}
+    </div>
+  </div>
+{% endif %}

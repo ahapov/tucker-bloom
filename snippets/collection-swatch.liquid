@@ -1,0 +1,67 @@
+{%- assign show_swatches = false -%}
+{%- if settings.collection_swatches -%}
+  {% comment %} Check if product should show swatches {% endcomment %}
+  {%- for option in product.options_with_values -%}
+    {%- assign swatch_trigger = settings.swatches_swatch_trigger | strip | downcase -%}
+    {%- assign option_name = option.name | downcase -%}
+    {%- if option_name == swatch_trigger -%}
+      {%- assign show_swatches = true -%}
+      {%- assign swatch_values = option.values -%}
+      {%- assign swatch_values_count = option.values.size -%}
+      {%- assign swatch_option_key = 'option' | append: forloop.index -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if show_swatches -%}
+    <div
+      class="collection-swatches"
+      data-swatches
+    >
+      <div
+        class="collection-swatches__container"
+        data-swatches-container
+        aria-label="{{ 'general.accessibility.swatch_options' | t: swatch_trigger: settings.swatches_swatch_trigger, product_title: product.title }}"
+      >
+        {% for swatch_value in swatch_values %}
+          {% assign swatch_value_downcased = swatch_value | downcase %}
+            {% assign use_variant_images = false %}
+            {% assign use_aspect_ratio = false %}
+            {% assign variant_image = blank %}
+
+            {% for variant in product.variants %}
+              {% if variant[swatch_option_key] == swatch_value %}
+                {% assign variant_image = variant.featured_media | product_img_url: '900x' %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+
+            {%- capture swatch_styles -%}
+              {%
+                render 'collection-swatch-styles',
+                color_name: swatch_value,
+                swatch_product: product,
+                swatch_option_key: swatch_option_key
+              %}
+            {%- endcapture -%}
+            <div
+              class="collection-swatches__swatch"
+              data-swatch-tooltip="{{ swatch_value | escape }}"
+              data-swatch
+              data-image="{{ variant_image }}"
+              style="{{ swatch_styles | split: '/* variables */' | last | remove: '/* variables */' }}"
+            >
+              <div
+                class="collection-swatches__swatch-inner"
+                style="{{ swatch_styles | split: '/* variables */' | first }}"
+              >
+              </div>
+              <div class="collection-swatches__tooltip">
+                {{ swatch_value }}
+              </div>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

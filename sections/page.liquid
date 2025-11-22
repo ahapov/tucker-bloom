@@ -1,0 +1,34 @@
+{%
+  render 'static-page',
+  page_object: section.settings.content_page,
+  page_width: 'normal'
+%}
+
+{% schema %}
+{
+  "name": "Page",
+  "class": "shopify-section--page homepage_content",
+  "settings": [
+    {
+      "type": "page",
+      "id": "content_page",
+      "label": "Content page"
+    }
+  ],
+  "presets": [{
+    "name": "Page",
+    "category": "Text",
+    "settings": {
+      "content_page": ""
+    }
+  }],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

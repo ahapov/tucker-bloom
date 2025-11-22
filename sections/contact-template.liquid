@@ -1,0 +1,581 @@
+{% if section.settings.banner_image != blank %}
+  {% liquid
+    assign base_name = 'image-with-text-overlay'
+    assign heading = section.settings.contact_heading
+    assign subheading = section.settings.contact_content
+    assign image = section.settings.banner_image
+    assign overlay_opacity = 0
+    assign text_color = section.settings.overlay_text_color
+  %}
+
+  {%- if section.settings.overlay_opacity > 0 and section.settings.overlay_color != 'rgba(0,0,0,0)' and section.settings.overlay_color != 'rgba(0, 0, 0, 0)' -%}
+      {%- assign overlay_opacity = section.settings.overlay_opacity -%}
+      {%- assign overlay_color = section.settings.overlay_color -%}
+  {%- endif -%}
+
+  {% comment %} On the page.banner template, the only setting that is different is text/subtext {% endcomment %}
+  {% if object.settings.subtext %}
+    {% assign subheading = object.settings.subtext %}
+  {% endif %}
+
+  {% capture section_classes %}
+    {% if section.settings.wide_display %}image-with-text-overlay--wide{% endif %}
+    image-with-text-overlay--height-{{ section.settings.banner_height }}
+    image-with-text-overlay--text-position-{{ section.settings.banner_text_position }}
+  {% endcapture %}
+
+  {% comment %}Inject @pixelunion/pxs-image-with-text/image-with-text begin{% endcomment %}
+  {% comment %}
+  
+    # General
+    @param section {Object}
+      Section object
+  
+    @param section_classes {String}
+      A string of space separated classes to apply to the section element
+  
+    @param section_styles {String}
+      A string of inline styles to place on the section element. Useful for adding CSS variables.
+  
+    @param base_name {String} Default: 'image-with-text'
+      A base name to use for all classes, and section type.
+  
+    # Section Settings
+  
+    @param section_heading {String} Optional
+      Section heading above the image
+  
+    @param section_style {String} Optional
+      ie. accent or contrast - used in Startup
+  
+    @param show_border (Boolean} Optional
+      Show section border
+  
+    @param desktop_height {String} Optional
+      Section/image height on desktop
+  
+    @param mobile_height {String} Optional
+      Section/image height on mobile
+  
+    @param treat_as_banner {Boolean} Optional
+      If this is set to true an attribute will be added to treat this as a banner. Usually important for the header if it is transparent.
+  
+    # Image Settings
+  
+    @param image {Image} Required
+      Section image
+  
+    @param desktop_image_alignment {String} Optional
+      Image position relative to the text content on desktop. Applied to a class on the section for CSS use.
+  
+    @param mobile_image_alignment {String} Optional
+      Image position relative to the text content on mobile. Applied to a class on the section for CSS use.
+  
+    @param focal_point {String} Optional
+      The focal point set by the merchant for the image in the Shopify admin. Accessed in the image drop via: image.presentation.focal_point. Applies object-fit:cover;object-position:[focal point] to the style property on the image element. Only works with no cropping.
+  
+    @param overlay_opacity {Number} Optional
+      Overlay opacity for Image with Text Overlay. Used for inline style.
+  
+    @param overlay_color {String} Optional
+      Overlay color. Used for inline style
+  
+    # Text Settings
+  
+    @param preheading {String} Optional
+      Text above the heading
+  
+    @param heading {String} Optional
+      Heading on the text side of the section
+  
+    @param subheading {String} Optional
+      Subheading/text content for the text side of the section
+  
+    @param text_color {String} Optional
+      Colour of text content and heading (does not apply to section heading)
+  
+    @param text_alignment {String} Optional
+      Left, center or right alignment of text content
+  
+    @param text_shadow {Boolean} Optional
+      Shadow effect on text content (existing setting in some themes)
+  
+    @param content_position {String} Optional
+      Position of the text content in the container, usually for image with text overlay (ex. top-left, top-center, top-right)
+  
+    # Button Settings
+  
+    @param button_label {String} Optional
+      Button label on text side of section
+  
+    @param button_link {String} Optional
+      Button link
+  
+    @param button_style {String} Optional
+      Button style
+  
+  {% endcomment %}
+  
+  {% liquid
+    assign base_name = base_name | default: 'image-with-text'
+    assign treat_as_banner = treat_as_banner | default: false
+  %}
+  
+  {%- if overlay_opacity > 0 and overlay_color -%}
+    {%- assign overlay_opacity = overlay_opacity | times: 0.01 -%}
+    {%- assign overlay_color = overlay_color | color_modify: 'alpha', overlay_opacity -%}
+  {%- endif -%}
+  
+  {% capture text_classes %}
+    {% if text_alignment != blank %}
+      {{ base_name }}-text-alignment-{{ text_alignment }}
+    {% endif %}
+    {% if text_shadow %}
+     {{ base_name }}--text-shadow
+    {% endif %}
+  {% endcapture %}
+  
+  <section
+    class="
+      {{ base_name }}
+      {% if section_style != blank %}
+        {{ base_name }}--section-style-{{ section_style }}
+      {% endif %}
+      {% if show_border %}
+        {{ base_name }}--section-show-border
+      {% endif %}
+      {% if desktop_height != blank %}
+        {{ base_name }}--desktop-height-{{ desktop_height }}
+      {% endif %}
+      {% if mobile_height != blank %}
+        {{ base_name }}--mobile-height-{{ mobile_height }}
+      {% endif %}
+      {% if desktop_image_alignment != blank %}
+        {{ base_name }}--desktop-image-alignment-{{ desktop_image_alignment }}
+      {% endif %}
+      {% if mobile_image_alignment != blank %}
+        {{ base_name }}--mobile-image-alignment-{{ mobile_image_alignment }}
+      {% endif %}
+      {% if content_position != blank %}
+        {{ base_name }}--content-position-{{ content_position }}
+      {% endif %}
+      {% if section_classes != blank %}
+        {{ section_classes }}
+      {% endif %}
+    "
+    {% if section_styles %}
+      style="{{ section_styles }}"
+    {% endif %}
+    data-section-id="{{ section.id }}"
+    data-banner="{{ treat_as_banner }}"
+  >
+    {%- if section_heading != blank -%}
+      <h2 class="{{ base_name }}__section-heading">{{ section_heading | escape }}</h2>
+    {%- endif -%}
+    <div class="{{ base_name }}__container">
+      <div class="{{ base_name }}__image-wrapper">
+        {%- if image != blank -%}
+          {% assign alt = image.alt | default: heading %}
+          {% capture image_classes %}{{ base_name }}__image{% endcapture %}
+          {%
+            render 'rimg'
+            img: image,
+            alt: alt,
+            size: '1500x',
+            lazy: true,
+            class: image_classes,
+            focal_point: image.presentation.focal_point,
+          %}
+        {%- else -%}
+          {% capture placeholder_classes %}{{ base_name }}__image {{ base_name }}__placeholder{% endcapture %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: placeholder_classes }}
+        {%- endif -%}
+      </div>
+      <div
+        class="{{ base_name }}__content"
+        {% if overlay_color or text_color %}
+          style="
+            {% if overlay_color %}background-color: {{ overlay_color }};{% endif %}
+            {% if text_color %}color: {{ text_color }};{% endif %}
+          "
+        {% endif %}
+      >
+        {%-
+            if heading != blank
+            or preheading != blank
+            or subheading != blank
+            or button_label != blank
+            or button_link != blank
+         -%}
+         <div class="{{ base_name }}__content-wrapper {{ text_classes }}">
+            {%- if preheading != blank -%}
+              <div class="{{ base_name }}__preheading">{{ preheading | escape }}</div>
+            {%- endif -%}
+            {%- if heading != blank -%}
+              <h2 class="{{ base_name }}__heading">{{ heading | escape }}</h2>
+            {%- endif -%}
+            {%- if subheading -%}
+              <div class="{{ base_name }}__text">{{ subheading }}</div>
+            {%- endif -%}
+            {%- if
+              button_label != blank
+              and button_link != blank
+            -%}
+              <a
+                class="
+                  {{ base_name }}__button
+                  {% if button_style %}
+                    {{ base_name }}__button--style-{{ button_style }}
+                  {% endif %}
+                "
+                href="{{ button_link }}"
+              >
+                {{ button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+  {% comment %}Inject @pixelunion/pxs-image-with-text/image-with-text end{% endcomment %}
+
+{% endif %}
+
+{% if page.content != blank %}
+  {% render 'static-page', page_width: 'narrow' %}
+{% endif %}
+
+{%
+  render 'include-contact-form',
+  hide_text: true,
+  hide_image: true
+%}
+
+{% if section.settings.map_address != blank or section.settings.image != blank %}
+  {%
+    render 'include-map'
+  %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Contact page",
+  "class": "shopify-section--contact-template banner-option",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "banner_height",
+      "label": "Banner height",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "original",
+          "label": "Original"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Banner overlay"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Heading",
+      "default": "Get in touch today"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_content",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "banner_text_position",
+      "label": "Banner text position",
+      "default": "center",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "center-left",
+          "label": "Center left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "center-right",
+          "label": "Center right"
+        },{
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "step": 5,
+      "min": 0,
+      "max": 100,
+      "default": 35,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "text",
+      "id": "map_address",
+      "label": "Map address",
+      "info": "Google Maps will find the exact location"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Displayed if the map isn’t loaded"
+    },
+    {
+      "type": "header",
+      "content": "Store hours"
+    },
+    {
+      "type": "checkbox",
+      "id": "store_hours",
+      "label": "Show store hours",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Come and visit"
+    },
+    {
+      "type": "richtext",
+      "id": "address",
+      "label": "Address",
+      "default": "<p>123 Fake Street</p><p>Toronto, Canada</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "hours",
+      "label": "Hours",
+      "default": "<p>Mon - Fri, 10am - 9pm</p><p>Saturday, 11am - 9pm</p><p>Sunday, 11am - 5pm</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment",
+      "label": "Text alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Desktop text position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "center-left",
+          "label": "Center left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "center-right",
+          "label": "Center right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_position",
+      "label": "Mobile text position",
+      "options": [
+        {
+          "value": "below-map",
+          "label": "Below map"
+        },
+        {
+          "value": "above-map",
+          "label": "Above map"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "zoom_level",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "unit": "x",
+      "label": "Map zoom level",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "API key"
+    },
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "Google Maps API key",
+      "info": "You’ll need to [register a Google Maps API Key](https://help.shopify.com/manual/using-themes/troubleshooting/map-section-api-key) to display the map"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pin",
+      "label": "Show pin",
+      "info": "Requires use of API key",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Map link label",
+      "info": "Requires use of API key",
+      "default": "Directions"
+    },
+    {
+      "type": "select",
+      "id": "map_style",
+      "label": "Map color scheme",
+      "options": [
+        {
+          "value": "aubergine",
+          "label": "Aubergine"
+        },
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "night",
+          "label": "Night"
+        },
+        {
+          "value": "retro",
+          "label": "Retro"
+        },
+        {
+          "value": "silver",
+          "label": "Silver"
+        }
+      ],
+      "default": "default",
+      "info": "Requires use of API key"
+    }
+  ]
+}
+
+{% endschema %}

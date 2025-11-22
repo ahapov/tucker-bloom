@@ -1,0 +1,129 @@
+{% liquid
+  assign queries_available = false
+  assign products_results_available = false
+  assign collections_results_available = false
+  assign pages_results_available = false
+  assign posts_results_available = false
+  assign pages_posts_results_available = false
+  assign two_columns = false
+  assign no_search_results = true
+
+  if predictive_search.resources.queries.size > 0
+    assign queries_available = true
+  endif
+
+  if predictive_search.resources.products.size > 0
+    assign products_results_available = true
+  endif
+
+  if predictive_search.resources.collections.size > 0
+    assign collections_results_available = true
+  endif
+
+  if predictive_search.resources.pages.size > 0
+    assign pages_results_available = true
+  endif
+
+  if predictive_search.resources.articles.size > 0
+    assign posts_results_available = true
+  endif
+
+  if pages_results_available or posts_results_available
+    assign pages_posts_results_available = true
+  endif
+
+  if products_results_available and pages_posts_results_available
+    assign two_columns = true
+  endif
+
+  if queries_available or products_results_available or collections_results_available or pages_posts_results_available
+    assign no_search_results = false
+  endif
+%}
+
+{%- if predictive_search.performed -%}
+  <div class="predictive-search__results">
+
+    {%- if predictive_search.resources.queries.size > 0 or collections_results_available -%}
+      <div class="predictive-search__queries-collections">
+        <h3 class="predictive-search__group-header">{{ 'general.predictive_search.suggestions' | t }}</h3>
+        <ul class="predictive-search__queries-collections-list">
+          {%- for query in predictive_search.resources.queries -%}
+            <li class="predictive-search__query-result">
+              <a class="predictive-search__query-link" href="{{ query.url }}">{{ query.styled_text }}</a>
+            </li>
+          {%- endfor -%}
+          {%- for collection in predictive_search.resources.collections -%}
+            <li class="predictive-search__query-result">
+              <a class="predictive-search__query-link" href="{{ collection.url }}">{{ collection.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if products_results_available or pages_posts_results_available -%}
+      <div
+        class="
+          predictive-search__products-pages-posts-wrapper
+          {% if two_columns %}predictive-search__products-pages-posts-wrapper--two-columns{% endif %}
+        "
+      >
+        {%- if products_results_available -%}
+          <div class="predictive-search__products">
+            <h3 class="predictive-search__group-header">{{ 'general.predictive_search.products_label' | t }}</h3>
+            <ul class="predictive-search__products-list">
+              {%- for product in predictive_search.resources.products -%}
+                <li class="predictive-search__product">
+                  {%
+                    render 'product-thumbnail',
+                    product: product,
+                    enable_quick_shop: false,
+                    collection_price_position: 'left',
+                  %}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- if pages_posts_results_available -%}
+          <div class="predictive-search__pages-posts">
+            <h3 class="predictive-search__group-header">
+              {%- if posts_results_available and pages_results_available == false -%}
+                {{ 'general.predictive_search.articles_label' | t }}
+              {%- elsif posts_results_available == false and pages_results_available -%}
+                {{ 'general.predictive_search.pages_label' | t }}
+              {%- else -%}
+                {{ 'general.predictive_search.articles_and_pages_label' | t }}
+              {%- endif -%}
+            </h3>
+            <ul class="predictive-search__pages-list">
+              {%- for article in predictive_search.resources.articles -%}
+                <li class="predictive-search__post">
+                  <a class="predictive-search__pages-post-link" href="{{ article.url }}">
+                    {{ article.title }}
+                  </a>
+                </li>
+              {%- endfor -%}
+              {%- for page in predictive_search.resources.pages -%}
+                <li class="predictive-search__page">
+                  <a class="predictive-search__pages-post-link" href="{{ page.url }}">{{ page.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if no_search_results -%}
+      <p class="predictive-search__no-results">{{ 'general.predictive_search.no_results' | t }}</p>
+    {%- endif -%}
+
+    <button class="predictive-search__search-for-btn" type="submit">
+      {{ 'general.predictive_search.search_for' | t: terms: predictive_search.terms }}
+    </button>
+
+  </div>
+{%- endif -%}

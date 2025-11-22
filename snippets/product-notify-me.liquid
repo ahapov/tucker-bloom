@@ -1,0 +1,81 @@
+{% if settings.notify_me_form %}
+  <div
+    class="product-notify-form"
+    data-back-in-stock-form
+    data-form-enabled="{% if product.available == false and variant.available == false %}true{% else %}false{% endif %}"
+  >
+    <p class="message"></p>
+    {% form 'contact', class: "product-notify-form__form-element", id: section.id %}
+      {% if form.errors %}
+        {{ form.errors | default_errors }}
+      {% else %}
+        {% if settings.notify_me_description != blank %}
+          <label
+            class="visually-hidden"
+            for="notify-form-{{ section.id }}"
+            aria-hidden="true"
+          >
+            {{ settings.notify_me_description | strip_html }}
+          </label>
+          {{ settings.notify_me_description }}
+        {% endif %}
+
+        {% unless product.has_only_default_variant %}
+          {% assign variant_title = variant.title %}
+          {% if product.variants.size == 1 %}
+            {% assign variant_title = product.variants[0].title %}
+          {% endif %}
+          {%- comment -%}
+           A hyphen only could cause issues when replacing variant.title in the JS if a
+           variant has hyphens in their title. Therefore, we'll wrap variant.title in square brackets.
+          {%- endcomment -%}
+          {% capture product_variant %} - [{{ variant_title }}]{% endcapture %}
+        {% endunless %}
+
+        {% capture notify_message %}
+          {{ 'products.notify_form.message_content' | t: product: product.title, url: canonical_url }}{{ product_variant }}
+        {% endcapture %}
+
+        <div
+          class="
+          product-notify-form__inputs
+          {% if customer %}
+            product-notify-form--customer-signed-in
+          {% endif %}"
+          {% if customer %}
+            data-customer-email="{{ customer.email }}"
+          {% endif %}
+          data-notify-message="{{ notify_message }}"
+        >
+
+          <input
+            class="product-notify-form__email"
+            id="notify-form-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            placeholder="{{ 'products.notify_form.email' | t }}"
+            value="{% if customer %}{{ customer.email }}{% else %}{{ contact.fields.email }}{% endif %}"
+            required
+          >
+          <input
+            type="hidden"
+            name="challenge"
+            value="false"
+          />
+          <input
+            type="hidden"
+            name="contact[body]"
+            class="product-notify-form__message"
+            value="{{ notify_message }}"
+            data-notify-message-input
+          />
+          <input
+            class="product-notify-form__button"
+            type="submit"
+            value="{{ 'products.notify_form.send' | t }}"
+          />
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+{% endif %}

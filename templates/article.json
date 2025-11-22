@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "article-template",
+      "blocks": {
+        "block-1": {
+          "type": "post_tags",
+          "settings": {}
+        },
+        "block-2": {
+          "type": "recent_posts",
+          "settings": {}
+        },
+        "block-3": {
+          "type": "newsletter",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "settings": {
+        "slideshow_article_enabled": true,
+        "overlay_opacity": 30,
+        "blog_comment_count": false,
+        "blog_additional_articles": false,
+        "toggle": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

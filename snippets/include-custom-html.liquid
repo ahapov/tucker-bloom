@@ -1,0 +1,30 @@
+{% comment %}
+** Custom HTML - homepage partial **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign custom_html = object.settings.custom_html -%}
+{% comment %} End content settings {% endcomment %}
+
+<section
+  class="custom-html"
+  data-section-id="{{ section.id }}"
+>
+  <div class="section__wrapper text-align-center">
+    {% if custom_html != blank %}
+        {{ custom_html }}
+    {% else %}
+      <p class="custom-html__placeholder">
+        {{ 'homepage.onboarding.no_content' | t }}
+      </p>
+    {% endif %}
+  </div>
+</section>

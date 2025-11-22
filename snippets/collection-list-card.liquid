@@ -1,0 +1,48 @@
+{% if image != blank %}
+  {% assign collection_image = image %}
+{% elsif collection.image != blank %}
+  {% assign collection_image = collection.image %}
+{% else collection.empty? == false %}
+  {% assign collection_image = collection.products.first.featured_media.preview_image %}
+{% endif %}
+
+<div class="collection-list-card">
+  <a class="collection-list-card__image" {% if collection != blank %}href="{{ collection.url }}"{% endif %} title="{{ collection.title }}">
+    <span class="collection-list-card__image-wrapper">
+      {% if collection_image != blank %}
+        {%
+          render 'rimg',
+          img: collection_image,
+          lazy: true,
+          canvas: true,
+          focal_point: collection_image.presentation.focal_point,
+        %}
+      {% else %}
+        {% capture num %}{% cycle "1", "2", "3", "5", "6" %}{% endcapture %}
+        {{ 'collection-' | append: num | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </span>
+
+    <div class="collection-list-card__info text-align-center">
+      {% if section.settings.frontpage_collections_title %}
+        <span class="collection-list-card__title">
+          {% if collection != blank %}
+            {{ collection.title | escape }}
+          {% else %}
+            {{ "homepage.onboarding.collection_title" | t }}
+          {% endif %}
+        </span>
+      {% endif %}
+
+      {% if section.settings.collection_count %}
+        <span class="collection-list-card__product-count">
+        {% if collection != blank %}
+          {{ 'layout.counts.items_with_count' | t: count: collection.all_products_count }}
+        {% else %}
+          {{ 'layout.counts.items_with_count' | t: count: 3 }}
+        {% endif %}
+        </span>
+      {% endif %}
+    </div>
+  </a>
+</div>

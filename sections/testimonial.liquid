@@ -1,0 +1,256 @@
+{% comment %} Content settings {% endcomment %}
+{%- assign title = section.settings.title | escape -%}
+{%- assign image_crop = section.settings.image_crop -%}
+{%- assign desktop_navigation_style = section.settings.desktop_navigation_style -%}
+{%- assign blocks = section.blocks -%}
+{% if image_crop == 'original' %}
+  {% assign image_size = '64x' %}
+{% else %}
+  {% assign image_size = '64x64' %}
+{% endif %}
+{% assign number_of_image_blocks = 0 %}
+{% comment %} End content settings {% endcomment %}
+
+<script
+  type="application/json"
+  data-section-type="testimonial"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "desktop_navigation_style" : {{ section.settings.desktop_navigation_style | json }}
+  }
+</script>
+
+<section
+  class="testimonial"
+>
+  {% if title != blank %}
+    <div class="testimonial__header">
+      <h2 class="testimonial__heading">{{ title }}</h2>
+    </div>
+  {% endif %}
+
+  {% if blocks.size > 0 %}
+    <div class="testimonial__slideshow-wrapper">
+      <div
+        class="
+          testimonial__slideshow
+        "
+        data-testimonial-slider-id="{{ section.id }}"
+        data-testimonial-slideshow
+      >
+        {% for block in blocks %}
+          {% comment %} Content settings {% endcomment %}
+          {% if block.settings.authors_image != nil %}
+            {% assign number_of_image_blocks = number_of_image_blocks | plus: 1 %}
+          {% endif %}
+          {%- assign testimonial = block.settings.testimonial -%}
+          {%- assign star_rating = block.settings.star_rating -%}
+          {% if star_rating == '4' or star_rating == '4.5' %}
+            {%- assign star_index = 4 %}
+          {% else %}
+            {%- assign star_index = 5 %}
+          {% endif %}
+          {% comment %} End content settings {% endcomment %}
+          <div class="testimonial__slide"
+            {{ block.shopify_attributes }}
+            data-slide-index="{{ forloop.index0 }}"
+            data-slide
+          >
+            <div class="testimonial__body">
+              <span class="testimonial__quote-icon">&ldquo;</span>
+              {{ testimonial }}
+              {% if star_rating != 'none' %}
+                <div
+                  class="testimonial__stars"
+                  title="{{ 'general.accessibility.stars' | t: star_rating: star_rating }}"
+                >
+                  {% for i in (1..star_index) %}
+                    <div class="testimonial__star-container">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                  {% endfor %}
+                  {% if star_rating == '4.5' %}
+                    <div class="testimonial__star-container">
+                      <svg width="10" height="19" viewBox="0 0 10 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.63271 18.0902L9.51056 13.8197V0L7.26542 6.90983H0L5.87785 11.1803L3.63271 18.0902Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div
+        class="testimonial__slideshow--secondary"
+        data-slideshow-secondary
+      >
+        {% for block in blocks %}
+          {% comment %} Content settings for testimonial info {% endcomment %}
+          {%- assign authors_image = block.settings.authors_image -%}
+          {%- assign authors_name = block.settings.name -%}
+          {%- assign authors_info = block.settings.info -%}
+            {% if authors_name != blank or authors_info != blank or authors_image != blank %}
+              <div
+                class="testimonial__slide--secondary"
+                data-secondary-slide
+              >
+
+                <button
+                  class="
+                    testimonial__image
+                    testimonial__image--{{ image_crop }}
+                    {% if number_of_image_blocks > 0 %}testimonial__image--none{% endif %}
+                  "
+                  type="button"
+                  aria-label="{{ authors_image.alt | escape }}"
+                >
+                  {% if authors_image != nil %}
+                    {% render 'rimg',
+                       img: authors_image,
+                       size: image_size,
+                       lazy: true,
+                       focal_point: authors_image.presentation.focal_point,
+                    %}
+                  {% endif %}
+                </button>
+                {% if authors_name != blank %}
+                  <span class="testimonial__name">{{ authors_name | escape }}</span>
+                {% endif %}
+                {% if authors_info != blank %}
+                  <span class="testimonial__info">{{ authors_info | escape }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "shopify-section--testimonials",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "select",
+      "id": "image_crop",
+      "label": "Image crop",
+      "default": "circle",
+      "options": [
+        {
+          "value": "original",
+          "label": "Original"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "desktop_navigation_style",
+      "label": "Desktop navigation style",
+      "default": "dots",
+      "options": [
+        {
+          "value": "dots",
+          "label": "Dots"
+        },
+        {
+          "value": "buttons",
+          "label": "Buttons"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "authors_image",
+          "label": "Author's image"
+        },
+        {
+          "type": "select",
+          "id": "star_rating",
+          "label": "Star rating",
+          "default": "5",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "4",
+              "label": "4 stars"
+            },
+            {
+              "value": "4.5",
+              "label": "4.5 stars"
+            },
+            {
+              "value": "5",
+              "label": "5 stars"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "testimonial",
+          "label": "Testimonial",
+          "default": "<p>Include some of your favorite customer quotes and feedback here as social proof, to build credibility and trust for your services and products.</p>"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Author name",
+          "default": "Author name"
+        },
+        {
+          "type": "text",
+          "id": "info",
+          "label": "Author info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

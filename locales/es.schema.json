@@ -1,0 +1,473 @@
+{
+  "sections": {
+    "product": {
+      "blocks": {
+        "form": {
+          "show_gift_card_recipient_form": {
+            "label": "Mostrar formulario de información del destinatario para productos de tarjetas de regalo",
+            "info": "Los productos de tarjetas de regalo se pueden enviar opcionalmente directamente al destinatario junto con un mensaje personal. [Más información](https://help.shopify.com/es/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
+          }
+        },
+        "complementary_products": {
+          "name": "Productos complementarios",
+          "settings": {
+            "paragraph": {
+              "content": "Para seleccionar productos complementarios, agrega la aplicación Search & Discovery. [Más información](https://shopify.dev/themes/product-merchandising/recommendations)"
+            },
+            "heading": {
+              "label": "Encabezado"
+            },
+            "product_recommendation_limit": {
+              "label": "Número máximo de productos para mostrar"
+            },
+            "products_per_slide": {
+              "label": "Cantidad de productos por página"
+            }
+          }
+        }
+      }
+    },
+    "countdown_timer": {
+      "name": "Temporizador de cuenta regresiva",
+      "full_width": {
+        "label": "Ancho completo"
+      },
+      "section_height": {
+        "label": "Altura de la sección",
+        "option_1": "Pequeño",
+        "option_2": "Mediano",
+        "option_3": "Grande",
+        "option_4": "Natural"
+      },
+      "image": {
+        "label": "Imagen"
+      },
+      "image_focal_point": {
+        "label": "Punto focal de la imagen",
+        "option_1": "Parte superior izquierda",
+        "option_2": "Parte superior central",
+        "option_3": "Parte superior derecha",
+        "option_4": "Parte central izquierda",
+        "option_5": "Parte central",
+        "option_6": "Parte central derecha",
+        "option_7": "Parte inferior izquierda",
+        "option_8": "Parte inferior central",
+        "option_9": "Parte inferior derecha"
+      },
+      "header_1": {
+        "content": "Temporizador"
+      },
+      "countdown_year": {
+        "label": "Año"
+      },
+      "countdown_month": {
+        "label": "Mes",
+        "option_1": "Enero",
+        "option_2": "Febrero",
+        "option_3": "Marzo",
+        "option_4": "Abril",
+        "option_5": "Mayo",
+        "option_6": "Junio",
+        "option_7": "Julio",
+        "option_8": "Agosto",
+        "option_9": "Septiembre",
+        "option_10": "Octubre",
+        "option_11": "Noviembre",
+        "option_12": "Diciembre"
+      },
+      "countdown_day": {
+        "label": "Día",
+        "option_1": "1",
+        "option_2": "2",
+        "option_3": "3",
+        "option_4": "4",
+        "option_5": "5",
+        "option_6": "6",
+        "option_7": "7",
+        "option_8": "8",
+        "option_9": "9",
+        "option_10": "10",
+        "option_11": "11",
+        "option_12": "12",
+        "option_13": "13",
+        "option_14": "14",
+        "option_15": "15",
+        "option_16": "16",
+        "option_17": "17",
+        "option_18": "18",
+        "option_19": "19",
+        "option_20": "20",
+        "option_21": "21",
+        "option_22": "22",
+        "option_23": "23",
+        "option_24": "24",
+        "option_25": "25",
+        "option_26": "26",
+        "option_27": "27",
+        "option_28": "28",
+        "option_29": "29",
+        "option_30": "30",
+        "option_31": "31"
+      },
+      "countdown_hour": {
+        "label": "Hora",
+        "option_1": "00:00",
+        "option_2": "01:00",
+        "option_3": "02:00",
+        "option_4": "03:00",
+        "option_5": "04:00",
+        "option_6": "05:00",
+        "option_7": "06:00",
+        "option_8": "07:00",
+        "option_9": "08:00",
+        "option_10": "09:00",
+        "option_11": "10:00",
+        "option_12": "11:00",
+        "option_13": "12:00",
+        "option_14": "13:00",
+        "option_15": "14:00",
+        "option_16": "15:00",
+        "option_17": "16:00",
+        "option_18": "17:00",
+        "option_19": "18:00",
+        "option_20": "19:00",
+        "option_21": "20:00",
+        "option_22": "21:00",
+        "option_23": "22:00",
+        "option_24": "23:00"
+      },
+      "countdown_minute": {
+        "label": "Minuto",
+        "option_1": "00",
+        "option_2": "01",
+        "option_3": "02",
+        "option_4": "03",
+        "option_5": "04",
+        "option_6": "05",
+        "option_7": "06",
+        "option_8": "07",
+        "option_9": "08",
+        "option_10": "09",
+        "option_11": "10",
+        "option_12": "11",
+        "option_13": "12",
+        "option_14": "13",
+        "option_15": "14",
+        "option_16": "15",
+        "option_17": "16",
+        "option_18": "17",
+        "option_19": "18",
+        "option_20": "19",
+        "option_21": "20",
+        "option_22": "21",
+        "option_23": "22",
+        "option_24": "23",
+        "option_25": "24",
+        "option_26": "25",
+        "option_27": "26",
+        "option_28": "27",
+        "option_29": "28",
+        "option_30": "29",
+        "option_31": "30",
+        "option_32": "31",
+        "option_33": "32",
+        "option_34": "33",
+        "option_35": "34",
+        "option_36": "35",
+        "option_37": "36",
+        "option_38": "37",
+        "option_39": "38",
+        "option_40": "39",
+        "option_41": "40",
+        "option_42": "41",
+        "option_43": "42",
+        "option_44": "43",
+        "option_45": "44",
+        "option_46": "45",
+        "option_47": "46",
+        "option_48": "47",
+        "option_49": "48",
+        "option_50": "49",
+        "option_51": "50",
+        "option_52": "51",
+        "option_53": "52",
+        "option_54": "53",
+        "option_55": "54",
+        "option_56": "55",
+        "option_57": "56",
+        "option_58": "57",
+        "option_59": "58",
+        "option_60": "59"
+      },
+      "countdown_timer_background": {
+        "label": "Mostrar el fondo del temporizador de cuenta regresiva"
+      },
+      "countdown_timer_complete": {
+        "label": "Ocultar el temporizador al finalizar"
+      },
+      "countdown_timer_message": {
+        "label": "Mensaje de temporizador finalizado"
+      },
+      "product": {
+        "label": "Producto"
+      },
+      "header_2": {
+        "content": "Contenido"
+      },
+      "title": {
+        "label": "Título"
+      },
+      "text": {
+        "label": "Texto"
+      },
+      "button_link": {
+        "label": "Enlace del botón"
+      },
+      "button_label": {
+        "label": "Etiqueta del botón"
+      },
+      "button_style": {
+        "label": "Estilo de botón",
+        "option_1": "Principal",
+        "option_2": "Secundario"
+      },
+      "header_3": {
+        "content": "Color"
+      },
+      "text_color": {
+        "label": "Texto"
+      },
+      "overlay_color": {
+        "label": "Superposición"
+      },
+      "overlay_opacity": {
+        "label": "Opacidad de superposición",
+        "unit": "%"
+      },
+      "product_card_background_color": {
+        "label": "Fondo de la tarjeta del producto"
+      },
+      "presets": {
+        "countdown_timer": {
+          "name": "Temporizador de cuenta regresiva",
+          "category": "Promocional"
+        }
+      }
+    },
+    "age_gate": {
+      "name": "Página de verificación de edad",
+      "minimum_age": {
+        "label": "Edad mínima requerida para acceder a la página"
+      },
+      "presets": {
+        "name": "Página de verificación de edad",
+        "category": "Diseño de página"
+      }
+    }
+  },
+  "settings_schema": {
+    "age_gate": {
+      "name": "Verificación de edad",
+      "enable_site_wide": {
+        "label": "Habilitar en todo el sitio"
+      },
+      "minimum_age": {
+        "label": "Edad mínima requerida para acceder al sitio"
+      },
+      "heading": {
+        "label": "Título"
+      },
+      "description": {
+        "label": "Descripción"
+      },
+      "show_logo": {
+        "label": "Mostrar logotipo",
+        "info": "Visite la [configuración de la marca](/admin/settings/branding) para editar el logotipo."
+      }
+    }
+  },
+  "flex_pdp": {
+    "section": {
+      "high_variant": {
+        "name": "Producto: 250+ variantes",
+        "settings": {
+          "padding": {
+            "label": "Relleno",
+            "options": {
+              "none": {
+                "label": "Ninguno"
+              },
+              "top": {
+                "label": "Superior"
+              },
+              "bottom": {
+                "label": "Inferior"
+              },
+              "both": {
+                "label": "Ambos"
+              }
+            }
+          }
+        },
+        "presets": {
+          "high_variant": {
+            "name": "Producto (250+ Variantes)"
+          }
+        }
+      }
+    },
+    "blocks": {
+      "buy_buttons": {
+        "name": "Botones de compra",
+        "settings": {
+          "show_dynamic_checkout": {
+            "label": "Mostrar botón de pago acelerado",
+            "info": "Cada cliente verá su método de pago preferido de los disponibles en tu tienda, como PayPal o Apple Pay. [Más información](https://help.shopify.com/en/manual/online-store/dynamic-checkout)"
+          }
+        },
+        "presets": {
+          "buy_buttons": {
+            "name": "Botones de compra"
+          }
+        }
+      },
+      "description": {
+        "name": "Descripción"
+      },
+      "divider": {
+        "name": "Divisor"
+      },
+      "gift_recipient": {
+        "name": "Destinatario del regalo",
+        "settings": {
+          "content": "Renderiza el formulario de destinatario del regalo para el producto."
+        }
+      },
+      "installments": {
+        "name": "Pagos a plazos",
+        "settings": {
+          "content": "Para mostrar pagos a plazos, tu tienda necesita soportar Pagos a Plazos de Shop Pay. [Más información](https://help.shopify.com/en/manual/payments/shop-pay-installments)."
+        }
+      },
+      "inventory": {
+        "name": "Inventario",
+        "settings": {
+          "content": "Muestra el estado del inventario para el producto basado en el umbral de inventario, incluyendo advertencia de stock bajo e inventario entrante.",
+          "inventory_threshold": {
+            "label": "Umbral de inventario bajo"
+          }
+        }
+      },
+      "media_gallery": {
+        "name": "Galería de medios",
+        "settings": {
+          "image_aspect_ratio": {
+            "label": "Proporción de aspecto",
+            "options": {
+              "initial": {
+                "label": "Natural"
+              },
+              "portrait": {
+                "label": "Vertical"
+              },
+              "square": {
+                "label": "Cuadrado"
+              },
+              "landscape": {
+                "label": "Horizontal"
+              }
+            }
+          },
+          "enable_video_looping": {
+            "label": "Bucle de video"
+          },
+          "enable_video_autoplay": {
+            "label": "Reproducción automática de video",
+            "info": "Los videos con reproducción automática están silenciados para accesibilidad."
+          }
+        }
+      },
+      "media_grid": {
+        "name": "Cuadrícula de medios",
+        "settings": {
+          "image_aspect_ratio": {
+            "label": "Proporción de aspecto",
+            "options": {
+              "initial": {
+                "label": "Natural"
+              },
+              "portrait": {
+                "label": "Vertical"
+              },
+              "square": {
+                "label": "Cuadrado"
+              },
+              "landscape": {
+                "label": "Horizontal"
+              }
+            }
+          },
+          "enable_video_looping": {
+            "label": "Bucle de video"
+          },
+          "enable_video_autoplay": {
+            "label": "Reproducción automática de video",
+            "info": "Los videos con reproducción automática están silenciados para accesibilidad."
+          }
+        }
+      },
+      "pick_up": {
+        "name": "Disponibilidad de recogida",
+        "settings": {
+          "content": "Muestra la disponibilidad minorista cuando la recogida local está habilitada. [Más información](https://help.shopify.com/en/manual/fulfillment/setup/delivery-methods/pickup-in-store)."
+        }
+      },
+      "policies": {
+        "name": "Políticas",
+        "settings": {
+          "content": "Muestra si los impuestos están incluidos en el precio y enlaza a tu política de envío (si está configurada). [Aprende a configurar precios con impuestos incluidos](https://help.shopify.com/en/manual/taxes) y [aprende a añadir una política de envío](https://help.shopify.com/en/manual/fulfillment/setup/shipping-profiles#create-a-shipping-policy)."
+        }
+      },
+      "price": {
+        "name": "Precio"
+      },
+      "quantity_picker": {
+        "name": "Selector de cantidad",
+        "settings": {
+          "show_inventory_status": {
+            "label": "Mostrar estado del inventario"
+          },
+          "inventory_threshold": {
+            "label": "Umbral de stock bajo"
+          }
+        }
+      },
+      "sku": {
+        "name": "SKU"
+      },
+      "title": {
+        "name": "Título"
+      },
+      "variant_picker": {
+        "name": "Selector de variantes",
+        "settings": {
+          "variant_selector_type": {
+            "label": "Estilo",
+            "options": {
+              "radio": {
+                "label": "Botones"
+              },
+              "select": {
+                "label": "Menús desplegables"
+              }
+            },
+            "info": "Muestra las opciones del producto como botones y muestras de color o menús desplegables. [Aprende cómo configurar muestras de color](https://help.shopify.com/en/manual/custom-data/metafields/category-metafields/using-category-metafields)."
+          }
+        }
+      },
+      "vendor": {
+        "name": "Proveedor"
+      }
+    }
+  }
+}

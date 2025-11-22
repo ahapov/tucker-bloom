@@ -1,0 +1,347 @@
+<nav class="navigation-mobile" data-mobile-nav tabindex="-1" aria-label="{{ 'layout.general.menu' | t }}">
+  <div class="navigation-mobile__overlay" data-mobile-overlay></div>
+  <div class="navigation-mobile__flyout" data-mobile-main-flyout>
+    <div class="navigation-mobile__flyout-header">
+      <div class="navigation-mobile__account">
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <a href="{{ routes.account_url }}" class="navigation-mobile__account-link">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7ZM17 7C17 9.76142 14.7614 12 12 12C9.23858 12 7 9.76142 7 7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7ZM5 21C5 17.4421 8.10096 14.5 12 14.5C15.899 14.5 19 17.4421 19 21C19 21.2761 19.2239 21.5 19.5 21.5C19.7761 21.5 20 21.2761 20 21C20 16.8259 16.3852 13.5 12 13.5C7.61477 13.5 4 16.8259 4 21C4 21.2761 4.22386 21.5 4.5 21.5C4.77614 21.5 5 21.2761 5 21Z" fill="currentColor"/>
+              </svg>
+              {{ customer.name }}
+            </a>
+            (<a href="{{ routes.account_logout_url }}" class="navigation-mobile__sign-out">
+              {{ 'layout.customer.log_out' | t }}
+            </a>)
+          {% else %}
+            <a href="{{ routes.account_login_url }}" class="navigation-mobile__account-link">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7ZM17 7C17 9.76142 14.7614 12 12 12C9.23858 12 7 9.76142 7 7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7ZM5 21C5 17.4421 8.10096 14.5 12 14.5C15.899 14.5 19 17.4421 19 21C19 21.2761 19.2239 21.5 19.5 21.5C19.7761 21.5 20 21.2761 20 21C20 16.8259 16.3852 13.5 12 13.5C7.61477 13.5 4 16.8259 4 21C4 21.2761 4.22386 21.5 4.5 21.5C4.77614 21.5 5 21.2761 5 21Z" fill="currentColor"/>
+              </svg>
+              {{ 'layout.customer.log_in' | t }}
+            </a>
+          {% endif %}
+        {% endif %}
+      </div>
+      <button
+        class="navigation-mobile__close-button"
+        data-mobile-nav-close
+        aria-label="{{ 'general.accessibility.close' | t }}">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 13L13 1M13 13L1 1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="mobile-menu">
+      {% for link in linklists[section.settings.main_linklist].links %}
+        {% assign has_tier_2 = false %}
+        {% if link.links.size > 0 %}
+          {% assign has_tier_2 = true %}
+        {% endif %}
+
+        <li
+          class="mobile-menu__tier-1-item"
+        >
+          {% if has_tier_2 == false %}
+            <a
+              href="{{ link.url }}"
+              class="mobile-menu__tier-1-link"
+            >
+              {{ link.title | escape }}
+            </a>
+          {% else %}
+            <button
+              class="mobile-menu__tier-1-button"
+              aria-haspopup="true"
+              data-mobile-submenu-button="tier-1"
+            >
+              {{ link.title | escape }}
+              <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.35355 0.646447C1.15829 0.451184 0.841709 0.451184 0.646447 0.646447C0.451184 0.841709 0.451184 1.15829 0.646447 1.35355L1.35355 0.646447ZM5 5L5.35355 5.35355C5.54882 5.15829 5.54882 4.84171 5.35355 4.64645L5 5ZM0.646447 8.64645C0.451184 8.84171 0.451184 9.15829 0.646447 9.35355C0.841709 9.54882 1.15829 9.54882 1.35355 9.35355L0.646447 8.64645ZM0.646447 1.35355L4.64645 5.35355L5.35355 4.64645L1.35355 0.646447L0.646447 1.35355ZM4.64645 4.64645L0.646447 8.64645L1.35355 9.35355L5.35355 5.35355L4.64645 4.64645Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <div
+              class="mobile-menu__tier-2"
+              data-mobile-tier-2-flyout
+              tabindex="-1"
+              aria-label="{{ 'layout.general.menu' | t }}"
+            >
+              <div
+                class="mobile-menu__tier-2-overlay"
+                data-mobile-submenu-overlay
+              ></div>
+              <div
+                class="mobile-menu__tier-2-flyout"
+                data-mobile-submenu-flyout
+              >
+                <div class="mobile-menu__header">
+                  <button
+                    class="mobile-menu__back-button"
+                    data-mobile-back-button
+                    aria-label="{{ 'general.accessibility.close' | t }}"
+                  >
+                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.35355 0.646447C1.15829 0.451184 0.841709 0.451184 0.646447 0.646447C0.451184 0.841709 0.451184 1.15829 0.646447 1.35355L1.35355 0.646447ZM5 5L5.35355 5.35355C5.54882 5.15829 5.54882 4.84171 5.35355 4.64645L5 5ZM0.646447 8.64645C0.451184 8.84171 0.451184 9.15829 0.646447 9.35355C0.841709 9.54882 1.15829 9.54882 1.35355 9.35355L0.646447 8.64645ZM0.646447 1.35355L4.64645 5.35355L5.35355 4.64645L1.35355 0.646447L0.646447 1.35355ZM4.64645 4.64645L0.646447 8.64645L1.35355 9.35355L5.35355 5.35355L4.64645 4.64645Z" fill="currentColor"/>
+                    </svg>
+                  </button>
+                  <a href="{{ link.url }}" class="mobile-menu__heading">{{ link.title | escape }}</a>
+                  <button
+                    class="mobile-menu__close-button"
+                    data-mobile-close-button
+                    aria-label="{{ 'general.accessibility.close' | t }}">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 13L13 1M13 13L1 1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+                <ul
+                  class="mobile-menu__tier-2-menu"
+                >
+                  {% for link_tier_2 in link.links %}
+                    {% assign has_tier_3 = false %}
+                    {% if link_tier_2.links.size > 0 %}
+                      {% assign has_tier_3 = true %}
+                    {% endif %}
+                    <li
+                      class="mobile-menu__tier-2-item"
+                    >
+                      {% if has_tier_3 == false %}
+                        <a
+                          href="{{ link_tier_2.url }}"
+                          class="mobile-menu__tier-2-link"
+                        >
+                          {{ link_tier_2.title | escape }}
+                        </a>
+                      {% else has_tier_3 %}
+                        <button
+                          class="mobile-menu__tier-2-button"
+                          aria-haspopup="true"
+                          data-mobile-submenu-button="tier-2"
+                        >
+                          {{ link_tier_2.title | escape }}
+                          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.35355 0.646447C1.15829 0.451184 0.841709 0.451184 0.646447 0.646447C0.451184 0.841709 0.451184 1.15829 0.646447 1.35355L1.35355 0.646447ZM5 5L5.35355 5.35355C5.54882 5.15829 5.54882 4.84171 5.35355 4.64645L5 5ZM0.646447 8.64645C0.451184 8.84171 0.451184 9.15829 0.646447 9.35355C0.841709 9.54882 1.15829 9.54882 1.35355 9.35355L0.646447 8.64645ZM0.646447 1.35355L4.64645 5.35355L5.35355 4.64645L1.35355 0.646447L0.646447 1.35355ZM4.64645 4.64645L0.646447 8.64645L1.35355 9.35355L5.35355 5.35355L4.64645 4.64645Z" fill="currentColor"/>
+                          </svg>
+                        </button>
+
+                        <div
+                          class="mobile-menu__tier-3"
+                          data-mobile-tier-3-flyout
+                          tabindex="-1"
+                          aria-label="{{ 'layout.general.menu' | t }}"
+                        >
+                          <div
+                            class="mobile-menu__tier-3-overlay"
+                            data-mobile-submenu-overlay
+                          ></div>
+                          <div
+                            class="mobile-menu__tier-3-flyout"
+                            data-mobile-submenu-flyout
+                          >
+                            <div class="mobile-menu__header">
+                              <button
+                                class="mobile-menu__back-button"
+                                data-mobile-back-button
+                                aria-label="{{ 'general.accessibility.close' | t }}"
+                              >
+                                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1.35355 0.646447C1.15829 0.451184 0.841709 0.451184 0.646447 0.646447C0.451184 0.841709 0.451184 1.15829 0.646447 1.35355L1.35355 0.646447ZM5 5L5.35355 5.35355C5.54882 5.15829 5.54882 4.84171 5.35355 4.64645L5 5ZM0.646447 8.64645C0.451184 8.84171 0.451184 9.15829 0.646447 9.35355C0.841709 9.54882 1.15829 9.54882 1.35355 9.35355L0.646447 8.64645ZM0.646447 1.35355L4.64645 5.35355L5.35355 4.64645L1.35355 0.646447L0.646447 1.35355ZM4.64645 4.64645L0.646447 8.64645L1.35355 9.35355L5.35355 5.35355L4.64645 4.64645Z" fill="currentColor"/>
+                                </svg>
+                              </button>
+                              <a href="{{ link_tier_2.url }}" class="mobile-menu__heading">{{ link_tier_2.title | escape }}</a>
+                              <button
+                                class="mobile-menu__close-button"
+                                data-mobile-close-button
+                                aria-label="{{ 'general.accessibility.close' | t }}">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1 13L13 1M13 13L1 1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </button>
+                            </div>
+                            <ul
+                              class="mobile-menu__tier-3-menu"
+                            >
+                              {% for link_tier_3 in link_tier_2.links %}
+                                <li
+                                  class="mobile-menu__tier-3-item"
+                                >
+                                  <a
+                                    href="{{ link_tier_3.url }}"
+                                    class="mobile-menu__tier-3-link"
+                                  >
+                                    {{ link_tier_3.title | escape }}
+                                  </a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if section.settings.social_icons_enabled or section.settings.show_currency_selector or section.settings.show_locale_selector %}
+      <div class="navigation-mobile__footer">
+        {% if section.settings.social_icons_enabled %}
+          {% render 'social-icons' %}
+        {% endif %}
+        {% if section.settings.show_currency_selector or section.settings.show_locale_selector %}
+          {%- assign country_selector = section.settings.show_currency_selector -%}
+          {%- assign locale_selector = section.settings.show_locale_selector -%}
+          <div class="navigation-mobile__cross-border">
+            {% comment %}Inject @pixelunion/shopify-cross-border/cross-border begin{% endcomment %}
+            <div class="shopify-cross-border">
+              {% if locale_selector and localization.available_languages.size > 1 %}
+                {% comment %}Inject @pixelunion/shopify-cross-border/multi-language begin{% endcomment %}
+                {% comment %} Generate a "random" number so ids are unique {% endcomment %}
+                {% assign unique_id = "now" | date: "%N" | modulo: 1000 %}
+                <noscript>
+                  {%- form 'localization' -%}
+                    <details class="disclosure">
+                      <summary>
+                        <span class="disclosure__toggle">
+                          {{ form.current_locale.endonym_name | capitalize }}
+                        </span>
+                      </summary>
+                      <div class="disclosure-list disclosure-list--visible">
+                        {% for locale in form.available_locales %}
+                          <div class="disclosure-list__item-wrapper disclosure-list__item">
+                            <input
+                              type="radio"
+                              id="{{ locale.iso_code }}"
+                              name="locale_code"
+                              value="{{ locale.iso_code }}"
+                              {% if locale.iso_code == form.current_locale.iso_code %}checked{% endif %}
+                            >
+                            <label class="disclosure-list__item--label" for="{{ locale.iso_code }}">{{ locale.endonym_name | capitalize }}</label>
+                          </div>
+                        {% endfor %}
+                        <button class="disclosure__submit" type="submit">{{ 'general.language.submit_button_label' | t }}</button>
+                      </div>
+                    </details>
+                  {%- endform -%}
+                </noscript>
+                
+                {%- form 'localization' -%}
+                  <div class="selectors-form__item selectors-form--no-js-hidden">
+                    <div class="disclosure" data-disclosure-locale>
+                      <h2 class="visually-hidden" id="lang-heading-{{ unique_id }}">
+                        {{ 'general.language.dropdown_label' | t }}
+                      </h2>
+                
+                      <button
+                        type="button"
+                        class="disclosure__toggle"
+                        aria-expanded="false"
+                        aria-controls="lang-list-{{ unique_id }}"
+                        aria-describedby="lang-heading-{{ unique_id }}"
+                        data-disclosure-toggle
+                      >
+                        {{ form.current_locale.endonym_name | capitalize }}
+                      </button>
+                      <ul id="lang-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
+                        {% for locale in form.available_locales %}
+                          <li>
+                            <a class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}" href="#" lang="{{ locale.iso_code }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code }}" data-disclosure-option>
+                              <span class="disclosure-list__option">{{ locale.endonym_name | capitalize }}</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                      <input type="hidden" name="locale_code" id="LocaleSelector-{{ unique_id }}" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
+                    </div>
+                  </div>
+                {%- endform -%}
+                {% comment %}Inject @pixelunion/shopify-cross-border/multi-language end{% endcomment %}
+            
+              {% endif %}
+            
+              {% if country_selector and localization.available_countries.size > 1 %}
+                {% comment %}Inject @pixelunion/shopify-cross-border/multi-country begin{% endcomment %}
+                {% comment %} Generate a "random" number so ids are unique {% endcomment %}
+                {% assign unique_id = "now" | date: "%N" | modulo: 1000 %}
+                <noscript>
+                  {%- form 'localization' -%}
+                    <details class="disclosure">
+                      <summary>
+                        <span class="disclosure__toggle">
+                          {{ localization.country.name }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{% endif %})
+                        </span>
+                      </summary>
+                      <div class="disclosure-list disclosure-list--visible">
+                        {% for country in localization.available_countries %}
+                          <div class="disclosure-list__item-wrapper disclosure-list__item">
+                            <input
+                              type="radio"
+                              id="{{ country.iso_code }}"
+                              name="country_code"
+                              value="{{ country.iso_code }}"
+                              {% if country.iso_code == localization.country.iso_code %}checked{% endif %}
+                            >
+                            <label class="disclosure-list__item--label" for="{{ country.iso_code }}">{{ country.name }} ({{ country.currency.iso_code }}{%- if country.currency.symbol -%} {{ country.currency.symbol }}{%- endif -%})</label>
+                          </div>
+                        {% endfor %}
+                        <button class="disclosure__submit" type="submit">{{ 'general.country.submit_button_label' | t }}</button>
+                      </div>
+                    </details>
+                  {%- endform -%}
+                </noscript>
+                
+                {%- form 'localization' -%}
+                  <div class="selectors-form__item selectors-form--no-js-hidden">
+                    <div class="disclosure" data-disclosure-country>
+                      <h2 class="visually-hidden" id="country-heading-{{ unique_id }}">
+                        {{ 'general.country.dropdown_label' | t }}
+                      </h2>
+                
+                      <button
+                        type="button"
+                        class="disclosure__toggle"
+                        aria-expanded="false"
+                        aria-controls="country-list-{{ unique_id }}"
+                        aria-describedby="country-heading-{{ unique_id }}"
+                        data-disclosure-toggle
+                      >
+                        {{ localization.country.name }}
+                        <span class="disclosure-list__option-code"> 
+                          ({{ localization.country.currency.iso_code }}
+                          {% if localization.country.currency.symbol %} {{ localization.country.currency.symbol }}{% endif %})
+                        </span>
+                      </button>
+                      <ul id="country-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
+                        {% for country in localization.available_countries %}
+                          <li>
+                            <a class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
+                              <span class="disclosure-list__option">{{ country.name }}</span>
+                              <span class="disclosure-list__option-code">
+                                ({{ country.currency.iso_code }}
+                                {% if country.currency.symbol %} {{ country.currency.symbol }}{%- endif -%})
+                              </span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                      <input type="hidden" name="country_code" id="CountrySelector-{{ unique_id }}" value="{{ localization.country.iso_code }}" data-disclosure-input/>
+                    </div>
+                  </div>
+                {%- endform -%}
+                {% comment %}Inject @pixelunion/shopify-cross-border/multi-country end{% endcomment %}
+            
+              {% endif %}
+            </div>
+            {% comment %}Inject @pixelunion/shopify-cross-border/cross-border end{% endcomment %}
+
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</nav>

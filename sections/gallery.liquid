@@ -1,0 +1,189 @@
+{% comment %}
+** Gallery - dynamic **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign title = section.settings.title | escape -%}
+{%- assign blocks = section.blocks -%}
+{% comment %} End content settings {% endcomment %}
+
+{% liquid
+  if blocks.size < section.settings.images_per_row
+    if blocks.size <= 1
+      assign per_row = 2
+    else
+      assign per_row = blocks.size
+    endif
+  else
+    assign per_row = section.settings.images_per_row
+  endif
+%}
+
+<script
+  type="application/json"
+  data-section-type="gallery"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "slides_per_row" : {{ section.settings.images_per_row | json }},
+    "blocks": {{ blocks.size | json }}
+  }
+</script>
+
+<section
+  class="gallery-section gallery-section--homepage"
+  data-section-id="{{ section.id }}"
+  data-section-type="gallery-section"
+>
+  <div class="gallery-section__heading-wrapper">
+    {% if title != blank %}
+      <div class="gallery-section__header">
+        <h2 class="gallery-section__heading">
+          {{ title | escape }}
+        </h2>
+      </div>
+    {% endif %}
+  </div>
+  <div
+    class="
+      gallery-section__content-wrapper
+      {% if section.settings.wide_display %}
+        gallery-section--width-wide
+      {% endif %}
+      "
+    >
+    <div class="gallery-section__wrapper">
+      <div
+        class="
+          gallery-section__content
+          gallery-section__content--{{ per_row }}-column
+          gallery-section__content--layout-{{ section.settings.gallery_type }}
+        "
+        data-gallery-slide
+      >
+        {% if blocks.size > 0 %}
+          {% for block in blocks %}
+            {%- assign image = block.settings.image -%}
+            <div class="gallery-section__image"
+              {{ block.shopify_attributes }}
+              data-slide-index="{{ forloop.index0 }}"
+
+            >
+              {% if image != blank %}
+                <a
+                  href="{{ image | img_url: '2000x2000'}}"
+                  data-gallery-modal
+                  data-image-width="{{ image.width | times: 3 }}"
+                  data-image-height="{{ image.height | times: 3 }}"
+                >
+                  {%
+                    render 'rimg',
+                    img: image,
+                    size: '1024x',
+                    lazy: true,
+                    canvas: true,
+                    focal_point: image.presentation.focal_point,
+                  %}
+                </a>
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gallery",
+  "class": "shopify-section--gallery",
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Gallery"
+    },
+    {
+      "type": "select",
+      "id": "gallery_type",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "slideshow",
+          "label": "Slideshow"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ],
+      "default": "slideshow"
+    },
+    {
+      "type": "range",
+      "id": "images_per_row",
+      "label": "Images per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "800 x 800px recommended"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

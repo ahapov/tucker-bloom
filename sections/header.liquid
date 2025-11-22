@@ -1,0 +1,569 @@
+{% if section.settings.logo %}
+  {% assign logo_width = section.settings.logo_width | append: 'x' %}
+{% endif %}
+
+{% assign mobile_logo = section.settings.logo %}
+{% assign mobile_logo_width = section.settings.mobile_logo_width | append: 'x' %}
+{% if section.settings.logo_mobile %}
+  {% assign mobile_logo = section.settings.logo_mobile %}
+{% endif %}
+
+{%- assign country_selector = section.settings.show_currency_selector -%}
+{%- assign locale_selector = section.settings.show_locale_selector -%}
+{%- assign border_opacity = section.settings.border_opacity | times: 0.01 -%}
+
+{% assign header_color = settings.header_bg_color %}
+
+{% if section.settings.show_border %}
+  {%- assign border_color = settings.border_color -%}
+  {%- assign transparent_border_color = settings.border_color | color_modify: 'alpha', border_opacity -%}
+{% else %}
+  {%- assign border_color = 'transparent' -%}
+  {%- assign transparent_border_color = 'transparent' -%}
+{% endif %}
+
+<style>
+  .site-header__outer-wrapper {
+    {% if section.settings.fixed_header %}
+      position: sticky;
+    {% endif %}
+
+    --border-color: {{ border_color }};
+    --transparent-border-color: {{ transparent_border_color }};
+  }
+</style>
+
+<script
+  type="application/json"
+  data-section-type="site-header"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "sticky_header": {{ section.settings.fixed_header | json }},
+    "transparent_header": {{ section.settings.transparent_header | json }},
+    "current_page": {{ template.name | json }}
+  }
+</script>
+
+{% assign announcement_home = false %}
+{% if section.settings.home_page_only != true or template.name == 'index' %}
+  {% assign announcement_home = true %}
+{% endif %}
+
+{% if section.settings.show_announcement and section.settings.announcement_text != blank and announcement_home %}
+  <nav
+    class="site-announcement"
+    style="
+      --text-color: {{ section.settings.promo_text_color }};
+      --background-color: {{ section.settings.promo_bg_color }};
+    "
+    aria-label="{{ 'general.accessibility.announcement' | t }}"
+    data-site-announcement
+  >
+    {% if section.settings.announcement_link %}
+      <a
+        href="{{ section.settings.announcement_link }}"
+        class="site-announcement__link"
+      >
+        {{ section.settings.announcement_text | escape }}
+      </a>
+    {% else %}
+      <p class="site-announcement__text">{{ section.settings.announcement_text | escape }}</p>
+    {% endif %}
+  </nav>
+{% endif %}
+
+{% if section.settings.social_icons_enabled or country_selector or locale_selector %}
+  <nav class="site-header-utility" aria-label="{{ 'general.accessibility.utility_menu' | t }}" data-header-utility>
+    <div class="site-header-utility__wrapper">
+      {% if section.settings.social_icons_enabled %}
+        {% render 'social-icons' %}
+      {% endif %}
+
+      {% if country_selector or locale_selector %}
+        <div class="site-header-utility__cross-border">
+          {% comment %}Inject @pixelunion/shopify-cross-border/cross-border begin{% endcomment %}
+          <div class="shopify-cross-border">
+            {% if locale_selector and localization.available_languages.size > 1 %}
+              {% comment %}Inject @pixelunion/shopify-cross-border/multi-language begin{% endcomment %}
+              {% comment %} Generate a "random" number so ids are unique {% endcomment %}
+              {% assign unique_id = "now" | date: "%N" | modulo: 1000 %}
+              <noscript>
+                {%- form 'localization' -%}
+                  <details class="disclosure">
+                    <summary>
+                      <span class="disclosure__toggle">
+                        {{ form.current_locale.endonym_name | capitalize }}
+                      </span>
+                    </summary>
+                    <div class="disclosure-list disclosure-list--visible">
+                      {% for locale in form.available_locales %}
+                        <div class="disclosure-list__item-wrapper disclosure-list__item">
+                          <input
+                            type="radio"
+                            id="{{ locale.iso_code }}"
+                            name="locale_code"
+                            value="{{ locale.iso_code }}"
+                            {% if locale.iso_code == form.current_locale.iso_code %}checked{% endif %}
+                          >
+                          <label class="disclosure-list__item--label" for="{{ locale.iso_code }}">{{ locale.endonym_name | capitalize }}</label>
+                        </div>
+                      {% endfor %}
+                      <button class="disclosure__submit" type="submit">{{ 'general.language.submit_button_label' | t }}</button>
+                    </div>
+                  </details>
+                {%- endform -%}
+              </noscript>
+              
+              {%- form 'localization' -%}
+                <div class="selectors-form__item selectors-form--no-js-hidden">
+                  <div class="disclosure" data-disclosure-locale>
+                    <h2 class="visually-hidden" id="lang-heading-{{ unique_id }}">
+                      {{ 'general.language.dropdown_label' | t }}
+                    </h2>
+              
+                    <button
+                      type="button"
+                      class="disclosure__toggle"
+                      aria-expanded="false"
+                      aria-controls="lang-list-{{ unique_id }}"
+                      aria-describedby="lang-heading-{{ unique_id }}"
+                      data-disclosure-toggle
+                    >
+                      {{ form.current_locale.endonym_name | capitalize }}
+                    </button>
+                    <ul id="lang-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
+                      {% for locale in form.available_locales %}
+                        <li>
+                          <a class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}" href="#" lang="{{ locale.iso_code }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code }}" data-disclosure-option>
+                            <span class="disclosure-list__option">{{ locale.endonym_name | capitalize }}</span>
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                    <input type="hidden" name="locale_code" id="LocaleSelector-{{ unique_id }}" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
+                  </div>
+                </div>
+              {%- endform -%}
+              {% comment %}Inject @pixelunion/shopify-cross-border/multi-language end{% endcomment %}
+          
+            {% endif %}
+          
+            {% if country_selector and localization.available_countries.size > 1 %}
+              {% comment %}Inject @pixelunion/shopify-cross-border/multi-country begin{% endcomment %}
+              {% comment %} Generate a "random" number so ids are unique {% endcomment %}
+              {% assign unique_id = "now" | date: "%N" | modulo: 1000 %}
+              <noscript>
+                {%- form 'localization' -%}
+                  <details class="disclosure">
+                    <summary>
+                      <span class="disclosure__toggle">
+                        {{ localization.country.name }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{% endif %})
+                      </span>
+                    </summary>
+                    <div class="disclosure-list disclosure-list--visible">
+                      {% for country in localization.available_countries %}
+                        <div class="disclosure-list__item-wrapper disclosure-list__item">
+                          <input
+                            type="radio"
+                            id="{{ country.iso_code }}"
+                            name="country_code"
+                            value="{{ country.iso_code }}"
+                            {% if country.iso_code == localization.country.iso_code %}checked{% endif %}
+                          >
+                          <label class="disclosure-list__item--label" for="{{ country.iso_code }}">{{ country.name }} ({{ country.currency.iso_code }}{%- if country.currency.symbol -%} {{ country.currency.symbol }}{%- endif -%})</label>
+                        </div>
+                      {% endfor %}
+                      <button class="disclosure__submit" type="submit">{{ 'general.country.submit_button_label' | t }}</button>
+                    </div>
+                  </details>
+                {%- endform -%}
+              </noscript>
+              
+              {%- form 'localization' -%}
+                <div class="selectors-form__item selectors-form--no-js-hidden">
+                  <div class="disclosure" data-disclosure-country>
+                    <h2 class="visually-hidden" id="country-heading-{{ unique_id }}">
+                      {{ 'general.country.dropdown_label' | t }}
+                    </h2>
+              
+                    <button
+                      type="button"
+                      class="disclosure__toggle"
+                      aria-expanded="false"
+                      aria-controls="country-list-{{ unique_id }}"
+                      aria-describedby="country-heading-{{ unique_id }}"
+                      data-disclosure-toggle
+                    >
+                      {{ localization.country.name }}
+                      <span class="disclosure-list__option-code"> 
+                        ({{ localization.country.currency.iso_code }}
+                        {% if localization.country.currency.symbol %} {{ localization.country.currency.symbol }}{% endif %})
+                      </span>
+                    </button>
+                    <ul id="country-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
+                      {% for country in localization.available_countries %}
+                        <li>
+                          <a class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
+                            <span class="disclosure-list__option">{{ country.name }}</span>
+                            <span class="disclosure-list__option-code">
+                              ({{ country.currency.iso_code }}
+                              {% if country.currency.symbol %} {{ country.currency.symbol }}{%- endif -%})
+                            </span>
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                    <input type="hidden" name="country_code" id="CountrySelector-{{ unique_id }}" value="{{ localization.country.iso_code }}" data-disclosure-input/>
+                  </div>
+                </div>
+              {%- endform -%}
+              {% comment %}Inject @pixelunion/shopify-cross-border/multi-country end{% endcomment %}
+          
+            {% endif %}
+          </div>
+          {% comment %}Inject @pixelunion/shopify-cross-border/cross-border end{% endcomment %}
+
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+{% endif %}
+
+<header
+  class="
+    site-header
+    {% if section.settings.fixed_header %}site-header--sticky{% endif %}
+  "
+  data-site-header
+>
+  <div
+    class="
+      site-header__wrapper
+      site-header__wrapper--logo-{{ section.settings.logo_alignment }}
+    "
+    style="
+      --desktop-logo-width: {{ section.settings.logo_width }}px;
+      --mobile-logo-width: {{ section.settings.mobile_logo_width }}px;
+    "
+  >
+    {% if section.settings.logo_alignment == 'center' %}
+      <nav class="site-header__navigation" aria-label="{{ 'general.accessibility.main_navigation' | t }}">
+        {% render 'navigation-desktop' %}
+      </nav>
+    {% endif %}
+
+    <div class="mobile-header-controls" data-mobile-header-controls>
+      <a href="#" class="mobile-header-controls__menu" aria-label="{{ 'layout.general.menu' | t }}" data-mobile-nav-trigger>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6.5C2 6.22386 2.22386 6 2.5 6H21.5C21.7761 6 22 6.22386 22 6.5C22 6.77614 21.7761 7 21.5 7H2.5C2.22386 7 2 6.77614 2 6.5ZM2 12.5C2 12.2239 2.22386 12 2.5 12H21.5C21.7761 12 22 12.2239 22 12.5C22 12.7761 21.7761 13 21.5 13H2.5C2.22386 13 2 12.7761 2 12.5ZM2.5 18C2.22386 18 2 18.2239 2 18.5C2 18.7761 2.22386 19 2.5 19H21.5C21.7761 19 22 18.7761 22 18.5C22 18.2239 21.7761 18 21.5 18H2.5Z" fill="currentColor"/>
+        </svg>
+      </a>
+      {% if section.settings.search_enabled %}
+        <a href="{{ routes.search_url }}" class="mobile-header-controls__search" data-search-open aria-label="{{ 'general.search.title' | t }}">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M18 10C18 13.866 14.866 17 11 17C7.13401 17 4 13.866 4 10C4 6.13401 7.13401 3 11 3C14.866 3 18 6.13401 18 10ZM15.7389 16.446C14.4125 17.4228 12.7736 18 11 18C6.58172 18 3 14.4183 3 10C3 5.58172 6.58172 2 11 2C15.4183 2 19 5.58172 19 10C19 12.2836 18.0432 14.3438 16.5085 15.8014L21.3536 20.6464C21.5488 20.8417 21.5488 21.1583 21.3536 21.3536C21.1583 21.5488 20.8417 21.5488 20.6464 21.3536L15.7389 16.446Z" fill="currentColor"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    {% if template.name == 'index' or template.suffix == 'details' %}
+      <h1 class="site-header__heading" data-header-logo>
+    {% else %}
+      <h2 class="site-header__heading" data-header-logo>
+    {% endif %}
+      <a
+        href="{{ routes.root_url }}"
+        class="
+          site-header__logo
+          {% if section.settings.logo %}site-header__logo--has-image{% endif %}
+          {% if section.settings.logo and section.settings.logo_home %}site-header__logo--has-transparent-logo{% endif %}
+          {% if mobile_logo %}site-header__logo--has-mobile-logo{% endif %}
+        "
+        aria-label="{{ shop.name }}"
+      >
+        {% if section.settings.logo %}
+          <div class="site-header__logo-image">
+            {%
+              render 'rimg',
+              img: section.settings.logo,
+              size: logo_width,
+              lazy: true,
+              canvas: true,
+              focal_point: section.settings.logo.presentation.focal_point,
+            %}
+          </div>
+          {% if section.settings.logo_home %}
+            <div class="site-header__transparent-image">
+              {%
+                render 'rimg',
+                img: section.settings.logo_home,
+                size: logo_width,
+                lazy: true,
+                canvas: true,
+                focal_point: section.settings.logo_home.presentation.focal_point,
+              %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if mobile_logo %}
+          <div class="site-header__mobile-image">
+            {%
+              render 'rimg',
+              img: mobile_logo,
+              size: mobile_logo_width,
+              lazy: true,
+              canvas: true,
+              focal_point: section.settings.mobile_logo.presentation.focal_point,
+            %}
+          </div>
+        {% endif %}
+
+        <span class="site-header__site-name">{{ shop.name }}</span>
+      </a>
+    {% if template.name == 'index' %}
+      </h1>
+    {% else %}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.logo_alignment == 'left' %}
+      <nav class="site-header__navigation" aria-label="{{ 'general.accessibility.main_navigation' | t }}">
+        {% render 'navigation-desktop' %}
+      </nav>
+    {% endif %}
+
+    <div class="header-controls">
+      {% if section.settings.search_enabled %}
+        <a href="{{ routes.search_url }}" class="header-controls__search" data-search-open aria-label="{{ 'general.search.title' | t }}">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M18 10C18 13.866 14.866 17 11 17C7.13401 17 4 13.866 4 10C4 6.13401 7.13401 3 11 3C14.866 3 18 6.13401 18 10ZM15.7389 16.446C14.4125 17.4228 12.7736 18 11 18C6.58172 18 3 14.4183 3 10C3 5.58172 6.58172 2 11 2C15.4183 2 19 5.58172 19 10C19 12.2836 18.0432 14.3438 16.5085 15.8014L21.3536 20.6464C21.5488 20.8417 21.5488 21.1583 21.3536 21.3536C21.1583 21.5488 20.8417 21.5488 20.6464 21.3536L15.7389 16.446Z" fill="currentColor"/>
+          </svg>
+        </a>
+      {% endif %}
+      {% if shop.customer_accounts_enabled %}
+        <a
+          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+          class="header-controls__account"
+          aria-label="{{ 'layout.customer.my_account' | t }}"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7ZM17 7C17 9.76142 14.7614 12 12 12C9.23858 12 7 9.76142 7 7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7ZM5 21C5 17.4421 8.10096 14.5 12 14.5C15.899 14.5 19 17.4421 19 21C19 21.2761 19.2239 21.5 19.5 21.5C19.7761 21.5 20 21.2761 20 21C20 16.8259 16.3852 13.5 12 13.5C7.61477 13.5 4 16.8259 4 21C4 21.2761 4.22386 21.5 4.5 21.5C4.77614 21.5 5 21.2761 5 21Z" fill="currentColor"/>
+          </svg>
+        </a>
+      {% endif %}
+      <a href="{{ routes.cart_url }}" class="header-controls__cart" {% unless template contains 'cart' %}data-cart-drawer-open{% endunless %} aria-label="{{ 'layout.general.continue_shopping' | t }}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.03 4.81237L6.67989 9.00002H16.5993L13.2491 4.81237C13.0766 4.59673 13.1116 4.28209 13.3272 4.10958C13.5429 3.93708 13.8575 3.97204 14.03 4.18767L17.8799 9.00002H18.2787C19.5145 9.00002 20.4546 10.1098 20.2514 11.3288L18.9181 19.3288C18.7574 20.2932 17.923 21 16.9453 21H6.33383C5.35615 21 4.52177 20.2932 4.36104 19.3288L3.02771 11.3288C2.82453 10.1098 3.76462 9.00002 5.00049 9.00002H5.39926L9.24914 4.18767C9.42164 3.97204 9.73629 3.93708 9.95192 4.10958C10.1676 4.28209 10.2025 4.59673 10.03 4.81237ZM17.6356 10C17.6385 10 17.6413 10 17.6442 10H18.2787C18.8966 10 19.3666 10.5549 19.265 11.1644L17.9317 19.1644C17.8513 19.6466 17.4342 20 16.9453 20H6.33383C5.84499 20 5.4278 19.6466 5.34743 19.1644L4.0141 11.1644C3.91251 10.5549 4.38256 10 5.00049 10H5.63496H5.64355H17.6356Z" fill="currentColor"/>
+        </svg>
+        <span class="header-controls__cart-count" data-header-cart-count>
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+    </div>
+  </div>
+
+  {% render 'predictive-search' %}
+</header>
+
+{% render 'navigation-mobile' %}
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "site-header__outer-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "logo_alignment",
+      "label": "Logo alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "fixed_header",
+      "label": "Enable fixed ('sticky') header",
+      "info": "Mobile header is always sticky.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "transparent_header",
+      "label": "Transparent header",
+      "info": "This will place the header directly over wide display slideshow or banner image content.",
+      "options": [
+        {
+          "value": "home",
+          "label": "Only on home page"
+        },
+        {
+          "value": "site",
+          "label": "Whole site"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border",
+      "label": "Show border",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "label": "Border opacity on transparent header",
+      "step": 5,
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Language selector",
+      "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "Show language selector",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Country selector",
+      "info": "To add a country, go to your [payment settings.](/admin/settings/payments)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "Show country selector",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Text",
+      "default": "Announcement message"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "promo_bg_color",
+      "label": "Bar",
+      "default": "#f9f7f2"
+    },
+    {
+      "type": "color",
+      "id": "promo_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_home",
+      "label": "Logo on transparent header (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Mobile logo (optional)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "step": 5,
+      "min": 50,
+      "max": 300,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Mobile logo width",
+      "step": 5,
+      "min": 50,
+      "max": 100,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_enabled",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "social_icons_enabled",
+      "label": "Show social media icons",
+      "default": false
+    }
+  ]
+}
+
+{% endschema %}

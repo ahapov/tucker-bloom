@@ -1,0 +1,61 @@
+{% comment %}
+  @param filters {Iterable}
+    Filters object - collection.filters or search.filters
+  @param class_prefix {String}
+    Classname prefix
+  @param clear_url {String}
+    URL for the 'clear filters' link
+{% endcomment %}
+
+<ul class="active-filter-group">
+  {%- for filter in filters -%}
+    {% if filter.type == 'price_range' and filter.min_value.value or filter.max_value.value %}
+      {% assign range_min = filter.min_value.value | default: 0 %}
+      {% assign range_max = filter.max_value.value | default: filter.range_max %}
+
+        <li class="active-filter-group__item-wrapper">
+          <a
+            class="active-filter-group__item"
+            href="{{ filter.url_to_remove }}"
+            data-filter-input
+            aria-label="{{ 'collections.sorting.remove_filter' | t }}"
+          >
+            <span class="active-filter-text">
+              {{ range_min | money }} - {{ range_max | money }}
+            </span>
+          </a>
+        </li>
+
+    {% else %}
+      {% if filter.active_values.size > 0 %}
+        {%- for value in filter.active_values -%}
+          <li class="active-filter-group__item-wrapper">
+            <a
+              class="active-filter-group__item"
+              href="{{ value.url_to_remove }}"
+              data-filter-input
+            >
+              <span class="active-filter-text">
+                {% if filter.type == 'boolean' %}
+                  {{ filter.label | escape }}:
+                {% endif %}
+                {{ value.label | escape }}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if active_filters_count > 0 %}
+    <li class="active-filter-group--remove-all">
+      <a
+        href="{{ clear_url }}"
+        class="active-filter-group--remove-all-link"
+      >
+        {{ 'collections.sorting.clear_all' | t }}
+      </a>
+    </li>
+  {% endif %}
+</ul>

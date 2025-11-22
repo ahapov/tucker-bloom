@@ -1,0 +1,54 @@
+{% assign default_province = '' %}
+{% assign default_zip = '' %}
+
+{% if settings.shipping_calculator_default_country != '' %}
+  {% assign default_country = settings.shipping_calculator_default_country | escape %}
+{% else %}
+  {% assign default_country = '' %}
+{% endif %}
+
+{% if shop.customer_accounts_enabled and customer %}
+  {% if customer.default_address.country != '' %}
+    {% assign default_country = customer.default_address.country %}
+  {% endif %}
+
+  {% if customer.default_address.province != '' %}
+    {% assign default_province = customer.default_address.province %}
+  {% endif %}
+
+  {% if customer.default_address.zip != '' %}
+    {% assign default_zip = customer.default_address.zip %}
+  {% endif %}
+{% endif %}
+
+<div class="shipping-calculator cart-shipping-calculator" data-cart-shipping>
+  <h3 class="shipping-calculator__heading">{{ 'cart.shipping_calculator.heading' | t }}</h3>
+
+  <form class="shipping-calculator__form" data-shipping-calculator>
+    <div>
+      <label for="address_country">{{ 'cart.shipping_calculator.country' | t }}</label>
+      <div class="form-field-select-wrapper">
+        <select data-shipping-calculator-country placeholder="{{ 'cart.shipping_calculator.country' | t }}" id="address_country" name="address[country]" data-default="{{ default_country}}">{{ country_option_tags }}</select>
+      </div>
+    </div>
+    <div data-shipping-calculator-province-container>
+      <label for="address_province">{{ 'cart.shipping_calculator.province' | t }}</label>
+      <div class="form-field-select-wrapper">
+        <select data-shipping-calculator-province placeholder="{{ 'cart.shipping_calculator.province' | t }}" id="address_province" name="address[province]" data-default="{{ default_province }}"></select style="display: none">
+      </div>
+    </div>
+    <div>
+      <label for="address_zip">{{ 'cart.shipping_calculator.zip_code' | t }}</label>
+      <input data-shipping-calculator-zipcode class="shipping-calculator__zip" type="text" name="address_zip" id="address_zip" name="address[zip]" value="{{ default_zip }}">
+    </div>
+    <div class="shipping-calculator__button-container">
+      <input data-shipping-calculator-submit class="shipping-calculator__button" type="submit" value="{{ 'cart.shipping_calculator.submit_button_label' | t }}">
+    </div>
+  </form>
+
+  <div class="shipping-rates" data-shipping-calculator-response>
+    <p data-shipping-message></p>
+    <ul data-shipping-rates></ul>
+  </div>
+</div>
+

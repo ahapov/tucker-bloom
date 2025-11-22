@@ -1,0 +1,170 @@
+{%- comment -%}
+  @param hide_text {Boolean}
+    If true, do not show the heading, subheading, or text
+  @param hide_image {Boolean}
+    If true, do not show the image
+{%- endcomment -%}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{%- unless hide_text -%}
+  {%- assign heading = object.settings.contact_heading -%}
+  {%- assign subheading = object.settings.contact_subheading -%}
+  {%- assign text_content = object.settings.contact_content -%}
+{%- endunless -%}
+
+{%- unless hide_image -%}
+  {%- assign image = object.settings.image -%}
+{%- endunless -%}
+
+{%- assign form_position = 'center' %}
+{% if object.settings.contact_text_position %}
+  {%- assign form_position = object.settings.contact_text_position -%}
+{% endif %}
+
+{%- assign text_alignment = 'center' %}
+{% if object.settings.contact_text_position %}
+  {%- assign text_alignment = object.settings.contact_text_alignment -%}
+{% endif %}
+
+<section class="contact-form">
+  {% if heading != blank %}
+    <div class="contact-form__header">
+      <h2 class="contact-form__heading">{{ heading | escape }}</h2>
+    </div>
+  {% endif %}
+  <div class="contact-form__notification">
+    {% if form.posted_successfully? %}
+      <p>{{ 'contact.form.post_success' | t }}</p>
+    {% endif %}
+
+    {% if form.errors %}
+      <p class="error">{{ 'general.forms.post_error' | t }}</p>
+      {%- assign message = 'contact.form.message' | t -%}
+      <ul>
+        {% for field in form.errors %}
+          {% if field == 'form' %}
+            <li>
+              {{ form.errors.messages[field] }}
+            </li>
+          {% else %}
+            <li>
+              {%- assign field_name = field | replace: 'body', message -%}
+              {{ 'general.forms.post_field_error_html' | t: field: field_name, error: form.errors.messages[field] }}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+  <div class="contact-form__wrapper contact-form__wrapper--{{ form_position }}">
+    <div class="contact-form__information contact-form__information--align-{{ text_alignment }}">
+      {% if image %}
+        <div class="contact-form__image-wrapper">
+          {%
+            render 'rimg',
+            img: image,
+            size: '1024x',
+            lazy: true,
+            canvas: true,
+            class: 'contact-form__image',
+            focal_point: image.presentation.focal_point,
+          %}
+        </div>
+      {% endif %}
+
+      {% if subheading != blank %}
+        <h3 class="contact-form__subheading">{{ subheading }}</h3>
+      {% endif %}
+
+      {% if text_content != blank %}
+        <div class="contact-form__text">
+          {{ text_content }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% form 'contact', class: 'contact-form__form' %}
+      {% if form.posted_successfully? %}
+        <div class="success">{{ 'contact.form.post_success' | t }}</div>
+      {% endif %}
+
+      {{ form.errors | default_errors }}
+
+      <div class="contact-form__name">
+        {%- assign name_attr = 'contact.form.name' | handle -%}
+        <label for="include-contact-form-name-{{ object.id }}">
+          {{- 'contact.form.name' | t -}}
+          <span class="form__required">*</span>
+        </label>
+        <input
+          id="include-contact-form-name-{{ object.id }}"
+          type="text"
+          name="contact[{{ name_attr }}]"
+          placeholder="{{ 'contact.form.name' | t }}"
+          autocapitalize="words"
+          value="
+            {%- if form[name_attr] -%}
+              {{- form[name_attr] -}}
+            {%- elsif customer -%}
+              {{- customer.name -}}
+            {%- endif -%}
+          "
+          required
+        >
+      </div>
+
+      <div class="contact-form__email">
+        <label for="include-contact-form-email-{{ object.id }}">
+          {{- 'contact.form.email' | t -}}
+          <span class="form__required">*</span>
+        </label>
+        <input
+          id="include-contact-form-email-{{ object.id }}"
+          type="email"
+          name="contact[email]"
+          placeholder="{{ 'contact.form.email' | t }}"
+          autocorrect="off"
+          autocapitalize="off"
+          value="
+            {%- if form.email -%}
+              {{- form.email -}}
+            {%- elsif customer -%}
+              {{- customer.email -}}
+            {%- endif -%}
+          "
+          required
+        >
+      </div>
+
+      <div class="contact-form__message">
+        <label for="include-contact-form-message-{{ object.id }}">
+          {{- 'contact.form.message' | t -}}
+          <span class="form__required">*</span>
+        </label>
+        <textarea
+          rows="5"
+          id="include-contact-form-message-{{ object.id }}"
+          name="contact[body]"
+          placeholder="{{ 'contact.form.message' | t }}"
+          required
+        >
+          {%- if form.body -%}{{ form.body }}{%- endif -%}
+        </textarea>
+        <button
+          class="contact-form__submit"
+          type="submit"
+        >
+          {{ 'contact.form.send' | t }}
+        </button>
+      </div>
+    {% endform %}
+
+  </div>
+</section>

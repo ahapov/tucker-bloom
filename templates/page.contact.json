@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-template",
+      "settings": {
+        "wide_display": true,
+        "banner_height": "original",
+        "contact_heading": "",
+        "contact_content": "",
+        "banner_text_position": "center",
+        "overlay_opacity": 0,
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_text_color": "#FFFFFF",
+        "map_address": "",
+        "store_hours": true,
+        "title": "Come and visit",
+        "address": "<p>123 Fake Street</p><p>Toronto, Canada</p>",
+        "hours": "<p>Mon - Fri, 10am - 9pm</p><p>Saturday, 11am - 9pm</p><p>Sunday, 11am - 5pm</p>",
+        "section_height": "small",
+        "text_alignment": "left",
+        "text_position": "top-left",
+        "mobile_text_position": "below-map",
+        "zoom_level": 12,
+        "api_key": "",
+        "show_pin": true,
+        "button_label": "Directions",
+        "map_style": "default"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

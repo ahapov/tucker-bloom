@@ -1,0 +1,427 @@
+<script
+  type="application/json"
+  data-section-type="blog-page"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{% assign toggle = section.settings.toggle %}
+
+{% paginate blog.articles by section.settings.blog_posts_per_page %}
+
+{% if section.settings.image != blank %}
+  {% assign heading = section.settings.title %}
+  {% if section.settings.title == blank %}
+    {% assign heading = blog.title %}
+  {% endif %}
+  <div class="blog-template__banner">
+    {%
+      render 'include-image-with-text-overlay',
+      heading: heading,
+      subheading: section.settings.subtext
+    %}
+  <div class="article-template__banner">
+{% endif %}
+
+<section
+  class="
+    blog-template
+    {% if section.settings.image != blank and section.settings.wide_display %}blog-template--width-wide{% endif %}
+  "
+>
+  <div class="blog-template__content-wrapper">
+    <div class="blog-template__header">
+      {% render 'breadcrumbs' %}
+
+      {% if section.settings.image == blank %}
+        <div class="blog-template__content">
+          {% if section.settings.title != blank %}
+            <h1 class="blog-template__heading">
+              {{ section.settings.title | escape }}
+            </h1>
+          {% else %}
+            <h1 class="blog-template__heading">
+              {{ blog.title | escape }}
+            </h1>
+          {% endif %}
+          {% if section.settings.subtext != blank %}
+            <div class="blog-template__text">
+              {{ section.settings.subtext }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.blog_tags %}
+        <div class="blog-template__tag-wrapper">
+          {% render 'blog-tags', class_prefix: 'blog-template', blog: blog %}
+        </div>
+      {% endif %}
+    </div>
+
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": [
+            {% for article in blog.articles %}
+              {
+                "@type": "ListItem",
+                "position": "{{ forloop.index | json }}",
+                "url": "{{ shop.url }}{{ article.url }}",
+                "name": "{{ article.title }}"
+              } {%- unless forloop.last -%},{%- endunless -%}
+            {% endfor %}
+          ]
+        }
+      </script>
+
+    {% if section.blocks.size > 0 %}
+        <div class="section-with-sidebar__wrapper">
+          <aside
+            class="
+              sidebar
+              blog-template__sidebar
+              {% if section.settings.sidebar_mobile_position == 'below' %}blog-template__sidebar--hide-mobile{% endif %}
+            "
+            data-sidebar
+            data-sidebar-top
+            aria-label="{{ 'general.accessibility.sidebar' | t }}"
+            data-has-toggle="{{ toggle }}"
+          >
+            {%
+              render 'sidebar-content',
+              toggle: toggle
+            %}
+          </aside>
+    {% endif %}
+
+    <div class="blog-template__wrapper">
+      <div class="blog-template__blog-posts
+        blog-template__blog-posts--{{ section.settings.blog_posts_per_row }}-column"
+      >
+        {% for article in blog.articles limit: section.settings.blog_posts_per_page %}
+          {%
+            render 'blog-article',
+            article: article,
+            show_date: section.settings.blog_date,
+            show_author: section.settings.blog_author,
+            show_tags: section.settings.blog_tags,
+            show_comment_count: section.settings.blog_comment_count,
+            show_link: section.settings.read_more_link
+          %}
+        {% endfor %}
+      </div>
+
+      {% render 'pagination', paginate: paginate %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      {% if section.settings.sidebar_mobile_position == 'below' %}
+          <div class="section-with-sidebar__wrapper blog-template__bottom-sidebar">
+            <aside
+              class="
+                 sidebar
+                 blog-template__sidebar
+              "
+              data-sidebar
+              data-sidebar-bottom
+              aria-label="{{ 'general.accessibility.sidebar' | t }}"
+              data-has-toggle="{{ toggle }}"
+            >
+              {%
+                render 'sidebar-content',
+                toggle: toggle
+              %}
+            </aside>
+          {% endif %}
+        </div>
+    {% endif %}
+  </div>
+</section>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Blog",
+  "class": "shopify-section--blog-template banner-option",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "original",
+          "label": "Original"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Banner overlay"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "info": "Blog title is used if field is blank"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "default": "center",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "center-left",
+          "label": "Center left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "center-right",
+          "label": "Center right"
+        },{
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Overlay text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "range",
+      "id": "blog_posts_per_row",
+      "label": "Blog posts per row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "blog_posts_per_page",
+      "label": "Blog posts per page",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_tags",
+      "label": "Show tag filter",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_author",
+      "label": "Show author",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_comment_count",
+      "label": "Show comment count",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "read_more_link",
+      "label": "Show continue reading link",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "sidebar_mobile_position",
+      "label": "Mobile position",
+      "default": "below",
+      "options": [
+        {
+          "value": "below",
+          "label": "Below blog posts"
+        },
+        {
+          "value": "above",
+          "label": "Above blog posts"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post_tags",
+      "name": "Blog post tags",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter sign up form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "newsletter_richtext",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recent_posts",
+      "name": "Recent blog posts",
+      "limit": 1
+    },
+    {
+      "type": "search",
+      "name": "Search form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Ensure your search results return blog posts and pages by selecting \"Everything\" under Theme settings > Search > Search results."
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for details about blog authors or general information.</p>"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

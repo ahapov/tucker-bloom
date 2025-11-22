@@ -1,0 +1,541 @@
+{
+  "product": {
+    "variants": {
+      "choose_option": "选择一个{{ option }}",
+      "chosen_option_html": "{{ option }}: <span>{{ value }}</span>",
+      "choose_variant": "选择一个变体",
+      "error_message": "请选择所有选项."
+    },
+    "unit_pricing": {
+      "price_per_unit_html": "{{total_quantity}} ({{unit_price}} / {{unit_measure}})"
+    }
+  },
+  "store_availability": {
+    "general": {
+      "in_stock": "有现货",
+      "out_of_stock": "缺货",
+      "view_store_info": "查看店铺信息",
+      "check_other_stores": "查看其他商店的空房情况",
+      "available_for_pick_up_at_html": "可在<b>{{ location_name }}</b>取件",
+      "unavailable_for_pick_up_at_html": "目前在<b>{{ location_name }}</b>不可用的取件",
+      "available_for_pick_up_at_time_html": "提供接送服务，{{ pick_up_time }}",
+      "unavailable_for_pick_up_at_time_html": "取件目前不可用",
+      "kilometers": "km",
+      "miles": "mi"
+    }
+  },
+  "general": {
+    "404": {
+      "title": "找不到页面",
+      "subtext": "抱歉，我们找不到你要求的页面",
+      "continue_shopping_html": "试试看其他搜寻或<a href=\"{{ continue_link }}\" class=\"continue-shopping-link\">继续购物</a>"
+    },
+    "language": {
+      "dropdown_label": "语言",
+      "submit_button_label": "更新语言"
+    },
+    "country": {
+      "dropdown_label": "国家",
+      "submit_button_label": "更新国家"
+    },
+    "meta": {
+      "tagged_html": "标签语法",
+      "page": "页面"
+    },
+    "password_page": {
+      "opening_soon": "即将开幕",
+      "login_form_heading": "输入登入商店密码",
+      "login_form_password_label": "密码",
+      "login_form_password_placeholder": "你的密码",
+      "login_form_submit": "登入",
+      "signup_form_heading": "营业时间",
+      "signup_form_submit": "提交",
+      "signup_form_success": "提交成功! 我们即将在开幕前寄邮件给您",
+      "admin_link_html": "你是店主吗?",
+      "password_link": "输入密码",
+      "powered_by_shopify_html": "此网页使用<a href=\"https://www.shopify.com\" target=\"_blank\" rel=\"nofollow\">Shopify</a>系统",
+      "change_password": "或更改您的密码设置"
+    },
+    "forms": {
+      "post_error": "表单填写有误请重新填写",
+      "post_field_error_html": "此处有误"
+    },
+    "newsletter_form": {
+      "title": "最新消息",
+      "name": "姓名",
+      "email": "电邮",
+      "subscriber_first_name": "名",
+      "subscriber_last_name": "性",
+      "success_text": "谢谢您订阅我们的电子报",
+      "placeholder": "请输入您的邮件地址",
+      "submit": "订阅"
+    },
+    "breadcrumbs": {
+      "home": "主页",
+      "page": "页面"
+    },
+    "search": {
+      "title": "搜寻",
+      "description": "输入您想要找的商品",
+      "no_results_html": " \"{{ terms }}\" ，无任何相关的商品。",
+      "all_results_html": "更多",
+      "advanced_search_html": "进阶搜寻",
+      "placeholder": "搜寻...",
+      "placeholder_with_shop_name": "搜寻{{ shop_name }}...",
+      "submit": "搜寻",
+      "results_count": {
+        "one": "一",
+        "other": "其他"
+      },
+      "view_all": "查看全部",
+      "title_html": "{{ results_count }} {{ results }} 对于 \"{{ terms }}\"",
+      "products_label": "产品",
+      "articles_label": "文章和页面"
+    },
+    "predictive_search": {
+      "suggestions": "建议",
+      "products_label": "产品",
+      "articles_label": "帖子",
+      "pages_label": "页面",
+      "articles_and_pages_label": "帖子和页面",
+      "search_for": "搜索 \"{{ terms }}\"",
+      "no_results": "找不到匹配结果。"
+    },
+    "currency": {
+      "dropdown_label": "货币"
+    },
+    "accessibility": {
+      "skip_to_content": "跳到主要内容",
+      "stars": "{{ star_rating }}星",
+      "announcement": "公告",
+      "sidebar": "侧边栏",
+      "close": "关闭",
+      "main_navigation": "主要的",
+      "utility_menu": "公用事业",
+      "swatch_options": "{{ product_title }}的{{ swatch_trigger }}选项",
+      "total_reviews": "总评论数",
+      "star_reviews_info": "{{ rating_value }}/{{ rating_max }} 星"
+    },
+    "pagination": {
+      "previous": "以前的",
+      "next": "下一个"
+    }
+  },
+  "sections": {
+    "video": {
+      "video": "视频",
+      "play_button": "播放视频"
+    },
+    "slideshow": {
+      "slideshow": "幻灯片放映",
+      "slide_index": "幻灯片{{ count }}",
+      "slide_counter": "第{{ total }}个幻灯片，{{ count }}个",
+      "next_slide": "下一张幻灯片",
+      "previous_slide": "上一张幻灯片"
+    },
+    "countdown-timer": {
+      "days": "天",
+      "hours": "小时",
+      "minutes": "分钟",
+      "seconds": "秒"
+    },
+    "complementary_product_block": {
+      "from": "从",
+      "now": "现在",
+      "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} / {{ unit_measure }}",
+      "view_details": "查看产品"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox_label": "我想将此作为礼物发送",
+      "email_label": "收件人邮箱",
+      "email_placeholder": "收件人电子邮件",
+      "error_message": "电子邮件无效",
+      "name_label": "收件人姓名（可选）",
+      "name_placeholder": "收件人姓名",
+      "message_label": "留言（可选）",
+      "message_placeholder": "留言",
+      "max_characters": "最多{{ max_characters }}个字符",
+      "send_on_label": "发送日期（可选）",
+      "send_on_placeholder": "YYYY-MM-DD"
+    }
+  },
+  "blogs": {
+    "general": {
+      "continue_reading_html": "阅读更多",
+      "tagged": "标签",
+      "view_all": "全部分类"
+    },
+    "sidebar": {
+      "recent_articles": "近日文章",
+      "categories": "分类",
+      "subscribe": "订阅",
+      "subscribe_with_rss": "RSS订阅",
+      "follow_us": "关注我们"
+    },
+    "article": {
+      "posted_in_html": "{{ tags }}",
+      "additional_articles": "延伸阅读",
+      "author_on_date_html": "发表日期{{ date }} 作者{{ author }}",
+      "by_author": "作者{{ author }}",
+      "previous_article_html": "前一篇文章",
+      "next_article_html": "下一篇文章",
+      "tags": "标签",
+      "author": "作者",
+      "comment_meta_html": "<strong>{{ author }}</strong>于<strong><time datetime=\"{{ date }}\">{{ date }}</time></strong>",
+      "no_additional_articles": "没有其他文章可以显示"
+    },
+    "counts": {
+      "comments_with_count": {
+        "one": "留言",
+        "other": "其他留言"
+      }
+    },
+    "comments": {
+      "response_count": {
+        "zero": "回应",
+        "one": "回应",
+        "other": "其他回应"
+      },
+      "title": "留个言",
+      "name": "姓名",
+      "email": "电邮",
+      "comment": "留言",
+      "post": "张贴留言",
+      "moderated": "张贴前管理员会先审核您的留言",
+      "success_moderated": "你的留言已寄出，张贴前管理员会先审核您的留言。",
+      "success": "你的留言已张贴成功，谢谢您！"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "馆藏",
+      "no_matches": "此分类无任何商品",
+      "link_title": "浏览",
+      "all_collection_title": "所有{{ title }}",
+      "quick_shop": "快速浏览",
+      "new": "新品",
+      "coming_soon": "即将上市",
+      "pre_order": "预购",
+      "sale": "促销",
+      "view_all": "查看全部",
+      "view_product_details_html": "看商品全部细节"
+    },
+    "sidebar": {
+      "collections": "分类",
+      "product_types": "品项",
+      "vendors": "供应商",
+      "tags": "标签",
+      "no_tags": "没有可用的标签"
+    },
+    "sorting": {
+      "title": "排序依据",
+      "sort_collection": "排序",
+      "filter": "筛选条件",
+      "filter_collection": "过滤{{ title }}",
+      "title_count": {
+        "zero": "筛选条件",
+        "other": "筛选条件 ({{ count }})"
+      },
+      "featured": "注目商品",
+      "best_selling": "热销商品",
+      "az": "字母顺序：A－Z",
+      "za": "字母顺序：Z－A",
+      "price_ascending": "价格顺序：由低到高",
+      "price_descending": "价格顺序：由高到低",
+      "date_descending": "上架顺序：最新到最旧",
+      "date_ascending": "上架顺序：最旧到最新",
+      "remove_filter": "删除过滤器",
+      "clear_all": "清除所有"
+    }
+  },
+  "products": {
+    "general": {
+      "previous_product_html": "上一个商品",
+      "next_product_html": "下一个商品",
+      "from": "价格"
+    },
+    "product": {
+      "sold_out": "已售完",
+      "unavailable": "无提供",
+      "quantity": "数量",
+      "add_to_cart": "加入购物车",
+      "add_to_cart_success": "已加入购物车",
+      "vendor": "供应商",
+      "related_items": "类似商品",
+      "collections": "分类",
+      "product_types": "品项",
+      "tags": "类别",
+      "size_chart": "尺寸表",
+      "products_tagged": "商品标签",
+      "items_left_count": {
+        "one": "库存剩下",
+        "other": "库存剩下"
+      },
+      "view_in_your_space": "在您的空间中查看"
+    },
+    "notify_form": {
+      "email": "请输入您的电邮地址",
+      "send": "寄出",
+      "message_content": "如{{ product }} 有货时请通知我 - {{ url }}",
+      "post_success": "谢谢，有货时我们即将通知您！",
+      "post_error": "请提供一个有效的电子邮件信箱"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "姓名",
+      "email": "邮件地址",
+      "phone": "联络电话",
+      "message": "信件内容",
+      "send": "寄出",
+      "post_success": "谢谢您与我们联系。我们将尽快回复您。"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "我的账户",
+      "view_addresses": "查看地址",
+      "return": "回到账户详细资料",
+      "addresses": "地址"
+    },
+    "orders": {
+      "title": "查看订单",
+      "order_number": "订单编号",
+      "date": "日期",
+      "payment_status": "付款状态",
+      "fulfillment_status": "出货状态",
+      "total": "总额",
+      "none": "您尚未下单"
+    },
+    "activate_account": {
+      "title": "激活账户",
+      "subtext": "新增密码",
+      "submit": "激活账户",
+      "cancel": "不接受邀请",
+      "password": "密码",
+      "password_confirm": "确认密码",
+      "or": "或"
+    },
+    "addresses": {
+      "title": "您的地址",
+      "default": "预设",
+      "add_new": "新增地址",
+      "edit_address": "编辑地址",
+      "company": "公司",
+      "address1": "地址1",
+      "address2": "地址2",
+      "city": "城市",
+      "country": "国家",
+      "province": "省",
+      "zip": "邮递区号",
+      "phone": "电话号码",
+      "set_default": "设成常用地址",
+      "add": "新增地址",
+      "update": "更新地址",
+      "first_name": "名",
+      "last_name": "性",
+      "cancel": "取消",
+      "edit": "编辑",
+      "delete": "删除",
+      "or": "或",
+      "destroy": "您确定要删除此地址吗？"
+    },
+    "login": {
+      "title": "登录",
+      "returning_customers": "会员登入",
+      "create_an_account": "創建一個帳戶",
+      "new_customers": "新会员",
+      "forgot_password": "忘记密码？",
+      "sign_up_html": "加入新会员",
+      "new_customer_label": "新会员？",
+      "sign_in": "登入",
+      "cancel": "回商店主页",
+      "guest_title_html": "已访客身份继续浏览",
+      "first_name": "名字",
+      "last_name": "姓",
+      "email": "电邮地址",
+      "password": "密码",
+      "guest_continue": "下一步",
+      "or": "或"
+    },
+    "recover_password": {
+      "title": "重设密码",
+      "subtext": "我们将寄一封重设密码的信件至您的电邮信箱",
+      "success": "请至您的电邮内收取重设密码的详细",
+      "email": "电邮地址",
+      "submit": "寄出",
+      "cancel": "取消",
+      "or": "或"
+    },
+    "reset_password": {
+      "title": "重设账户密码",
+      "subtext": "为账号{{ email }}输入新密码",
+      "submit": "重设密码",
+      "password": "密码",
+      "password_confirm": "确认密码"
+    },
+    "order": {
+      "title": "订单{{ name }}",
+      "date": "下单日期{{ date }}",
+      "note": "订购须知",
+      "note_placeholder": "没有提供订购单。",
+      "cancelled": "订单取消日期{{ date }}",
+      "cancelled_reason": "取消原因：{{ reason }}",
+      "billing_address": "账单地址",
+      "payment_status": "付款状态",
+      "shipping_address": "寄件地址",
+      "fulfillment_status": "出货状态",
+      "discount": "优惠",
+      "shipping": "邮资",
+      "tax": "税金",
+      "product": "商品",
+      "sku": "商品货号",
+      "price": "价格",
+      "quantity": "数量",
+      "total": "总金额",
+      "fulfilled_at": "出货日期",
+      "subtotal": "小计"
+    },
+    "register": {
+      "title": "新增账户",
+      "sign_up": "加入会员",
+      "cancel": "回到商店",
+      "returning_customer_label": "已有账户了吗？",
+      "sign_in_html": "会员登入",
+      "first_name": "名字",
+      "last_name": "姓",
+      "email": "电邮地址",
+      "password": "密码",
+      "or": "或"
+    }
+  },
+  "homepage": {
+    "onboarding": {
+      "product_title": "Your product's name",
+      "product_description": "This area is used to describe your product’s details. Tell customers about the look, feel, and style of your product. Add details on color, materials used, sizing, and where it was made.",
+      "caption_headline": "Image",
+      "caption_subtitle": "Subtitle",
+      "caption_button": "Linked button",
+      "promotion_name": "Your promotion headline",
+      "promotion_description": "Promotion description appears here.",
+      "collection_title": "Your collection's name",
+      "blog_title": "News",
+      "page_title": "页面标题",
+      "blogpost_title": "Your post's title",
+      "blog_excerpt": "Your store hasn’t published any blog posts yet. A blog can be used to talk about new product launches, tips, or other news you want to share with your customers. You can check out Shopify’s ecommerce blog for inspiration and advice for your own store and blog.",
+      "blog_author": "Author name",
+      "menu_title": "菜单标题",
+      "no_content": "This section doesn’t currently include any content. Add content to this section using the sidebar."
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "这是您在{{ shop }}的{{ value }}购物金！",
+      "subtext": "您的购物金！",
+      "disabled": "已失效",
+      "expired": "{{ expiry }}后到期。",
+      "active": "使用期限至{{ expiry }}",
+      "redeem": "结账时使用次优惠序号领取您的购物金",
+      "shop_link": "开始购物",
+      "print": "打印"
+    }
+  },
+  "home_page": {
+    "recent_articles": "最新文章"
+  },
+  "cart": {
+    "general": {
+      "title": "购物车",
+      "products": "商品",
+      "remove": "删除",
+      "price": "价格",
+      "quantity": "数量",
+      "total": "项目总数",
+      "price_per_item": "每件商品的价格",
+      "item": "商品",
+      "uploaded_file": "已上传的档案",
+      "continue_browsing_html": "您的购物车内没有任何商品 。<a href=\"{{ continue_link }}\">继续购物！</a>",
+      "continue_shopping_link_html": "继续购物！",
+      "tax_and_shipping": "结账时计算的税金和运费",
+      "taxes_and_shipping_policy_at_checkout_html": "结账时计算的税金和<a href=\"{{ link }}\">运费</a>",
+      "taxes_included_but_shipping_at_checkout": "结账时计算的税金（包含）和运费",
+      "taxes_included_and_shipping_policy_html": "税金（包含）。结账时计算的<a href=\"{{ link }}\">运费</a>。",
+      "orders_processed_in_currency_html": "订单将以{{ currency }}计算。",
+      "note": "特别说明",
+      "agree_to_terms_html": "我同意所有交易条款",
+      "agree_to_terms_warning": "您必须同意交易条款后才能结账。",
+      "or": "或",
+      "discount": "折扣",
+      "subtotal": "小计",
+      "update": "更新金额",
+      "checkout": "结账",
+      "increase_quantity": "增加数量",
+      "decrease_quantity": "减少数量"
+    },
+    "shipping_calculator": {
+      "estimated_shipping": "预估邮资",
+      "country": "国家",
+      "province": "省",
+      "zip_code": "邮递区号",
+      "heading": "邮资计算机",
+      "submit_button_label": "计算邮资",
+      "submit_button_label_disabled": "计算中",
+      "no_shipping_destination": "我們无法寄件到此地區",
+      "available_rates": "寄到此地址邮资为",
+      "additional_rates_part_1": "寄到此",
+      "additional_rates_part_2": "的邮资有",
+      "additional_rates_part_3": "邮资价格",
+      "at": "从"
+    }
+  },
+  "layout": {
+    "general": {
+      "menu": "菜单",
+      "cart": "购物车",
+      "edit_cart": "编辑购物车",
+      "checkout": "结账",
+      "continue_shopping": "继续购物",
+      "empty_cart": "您的购物车是空的",
+      "cart_note": "订单备注",
+      "subtotal": "小计",
+      "view_cart": "查看购物车",
+      "pick_a_currency": "选择币别",
+      "social": "关注",
+      "close_window": "关闭",
+      "designer_credits_html": "网页设计<a href=\"http://outofthesandbox.com/\" target=\"_blank\" title=\"Retina Shopify Theme by Out of the Sandbox\">Out of the Sandbox</a>."
+    },
+    "social_sharing": {
+      "title": "分享",
+      "x_title": "分享到 X",
+      "facebook_title": "分享至脸书",
+      "pinterest_title": "分享至Pinterest",
+      "pinterest_share": "{{ name }}的{{ title }} ",
+      "email_title": "电邮分享给好友",
+      "email_subject": "我觉得你可能会喜欢{{ title }}",
+      "email_message": "嘿，我刚刚在看{{ name }} 然后找到了 {{ title }}。想跟你分享一下"
+    },
+    "customer": {
+      "logged_in_as": "身份",
+      "log_out": "登出",
+      "log_in": "登入",
+      "my_account": "我的账号",
+      "return_to_account": "返回帳戶頁面",
+      "create_account": "加入会员"
+    },
+    "counts": {
+      "items": {
+        "one": "件",
+        "other": "件"
+      },
+      "items_with_count": {
+        "one": "件商品",
+        "other": "件商品"
+      }
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%月 %日, %年"
+  }
+}

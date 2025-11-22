@@ -1,0 +1,250 @@
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+  {%- assign section = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% liquid
+  assign image = object.settings.image
+  assign desktop_height = object.settings.desktop_image_height
+  assign mobile_height = object.settings.mobile_image_height
+  assign heading = object.settings.title
+  assign subheading = object.settings.text
+  assign overlay_color = object.settings.background_color
+  assign text_color = object.settings.text_color
+  assign button_label = object.settings.button_label
+  assign button_link = object.settings.link
+%}
+
+{% capture section_classes %}
+  {% if object.settings.wide_display %}
+    image-with-text--wide
+  {% elsif overlay_color != 'rgba(0,0,0,0)' and overlay_color != 'rgba(0, 0, 0, 0)' %}
+    image-with-text--fill-background
+  {% endif %}
+  image-with-text--image-position-{{ object.settings.image_position }}
+  image-with-text--text-align-{{ object.settings.text_align }}
+{% endcapture %}
+
+{% if overlay_color != 'rgba(0,0,0,0)' and overlay_color != 'rgba(0, 0, 0, 0)' %}
+  {% assign section_styles = '--background-color: ' | append: overlay_color %}
+{% endif %}
+
+
+{% comment %}Inject @pixelunion/pxs-image-with-text/image-with-text begin{% endcomment %}
+{% comment %}
+
+  # General
+  @param section {Object}
+    Section object
+
+  @param section_classes {String}
+    A string of space separated classes to apply to the section element
+
+  @param section_styles {String}
+    A string of inline styles to place on the section element. Useful for adding CSS variables.
+
+  @param base_name {String} Default: 'image-with-text'
+    A base name to use for all classes, and section type.
+
+  # Section Settings
+
+  @param section_heading {String} Optional
+    Section heading above the image
+
+  @param section_style {String} Optional
+    ie. accent or contrast - used in Startup
+
+  @param show_border (Boolean} Optional
+    Show section border
+
+  @param desktop_height {String} Optional
+    Section/image height on desktop
+
+  @param mobile_height {String} Optional
+    Section/image height on mobile
+
+  @param treat_as_banner {Boolean} Optional
+    If this is set to true an attribute will be added to treat this as a banner. Usually important for the header if it is transparent.
+
+  # Image Settings
+
+  @param image {Image} Required
+    Section image
+
+  @param desktop_image_alignment {String} Optional
+    Image position relative to the text content on desktop. Applied to a class on the section for CSS use.
+
+  @param mobile_image_alignment {String} Optional
+    Image position relative to the text content on mobile. Applied to a class on the section for CSS use.
+
+  @param focal_point {String} Optional
+    The focal point set by the merchant for the image in the Shopify admin. Accessed in the image drop via: image.presentation.focal_point. Applies object-fit:cover;object-position:[focal point] to the style property on the image element. Only works with no cropping.
+
+  @param overlay_opacity {Number} Optional
+    Overlay opacity for Image with Text Overlay. Used for inline style.
+
+  @param overlay_color {String} Optional
+    Overlay color. Used for inline style
+
+  # Text Settings
+
+  @param preheading {String} Optional
+    Text above the heading
+
+  @param heading {String} Optional
+    Heading on the text side of the section
+
+  @param subheading {String} Optional
+    Subheading/text content for the text side of the section
+
+  @param text_color {String} Optional
+    Colour of text content and heading (does not apply to section heading)
+
+  @param text_alignment {String} Optional
+    Left, center or right alignment of text content
+
+  @param text_shadow {Boolean} Optional
+    Shadow effect on text content (existing setting in some themes)
+
+  @param content_position {String} Optional
+    Position of the text content in the container, usually for image with text overlay (ex. top-left, top-center, top-right)
+
+  # Button Settings
+
+  @param button_label {String} Optional
+    Button label on text side of section
+
+  @param button_link {String} Optional
+    Button link
+
+  @param button_style {String} Optional
+    Button style
+
+{% endcomment %}
+
+{% liquid
+  assign base_name = base_name | default: 'image-with-text'
+  assign treat_as_banner = treat_as_banner | default: false
+%}
+
+{%- if overlay_opacity > 0 and overlay_color -%}
+  {%- assign overlay_opacity = overlay_opacity | times: 0.01 -%}
+  {%- assign overlay_color = overlay_color | color_modify: 'alpha', overlay_opacity -%}
+{%- endif -%}
+
+{% capture text_classes %}
+  {% if text_alignment != blank %}
+    {{ base_name }}-text-alignment-{{ text_alignment }}
+  {% endif %}
+  {% if text_shadow %}
+   {{ base_name }}--text-shadow
+  {% endif %}
+{% endcapture %}
+
+<section
+  class="
+    {{ base_name }}
+    {% if section_style != blank %}
+      {{ base_name }}--section-style-{{ section_style }}
+    {% endif %}
+    {% if show_border %}
+      {{ base_name }}--section-show-border
+    {% endif %}
+    {% if desktop_height != blank %}
+      {{ base_name }}--desktop-height-{{ desktop_height }}
+    {% endif %}
+    {% if mobile_height != blank %}
+      {{ base_name }}--mobile-height-{{ mobile_height }}
+    {% endif %}
+    {% if desktop_image_alignment != blank %}
+      {{ base_name }}--desktop-image-alignment-{{ desktop_image_alignment }}
+    {% endif %}
+    {% if mobile_image_alignment != blank %}
+      {{ base_name }}--mobile-image-alignment-{{ mobile_image_alignment }}
+    {% endif %}
+    {% if content_position != blank %}
+      {{ base_name }}--content-position-{{ content_position }}
+    {% endif %}
+    {% if section_classes != blank %}
+      {{ section_classes }}
+    {% endif %}
+  "
+  {% if section_styles %}
+    style="{{ section_styles }}"
+  {% endif %}
+  data-section-id="{{ section.id }}"
+  data-banner="{{ treat_as_banner }}"
+>
+  {%- if section_heading != blank -%}
+    <h2 class="{{ base_name }}__section-heading">{{ section_heading | escape }}</h2>
+  {%- endif -%}
+  <div class="{{ base_name }}__container">
+    <div class="{{ base_name }}__image-wrapper">
+      {%- if image != blank -%}
+        {% assign alt = image.alt | default: heading %}
+        {% capture image_classes %}{{ base_name }}__image{% endcapture %}
+        {%
+          render 'rimg'
+          img: image,
+          alt: alt,
+          size: '1500x',
+          lazy: true,
+          class: image_classes,
+          focal_point: image.presentation.focal_point,
+        %}
+      {%- else -%}
+        {% capture placeholder_classes %}{{ base_name }}__image {{ base_name }}__placeholder{% endcapture %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: placeholder_classes }}
+      {%- endif -%}
+    </div>
+    <div
+      class="{{ base_name }}__content"
+      {% if overlay_color or text_color %}
+        style="
+          {% if overlay_color %}background-color: {{ overlay_color }};{% endif %}
+          {% if text_color %}color: {{ text_color }};{% endif %}
+        "
+      {% endif %}
+    >
+      {%-
+          if heading != blank
+          or preheading != blank
+          or subheading != blank
+          or button_label != blank
+          or button_link != blank
+       -%}
+       <div class="{{ base_name }}__content-wrapper {{ text_classes }}">
+          {%- if preheading != blank -%}
+            <div class="{{ base_name }}__preheading">{{ preheading | escape }}</div>
+          {%- endif -%}
+          {%- if heading != blank -%}
+            <h2 class="{{ base_name }}__heading">{{ heading | escape }}</h2>
+          {%- endif -%}
+          {%- if subheading -%}
+            <div class="{{ base_name }}__text">{{ subheading }}</div>
+          {%- endif -%}
+          {%- if
+            button_label != blank
+            and button_link != blank
+          -%}
+            <a
+              class="
+                {{ base_name }}__button
+                {% if button_style %}
+                  {{ base_name }}__button--style-{{ button_style }}
+                {% endif %}
+              "
+              href="{{ button_link }}"
+            >
+              {{ button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% comment %}Inject @pixelunion/pxs-image-with-text/image-with-text end{% endcomment %}

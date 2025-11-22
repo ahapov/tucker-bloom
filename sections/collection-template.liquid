@@ -1,0 +1,133 @@
+{% render 'collection-page' %}
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "shopify-section--collection-template",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Show sorting options",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "sidebar_mobile_position",
+      "label": "Mobile position",
+      "default": "below",
+      "options": [
+        {
+          "value": "below",
+          "label": "Below collection"
+        },
+        {
+          "value": "above",
+          "label": "Above collection"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filters",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_filter_product_count",
+          "label": "Show product counts",
+          "default": true
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

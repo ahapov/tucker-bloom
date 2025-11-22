@@ -1,0 +1,82 @@
+{% comment %}
+** Rich text - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign image = object.settings.image -%}
+{%- assign title = object.settings.title | escape -%}
+{%- assign content = object.settings.content -%}
+{%- assign background_color = object.settings.background_color -%}
+{%- assign background_alpha = background_color | color_extract: 'alpha' %}
+{% comment %} End content settings {% endcomment %}
+
+{% if image != blank %}
+  {%- assign has_image = true %}
+{% else %}
+  {%- assign has_image = false %}
+{% endif %}
+
+{% if background_alpha != 0 %}
+  {%- assign has_background = true %}
+{% else %}
+  {%- assign has_background = false %}
+{% endif %}
+
+<section
+  class="
+    richtext-section
+    richtext-section--wide-{{ object.settings.wide_display }}
+    richtext-section--image-{{ has_image }}
+    richtext-section--background-{{ has_background }}
+  "
+  data-section-id="{{ object.id }}"
+  style="--richtext-background-color: {{ object.settings.background_color }};"
+>
+  <div class="richtext-section__wrapper">
+    {% if image %}
+      <div class="richtext-section__image">
+        {%
+          render 'rimg',
+          img: object.settings.image,
+          size: '2000x',
+          lazy: true,
+          canvas: true,
+          focal_point: image.presentation.focal_point,
+        %}
+      </div>
+    {% endif %}
+
+    <div
+      class="richtext-section__content
+      richtext-section__content--{{ object.settings.text_size }}
+      text-align-{{ object.settings.text_alignment }}"
+    >
+      {% if title != blank %}
+        <h2 class="richtext-section__heading">
+          {{ title | escape }}
+        </h2>
+      {% endif %}
+
+      {% if content != blank %}
+        {{ content }}
+      {% endif %}
+
+      {% if object.settings.button_label != blank and object.settings.button_link != blank %}
+        <a
+          class="richtext-section__button"
+          href="{{ object.settings.button_link }}"
+        >
+          {{ object.settings.button_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>

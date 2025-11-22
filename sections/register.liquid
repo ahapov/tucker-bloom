@@ -1,0 +1,140 @@
+<script
+  type="application/json"
+  data-section-type="register-page"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+<section
+  class="
+    registration-form
+    {% if section.settings.richtext != blank %}
+      registration-form__richtext-enabled
+    {% else %}
+      registration-form__richtext-disabled
+    {% endif %}
+  "
+  data-section-id="{{ section.id }}"
+>
+  <div class="registration-form__wrapper">
+
+    <h1
+      class="registration-form__heading"
+    >
+      {{ 'customer.register.title' | t }}
+    </h1>
+
+    <div class="registration-form__customer">
+      {% if section.settings.richtext != blank %}
+        <div class="registration-form__richtext">
+          {{ section.settings.richtext }}
+        </div>
+        {% endif %}
+
+      {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+
+        <label
+          class="registration-form__first-name"
+          for="first_name"
+        >
+          {{ 'customer.register.first_name' | t }}
+        </label>
+        <input
+          type="text"
+          value=""
+          name="customer[first_name]"
+          id="first_name"
+          size="30"
+          required
+        >
+
+        <label
+          class="registration-form__last-name"
+          for="last_name"
+        >
+          {{ 'customer.register.last_name' | t }}
+        </label>
+        <input
+          type="text"
+          value=""
+          name="customer[last_name]"
+          id="last_name"
+          size="30"
+          required
+        >
+
+        <label
+          class="registration-form__email"
+          for="email"
+        >
+          {{ 'customer.register.email' | t }}
+        </label>
+        <input
+          type="email"
+          value=""
+          name="customer[email]"
+          id="email"
+          size="30"
+          required
+        >
+
+        <label
+          class="registration-form__password"
+          for="password"
+        >
+          {{ 'customer.register.password' | t }}
+        </label>
+        <input
+          type="password"
+          value=""
+          name="customer[password]"
+          id="password"
+          class="password"
+          size="30"
+          required
+        >
+
+        <div class="registration-form__actions">
+          <div class="registration-form__accept-marketing">
+            <input type="checkbox" id="customer[accepts_marketing]" name="customer[accepts_marketing]">
+            <label for="customer[accepts_marketing]" class="registration-form__accept-marketing-label">
+              {{ section.settings.accepts_marketing_richtext }}
+            </label>
+          </div>
+
+          <div>
+            <input class="registration-form__button" type="submit" value="{{ 'customer.register.sign_up' | t }}" />
+            <p>
+              {{ 'customer.register.returning_customer_label' | t }}
+              <span  class="restration-form__login-link">
+                {{ 'customer.register.sign_in_html' | t | customer_login_link }}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Register",
+    "class": "shopify-section--register-template",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "richtext",
+        "label": "Text"
+      },
+      {
+        "type": "richtext",
+        "id": "accepts_marketing_richtext",
+        "label": "Accepts marketing text",
+        "default": "<p>Subscribe to our newsletter?</p>"
+      }
+    ]
+  }
+{% endschema %}

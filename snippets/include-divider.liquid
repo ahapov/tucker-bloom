@@ -1,0 +1,34 @@
+{% comment %}
+** Divider - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign divider_spacing = object.settings.divider_spacing -%}
+{%- assign divider_border = object.settings.divider_border -%}
+{% comment %} End content settings {% endcomment %}
+
+<div
+  class="
+    divider-wrapper
+    divider-wrapper--{{ object.id }}"
+>
+  <hr
+    class="divider
+    divider--{{ divider_border }}"
+  >
+</div>
+
+<style>
+  .divider-wrapper--{{ object.id }} {
+    padding-top: {{ divider_spacing | append: 'px' }};
+    padding-bottom: {{ divider_spacing | append: 'px' }};
+  }
+</style>

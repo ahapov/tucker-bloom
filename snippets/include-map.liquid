@@ -1,0 +1,112 @@
+{% comment %}
+** Map - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign map_address = object.settings.map_address -%}
+{%- assign image = object.settings.image -%}
+{%- assign store_hours = object.settings.store_hours -%}
+{%- assign title = object.settings.title -%}
+{%- assign address = object.settings.address -%}
+{%- assign hours = object.settings.hours -%}
+{%- assign text_position = object.settings.mobile_text_position -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Map text markup {% endcomment %}
+{% capture map_text_markup %}
+  {% if store_hours != blank  %}
+    <div class="
+      map-section__info
+      map-section__info--text-align-{{ object.settings.text_alignment }}
+    ">
+      <div class="map-section__info-wrapper">
+        {% if title != blank %}
+          <h2 class="map-section__heading">
+            {{ title | escape }}
+          </h2>
+        {% endif %}
+        {% if address != blank %}
+          <div class="map-section__address">
+            {{ address }}
+          </div>
+        {% endif %}
+        {% if hours != blank %}
+          <div class="map-section__hours">
+            {{ hours }}
+          </div>
+        {% endif %}
+        {% if object.settings.button_label != blank %}
+          <a href="" class="map-section__link">
+            {{ object.settings.button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endcapture %}
+
+<section
+  class="
+    map-section
+    {% if object.settings.wide_display %}map-section--width-wide{% endif %}
+    map-section--mobile-text-position-{{ object.settings.mobile_text_position }}
+    map-section--height-{{ object.settings.section_height }}
+    map-section--info-{{ object.settings.text_position }}
+  "
+  data-section-type="map"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  <div
+    id="map-section--{{ object.id }}"
+    class="map-section__wrapper"
+  >
+
+  {% if text_position == "above-map" %}
+    {{ map_text_markup }}
+  {% endif %}
+
+  {% if map_address != blank and object.settings.api_key != blank %}
+    <div
+      class="map-section__map"
+      data-address="{{ map_address | strip_html }}"
+      data-zoom="{{ object.settings.zoom_level }}"
+      data-pin="{{ object.settings.show_pin }}"
+      data-id="map-{{ object.id }}"
+      data-style="{{ object.settings.map_style }}"
+      data-api-key="{{ object.settings.api_key }}"
+      data-directions-address="{{ map_address | strip_html | handleize | replace: '_', '+' | replace: ' ', '+' }}"
+    >
+    </div>
+  {% elsif map_address != blank and object.settings.api_key == blank %}
+    <iframe class="map-section__map" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q={% if map_address != blank %}{{ map_address | strip_html | replace: ' ', '+' }}{% else %}{{ shop.address.street }}{% endif %}&amp;z={{ object.settings.zoom_level }}&amp;output=embed"></iframe>
+  {% else %}
+    <div class="map-section__map">
+      {% if image != blank %}
+        {%
+          render 'rimg',
+          img: image,
+          lazy: true,
+          canvas: true,
+          class: 'map-section__image',
+          focal_point: image.presentation.focal_point,
+        %}
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg map-section__image' }}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if text_position == "below-map" %}
+    {{ map_text_markup }}
+  {% endif %}
+  </div>
+</section>

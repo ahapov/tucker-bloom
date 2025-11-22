@@ -1,0 +1,166 @@
+{% assign display_type = section.settings.display_type %}
+{% assign sort = section.settings.sort %}
+
+{% paginate collections by section.settings.pagination_limit %}
+  <section
+    class="collection-list-page"
+    data-section-id="{{ section.id }}"
+  >
+    <div class="collection-list-page__header-wrapper">
+      {% render 'breadcrumbs' %}
+
+      <div class="collection-list-page__header">
+        <h1 class="collection-list-page__heading">
+          {{ 'collections.general.title' | t }}
+        </h1>
+      </div>
+    </div>
+
+    <div
+      class="
+        collection-list-page__wrapper
+        collection-list-page__wrapper--{{ section.settings.frontpage_collections_per_row }}-column
+      "
+    >
+      {% if display_type == 'all' %}
+        {% if sort == 'date' or sort == 'date_reversed' %}
+          {% assign collections = collections | sort: 'published_at' %}
+        {% endif %}
+
+        {% if sort == 'date' or sort == 'alphabetical' %}
+          {% for collection in collections %}
+            {%
+              render 'collection-list-card',
+              collection: collection
+            %}
+          {% endfor %}
+        {% else %}
+          {% for collection in collections reversed %}
+            {%
+              render 'collection-list-card',
+              collection: collection
+            %}
+          {% endfor %}
+        {% endif %}
+      {% else %}
+        {% for block in section.blocks %}
+          {%
+            render 'collection-list-card',
+            collection: collections[block.settings.feature_collection],
+            image: block.settings.image
+          %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if display_type == 'all' %}
+      {%
+        render 'pagination',
+        paginate: paginate
+    %}
+    {% endif %}
+  </section>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collections",
+  "class": "shopify-section--collection-template",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "All of your collections are listed by default. To customize your list, choose ‘Selected’ and add collections."
+    },
+    {
+      "type": "radio",
+      "id": "display_type",
+      "label": "Select collections to show",
+      "options": [
+        {
+          "value": "all",
+          "label": "All"
+        },
+        {
+          "value": "selected",
+          "label": "Selected"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "label": "Sort collections by:",
+      "info": "Sorting only applies when 'All' is selected",
+      "options": [
+        {
+          "value": "alphabetical",
+          "label": "Alphabetically, A-Z"
+        },
+        {
+          "value": "alphabetical_reversed",
+          "label": "Alphabetically, Z-A"
+        },
+        {
+          "value": "date",
+          "label": "Date, old to new"
+        },
+        {
+          "value": "date_reversed",
+          "label": "Date, new to old"
+        }
+      ],
+      "default": "alphabetical"
+    },
+    {
+      "type": "range",
+      "id": "frontpage_collections_per_row",
+      "label": "Collections per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Collections per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 24,
+      "info": "Only applies when 'All' is selected."
+    },
+    {
+      "type": "checkbox",
+      "id": "frontpage_collections_title",
+      "label": "Display collection title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_count",
+      "label": "Display collection product count",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "feature_collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

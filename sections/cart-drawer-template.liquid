@@ -1,0 +1,198 @@
+{% layout none %}
+
+{%- capture taxes_shipping_checkout -%}
+  {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+    {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+  {%- elsif cart.taxes_included -%}
+    {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+  {%- elsif shop.shipping_policy.body != blank -%}
+    {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+  {%- else -%}
+    {{ 'cart.general.tax_and_shipping' | t }}
+  {%- endif -%}
+{%- endcapture -%}
+
+<template data-data>
+  {
+    "item_count": {{ cart.item_count | json }}
+  }
+</template>
+
+<template data-html="content">
+  <div class="cart-drawer__header">
+    <h2 class="drawer-header__heading">{{ 'cart.general.title' | t }}</h2>
+    <button class="drawer-header__close" data-cart-drawer-close>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 13L13 1M13 13L1 1" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  {% if cart.item_count == 0 %}
+    <p class="cart-drawer__empty">
+      {{ 'layout.general.empty_cart' | t }}
+    </p>
+  {% else %}
+    <form class="cart-drawer__form" action="{{ routes.cart_url }}" method="post" id="cart_form">
+      <div class="cart-drawer__items">
+        {% for item in cart.items %}
+          <div class="cart-drawer__item">
+            <div class="drawer-item__image">
+              <a class="drawer-item__image-link" href="{{ item.url }}">
+                {%
+                  render 'rimg',
+                  img: item.image,
+                  size: '1024x',
+                  lazy: true,
+                  canvas: true
+                %}
+              </a>
+            </div>
+            <div class="drawer-item__info">
+              <div class="item-info__top">
+                <div class="item-info__title">
+                  <p>{{ item.product.title }}</p>
+                  {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                    <p class="item-info__variants">
+                      {% for option in item.product.options %}
+                        <span>{{ item.variant.options[forloop.index0] }} {% unless forloop.last == true %}/{% endunless %} </span>
+                      {% endfor %}
+                    </p>
+                  {% endunless %}
+                  {% if item.selling_plan_allocation.selling_plan %}
+                    <p class="item-info__selling-plan">
+                      {{ item.selling_plan_allocation.selling_plan.name }}
+                    </p>
+                  {% endif %}
+                </div>
+
+                <div class="item-info__price">
+                  {% if item.line_level_discount_allocations.size > 0 %}
+                    <span class="money">
+                      {% render 'price-element', price: item.final_line_price %}
+                    </span>
+                  {% endif %}
+                  <span class="money {% if item.line_level_discount_allocations.size > 0 %}hidden{% endif %}">
+                    {% render 'price-element', price: item.original_line_price %}
+                  </span>
+
+                  {% if item.unit_price_measurement %}
+                    {% capture total_quantity %}<span>{{ item.unit_price_measurement.quantity_value }}{{ item.unit_price_measurement.quantity_unit }}</span>{% endcapture %}
+                    {% capture unit_price %}<span>{{ item.unit_price | money }}</span>{% endcapture %}
+                    {% capture unit_measure %}<span>{%- if item.unit_price_measurement.reference_value != 1 -%}{{ item.unit_price_measurement.reference_value }}{%- endif %}{{ item.unit_price_measurement.reference_unit }}</span>{% endcapture %}
+
+                    <div class="item-info__unit-price">
+                      {{ 'product.unit_pricing.price_per_unit_html' | t: total_quantity: total_quantity, unit_price: unit_price, unit_measure: unit_measure | strip_newlines }}
+                    </div>
+                  {% endif %}
+
+                  {% if item.line_level_discount_allocations.size > 0 %}
+                    {% for discount_allocation in item.line_level_discount_allocations %}
+                      <p class="applied-discount">
+                        <span class="applied-discount__title">{{ 'cart.general.discount' | t }}:</span> {{ discount_allocation.title }} <span class="discount-wrap">(- <span class="money">{% if settings.currency_format == 'money_with_currency_format' %}{{ discount_allocation.amount | money_with_currency }}{% else %}{{ discount_allocation.amount | money }}{% endif %}</span>)</span>
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="item-info__bottom">
+                <div class="item-info__quantity-wrapper" id="quantity_{{ forloop.index }}">
+                  <label for="updates_{{ item.id }}" class="quantity-label visually-hidden">{{ 'cart.general.quantity' | t }}:</label>
+                  <button aria-label="{{ 'cart.general.decrease_quantity' | t }}" class="quantity--minus" data-quantity-minus></button>
+                  <input aria-live="polite" data-quantity-input type="number" min="0" size="3" maxlength="3" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-line-id="{{ forloop.index }}" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
+                  <button aria-label="{{ 'cart.general.increase_quantity' | t }}" class="quantity--plus" data-quantity-plus></button>
+                </div>
+
+                <button data-remove-item="{{ forloop.index }}" class="item-info__remove">{{ 'cart.general.remove' | t }}</button>
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-drawer__details text-align-right">
+        {% if settings.display_special_instructions %}
+          <div class="cart-drawer__notes text-align-left">
+            <label for="cart-drawer-note">
+              {{- 'cart.general.note' | t: shop_name: shop.name -}}:
+            </label>
+            <textarea
+              id="cart-drawer-note"
+              name="note"
+              rows="2"
+            >
+              {{ cart.note }}
+            </textarea>
+          </div>
+        {% endif %}
+
+        {% if cart.cart_level_discount_applications != blank %}
+          <p class="cart-drawer__discounts-heading">{{ 'cart.general.discount' | t }}:</p>
+
+          <ul class="cart-drawer__discounts">
+            {% for discount_application in cart.cart_level_discount_applications %}
+              <li>
+                {{ discount_application.title }} (- <span class="money">{% if settings.currency_format == 'money_with_currency_format' %}{{ discount_application.total_allocated_amount | money_with_currency }}{% else %}{{ discount_application.total_allocated_amount | money }}{% endif %}</span>)
+              </li>
+            {% endfor %}
+          </ul>
+
+        {% endif %}
+        <p class="cart-drawer__subtotal">{{ 'cart.general.subtotal' | t }}</p>
+
+        <p class="cart-drawer__cart-total">
+          <span class="money">{{ cart.total_price | money_with_currency }}</span>
+        </p>
+        <p class="cart-drawer__minor-text">
+          {{ taxes_shipping_checkout }}
+        </p>
+
+        {% if shop.enabled_currencies.size <= 1 %}
+          <p class="cart-drawer__minor-text">
+            {{ 'cart.general.orders_processed_in_currency_html' | t: currency: cart.currency.iso_code }}
+          </p>
+        {% endif %}
+
+        {% if settings.display_tos_checkbox %}
+          <div class="cart-drawer__terms">
+            <input
+              id="cart-drawer-agree"
+              type="checkbox"
+              required
+              data-tos
+            >
+              <label for="cart-drawer-agree">
+                {%- if settings.tos_richtext != blank -%}
+                  {{- settings.tos_richtext -}}
+                {%- else -%}
+                  {{- 'cart.general.agree_to_terms_html' | t -}}
+                {%- endif -%}
+              </label>
+          </div>
+        {% endif %}
+
+        <div class="cart-drawer__checkout-buttons">
+          <button
+            class="cart-drawer__checkout"
+            id="cart-drawer__checkout"
+            type="submit"
+            name="checkout"
+            data-cart-submit
+          >
+            {{ 'cart.general.checkout' | t }}
+          </button>
+          <button
+            class="cart-drawer__view-cart"
+            id="cart-drawer__view-cart"
+            type="submit"
+            name="view-cart"
+            data-cart-submit
+          >
+            {{ 'layout.general.view_cart' | t }}
+          </button>
+        </div>
+      </div>
+    </form>
+  {% endif %}
+</template>

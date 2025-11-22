@@ -1,0 +1,41 @@
+{% if settings.display_breadcrumb %}
+  <div class="breadcrumbs">
+    <a href="{{ routes.root_url }}" class="breadcrumbs__link">{{ 'general.breadcrumbs.home' | t }}</a>
+    <span class="breadcrumbs__separator"></span>
+    {% if template contains "product" %}
+      {% if collection %}
+        <a href="{{ routes.collections_url }}" class="breadcrumbs__link">{{ 'collections.sidebar.collections' | t }}</a>
+        <span class="breadcrumbs__separator"></span>
+        <a href="{{ collection.url }}" class="breadcrumbs__link">{{ collection.title | escape }}</a>
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}" class="breadcrumbs__link">{{ 'collections.general.all_collection_title' | t: title: collection.title }}</a>
+      {% endif %}
+      <span class="breadcrumbs__separator"></span>
+      <span class="breadcrumbs__current">{{ product.title | escape }}</span>
+    {% elsif template contains "collection" %}
+      <a href="{{ routes.collections_url }}" class="breadcrumbs__link">{{ 'collections.sidebar.collections' | t }}</a>
+      <span class="breadcrumbs__separator"></span>
+      {% if current_tags.size > 0 %}
+        <a href="{{ collection.url }}" class="breadcrumbs__link">{{ collection.title | escape }}</a>
+        <span class="breadcrumbs__separator"></span>
+        <span class="breadcrumbs__current">{{ current_tags.first }}</span>
+      {% else %}
+        <span class="breadcrumbs__current">{{ collection.title | escape }}</span>
+      {% endif %}
+    {% elsif template contains "blog" %}
+      {% if current_tags %}
+        <a href="{{ blog.url}}" class="breadcrumbs__link">{{ blog.title | escape }}</a>
+        {% for tag in current_tags %}
+          <span class="breadcrumbs__separator"></span>
+          <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ tag | escape }}">{{ tag | escape }}</a>
+        {% endfor %}
+      {% else %}
+        <span class="breadcrumbs__current">{{ blog.title | escape }}</span>
+      {% endif %}
+    {% elsif template contains "article" %}
+      <a href="{{ blog.url}}" class="breadcrumbs__link">{{ blog.title | escape }}</a>
+      <span class="breadcrumbs__separator"></span>
+      <span class="breadcrumbs__current">{{ article.title | escape }}</span>
+    {% endif %}
+  </div>
+{% endif %}

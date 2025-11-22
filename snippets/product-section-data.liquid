@@ -1,0 +1,23 @@
+<script
+  type="application/json"
+  data-section-type="product"
+  data-section-id="{{ section.id }}"
+  data-section-data>
+  {
+    "product": {{ product | json }},
+    "product_recommendation_limit": {{ product_recommendation_limit | json }},
+    "variantInventory": { {%- for v in product.variants -%}"{{v.id}}": {"inventory_quantity":{{v.inventory_quantity}},"inventory_management":"{{v.inventory_management}}","inventory_policy":"{{v.inventory_policy}}"}{% if forloop.last == false %},{% endif %}{%- endfor -%} },
+    "thumbnailsEnabled": {{ section.settings.enable_thumbnails | json }},
+    "thumbnailSliderEnabled": {{ section.settings.enable_thumbnail_slider | json }},
+    "thumbnailsPosition": {{ section.settings.thumbnail_position | json }},
+    "thumbnailsArrowsEnabled": {{ section.settings.gallery_arrows | json }},
+    "slideshowAnimation": {{ section.settings.slideshow_transition | json }},
+    "slideshowSpeed": {{ section.settings.slideshow_speed | json }},
+    "zoomEnabled": {{ section.settings.activate_zoom | json }},
+    "lightboxEnabled": {{ section.settings.enable_product_lightbox | json }},
+    "loopingEnabled": {{ section.settings.video_looping | json }},
+    "mediaCount": {{ product.media.size | json }},
+    "selectFirstAvailableVariant": {{ settings.select_first_available_variant | json }},
+    "onboarding": {{ onboarding | json }}
+  }
+</script>

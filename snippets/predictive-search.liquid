@@ -1,0 +1,52 @@
+<div class="predictive-search__overlay" data-search-overlay>
+  <div
+    class="predictive-search"
+    data-search
+    tabindex="0"
+  >
+    <div class="predictive-search__bar">
+      <form class="predictive-search__form" action="{{ routes.search_url }}" data-search-form>
+        <div class="predictive-search__form-controls">
+          <button
+            class="predictive-search__submit"
+            aria-label="{{ 'general.search.placeholder' | t }}"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M18 10C18 13.866 14.866 17 11 17C7.13401 17 4 13.866 4 10C4 6.13401 7.13401 3 11 3C14.866 3 18 6.13401 18 10ZM15.7389 16.446C14.4125 17.4228 12.7736 18 11 18C6.58172 18 3 14.4183 3 10C3 5.58172 6.58172 2 11 2C15.4183 2 19 5.58172 19 10C19 12.2836 18.0432 14.3438 16.5085 15.8014L21.3536 20.6464C21.5488 20.8417 21.5488 21.1583 21.3536 21.3536C21.1583 21.5488 20.8417 21.5488 20.6464 21.3536L15.7389 16.446Z" fill="currentColor"/>
+            </svg>
+          </button>
+          <input
+            class="predictive-search__input"
+            type="text"
+            name="q"
+            aria-label="{{ 'general.search.placeholder' | t | escape }}"
+            placeholder="{{ 'general.search.placeholder' | t | escape }}"
+            value="{{ search.terms }}"
+            x-webkit-speech
+            autocapitalize="off"
+            autocomplete="off"
+            autocorrect="off"
+            data-predictive-search-terms
+          >
+          <input
+            type="hidden"
+            name="options[prefix]"
+            value="last"
+          >
+          <button
+            class="predictive-search__close"
+            aria-label="{{ 'layout.general.close_window' | t }}"
+            type="button"
+            data-close-search
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 13L13 1M13 13L1 1" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="predictive-search__results-wrapper" data-results-wrapper></div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,561 @@
+<script
+  type="application/json"
+  data-section-type="article-page"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+{% liquid
+  assign toggle = section.settings.toggle
+  assign sidebar_mobile_position = section.settings.sidebar_mobile_position
+%}
+
+{% if article.image != blank  and section.settings.slideshow_article_enabled %}
+  {% assign text_position = 'center-' | append: section.settings.text_position %}
+
+  {% if section.settings.blog_date %}
+    {% assign preheading = article.published_at | date: format: "month_day_year" %}
+  {% endif %}
+
+  {% if section.settings.blog_author %}
+    {% capture 'subheading' %}
+      {{ 'blogs.article.by_author' | t: author: article.author }}
+    {% endcapture %}
+  {% endif %}
+
+  <div class="article-template__banner">
+    {%
+      render 'include-image-with-text-overlay',
+      type: 'section',
+      section: section,
+      wide_display: section.settings.slideshow_article_enabled,
+      preheading: preheading,
+      heading: article.title,
+      subheading: subheading,
+      image: article.image,
+      text_position: text_position
+    %}
+  </div>
+{% endif %}
+
+<section class="article-template
+  {% if article.image != blank  and section.settings.slideshow_article_enabled %}article-template--width-wide{% endif %}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="article-template__breadcrumbs {% if section.blocks.size == 0 %}article-template__breadcrumbs--no-sidebar{% endif %}">
+    {% render 'breadcrumbs' %}
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <div class="article-template--section-with-sidebar">
+      <div class="section-with-sidebar__wrapper">
+        <aside
+          class="
+            sidebar
+            article-template__sidebar
+            {%- if sidebar_mobile_position == 'below' -%}
+              article-template__sidebar--hide-mobile
+            {%- endif -%}
+          "
+          data-sidebar
+          data-sidebar-top
+          aria-label="{{ 'general.accessibility.sidebar' | t }}"
+          data-has-toggle="{{ toggle }}"
+        >
+          {%
+            render 'sidebar-content',
+            toggle: toggle,
+            sidebar_mobile_position: sidebar_mobile_position,
+          %}
+        </aside>
+  {% endif %}
+
+  <div class="article-template__wrapper">
+    <div class="article-template__wrapper-content">
+      <div class="article-template__meta article-template__meta-banner-{{ section.settings.slideshow_article_enabled }}">
+        {% unless section.settings.slideshow_article_enabled and article.image != blank %}
+          {% if section.settings.blog_date %}
+            <div class="article-template__meta-date">
+              {{ article.published_at | date: format: "month_day_year" }}
+            </div>
+          {% endif %}
+
+          <h1 class="article-template__heading">{{ article.title }}</h1>
+
+          {% if section.settings.blog_author %}
+            <div class="article-template__meta-author">{{ 'blogs.article.by_author' | t: author: article.author }}</div>
+          {% endif %}
+        {% endunless %}
+
+        {% if section.settings.blog_comment_count %}
+          {% if section.settings.disqus_enabled %}
+            <span>
+              <a href="{{ article.url }}#disqus_thread" data-disqus-identifier="{{ article.id }}" class="disqus-comment-count">
+                {{ 'blogs.counts.comments_with_count' | t: count: 0 }}
+              </a>
+            </span>
+          {% elsif article.comments_enabled? and article.comments_count > 0 %}
+            <span class="article-template__meta-comment-count">
+              <a class="article-template__meta-comment-count-link" href="{{ article.url }}#comments">
+                {{ 'blogs.counts.comments_with_count' | t: count: article.comments_count }}
+              </a>
+            </span>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      {% if article.image != blank  and section.settings.slideshow_article_enabled == false %}
+        <div class="article-template__image">
+          {%
+            render 'rimg',
+            img: article.image,
+            size: '1000x1000',
+            lazy: true,
+            canvas: true
+          %}
+        </div>
+      {% endif %}
+
+      <div class="article-template__content">
+        {{ article.content }}
+      </div>
+
+      {% if section.settings.display_social_buttons %}
+        <div class="article-template__socials">
+          {% render 'social-buttons', context: 'article' %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.blog_tags and article.tags.size > 0 %}
+        <div class="article-template__tags">
+          {% for tag in article.tags %}
+            <span class="article-template__tag">
+              <a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">
+                {{ tag }}
+              </a>
+            </span>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div id="comments" class="article-info__comments {% if article.comments.size == 0 %}article-info__comments--none{% endif %}">
+        {% if section.settings.disqus_enabled %}
+          <div id="disqus_thread"></div>
+
+          <script>
+            var disqus_config = function () {
+                this.page.url = "{{ canonical_url }}";
+                this.page.identifier = "{{ article.id }}";
+            };
+
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = '//{{ section.settings.disqus_shortname }}.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        {% elsif blog.comments_enabled? %}
+          {% if article.comments_count > 0 %}
+            <h2 class="article-template__comment-count">
+              {{ 'blogs.comments.response_count.zero' | t }}
+            </h2>
+
+            {% paginate article.comments by 10 %}
+              {% for comment in article.comments %}
+                <div id="comment-{{ comment.id }}" class="blog-comment">
+                  <div class="blog-comment__author-bio">
+                    <h3>
+                      {{ comment.author }}
+                    </h3>
+                    <div class="blog-comment__content">
+                      {{ comment.content }}
+                    </div>
+                    <p class="blog-comment__meta blog-comment__date">
+                      {{ comment.created_at | date: format: "month_day_year" }}
+                    </p>
+                  </div>
+                </div>
+              {% endfor %}
+
+              {%
+                render 'pagination',
+                paginate: paginate
+              %}
+
+            {% endpaginate %}
+          {% endif %}
+          <div class="article-template__new-comment">
+            <div id="new-comment"></div>
+              <h2 class="article-template__new-comment-title">{{ 'blogs.comments.title' | t }}</h2>
+
+              {% if blog.moderated? %}
+                <div class="article-template__new-comment-mod">{{ 'blogs.comments.moderated' | t }}</div>
+              {% endif %}
+
+              {% render 'comment-form' article: article %}
+            </div>
+            {% if section.settings.blog_additional_articles == true %}
+              <div class="article-template__articles">
+                <div class="article-template__articles-header">
+                  <h2 class="article-template__articles-heading">{{ 'blogs.article.additional_articles' | t: title: blog.title }}</h2>
+                </div>
+                {% if blog.articles.size >= 2 %}
+                  {% capture 'articles_wrapper_classes' %}
+                    article-template__articles-wrapper
+                    {% if blog.articles.size == 3 %}
+                      article-template__articles-wrapper--2-column
+                    {% elsif blog.articles.size == 2 %}
+                      article-template__articles-wrapper--1-column
+                    {% else %}
+                      article-template__articles-wrapper--3-column
+                    {% endif %}
+                  {% endcapture %}
+                  <div class="{{ articles_wrapper_classes }}">
+                    {%- assign article_found = false -%}
+                    {% for a in blog.articles limit: 4 %}
+                      {%- assign skip_article = false -%}
+                      {% if article.id == a.id %}
+                        {%- assign article_found = true -%}
+                        {%- assign skip_article = true -%}
+                      {% endif %}
+                      {% if article_found == false and forloop.last %}
+                        {%- assign skip_article = true -%}
+                      {% endif %}
+                      {% unless skip_article %}
+                        {%
+                          render 'blog-article',
+                          article: a,
+                          disqus_enabled: section.settings.disqus_enabled,
+                          show_date: section.settings.blog_date,
+                          show_author: section.settings.blog_author,
+                          show_tags: section.settings.blog_tags,
+                          show_comment_count: section.settings.blog_comment_count,
+                          show_link: section.settings.read_more_link
+                        %}
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                {% else%}
+                  <div class="article-template__articles--none">
+                    {{ 'blogs.article.no_additional_articles' | t }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+          </div>
+        {% endif %}
+      </div>
+  {% if section.blocks.size > 0 %}
+      </div>
+
+      {% if section.settings.sidebar_mobile_position == 'below' %}
+        <aside
+          class="
+            sidebar
+            article-template__bottom-sidebar
+          "
+          data-sidebar
+          data-sidebar-bottom
+          aria-label="{{ 'general.accessibility.sidebar' | t }}"
+          data-has-toggle="{{ toggle }}"
+        >
+          {%
+            render 'sidebar-content',
+            toggle: toggle
+          %}
+        </aside>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+
+{% if section.settings.disqus_enabled %}
+  <script id="dsq-count-scr" src="//{{ section.settings.disqus_shortname }}.disqus.com/count.js" async></script>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "articleBody": "{{ article.content | strip_html | escape }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ page.url }}"
+  },
+  "headline": "{{ article.title }}",
+  {% if article.excerpt != blank %}
+    "description": "{{ article.excerpt | strip_html | escape }}",
+  {% endif %}
+  {% if article.image %}
+    {%- assign image_size = article.image.width | append: 'x' -%}
+    "image": [
+      "https:{{ article | img_url: image_size }}"
+    ],
+  {% endif %}
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "dateCreated": "{{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ article.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    {%- assign image_size = settings.og_image_fallback.width | append: 'x' -%}
+    "logo": {
+      "@type": "ImageObject",
+      "height": "{{ settings.og_image_fallback.height }}",
+      "url": "https:{{ settings.og_image_fallback | img_url: image_size }}",
+      "width": "{{ settings.og_image_fallback.width }}"
+    },
+    "name": "{{ shop.name }}"
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "Blog post",
+  "class": "shopify-section--article-template",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "slideshow_article_enabled",
+      "label": "Show article banner image",
+      "info": "The blog post's featured image will be used as a full-width banner",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Banner text position",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "focal_point",
+      "label": "Banner image focal point",
+      "default": "center",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Banner overlay text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Banner overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Banner overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_tags",
+      "label": "Show tags",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_author",
+      "label": "Show author",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "display_social_buttons",
+      "label": "Show social media share icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_comment_count",
+      "label": "Show comment count",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Additional posts"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_additional_articles",
+      "label": "Show additional posts on blog post page",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "read_more_link",
+      "label": "Show continue reading link",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "DISQUS comments"
+    },
+    {
+      "type": "checkbox",
+      "id": "disqus_enabled",
+      "label": "Enable [DISQUS](http:\/\/disqus.com\/) comments (instead of Shopify's default comments)"
+    },
+    {
+      "type": "text",
+      "id": "disqus_shortname",
+      "label": "[DISQUS](http:\/\/help.disqus.com/en/articles/1717111-what-s-a-shortname\/) shortname"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "sidebar_mobile_position",
+      "label": "Mobile position",
+      "default": "below",
+      "options": [
+        {
+          "value": "below",
+          "label": "Below blog posts"
+        },
+        {
+          "value": "above",
+          "label": "Above blog posts"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post_tags",
+      "name": "Blog post tags",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter sign up form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "newsletter_richtext",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recent_posts",
+      "name": "Recent blog posts",
+      "limit": 1
+    },
+    {
+      "type": "search",
+      "name": "Search form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Ensure your search results return blog posts and pages by selecting \"Everything\" under Theme settings > Search > Search results."
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for details about blog authors or general information.</p>"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

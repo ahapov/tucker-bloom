@@ -1,0 +1,258 @@
+{% if section.settings.image != blank %}
+  {% render 'include-image-with-text-overlay' %}
+  {% render 'static-page', hide_title: true %}
+{% else %}
+  {% render 'static-page' %}
+{% endif %}
+
+
+
+<section class="faq">
+  <div class="faq__wrapper">
+    {% if section.blocks.size > 0 %}
+      <dl class="accordion">
+        {% for block in section.blocks %}
+          {% if block.type == "heading" %}
+            {% if block.settings.heading != blank %}
+              <h3 class="faq__heading">
+                {{ block.settings.heading }}
+              </h3>
+            {% endif %}
+          {% endif %}
+          {% if block.settings.title != blank %}
+            <dt>
+              <a href="#" aria-controls="panel-{{ forloop.index }}" aria-expanded="true">
+                <small></small>
+                {{ block.settings.title }}
+              </a>
+            </dt>
+            <dd id="panel-{{ forloop.index }}" aria-hidden="false">
+              {{ block.settings.subtitle }}
+            </dd>
+          {% endif %}
+        {% endfor %}
+      </dl>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "class": "shopify-section--faq-template banner-option",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "wide_display",
+      "label": "Wide display",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "original",
+          "label": "Original"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1600 x 600px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Banner overlay"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "FAQ"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "default": "center",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "center-left",
+          "label": "Center left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "center-right",
+          "label": "Center right"
+        },{
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "step": 5,
+      "min": 0,
+      "max": 100,
+      "default": 35,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Title"
+        }
+      ]
+    },
+    {
+      "name": "Frequently asked question",
+      "type": "Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "settings": {
+      "title": "FAQs"
+    },
+    "blocks": [
+      {
+        "type": "heading",
+        "settings": {
+          "heading": "Section"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Suspendisse feugiat. Fusce commodo aliquam arcu. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Suspendisse feugiat. Fusce commodo aliquam arcu. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Suspendisse feugiat. Fusce commodo aliquam arcu. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>"
+        }
+      },
+      {
+        "type": "heading",
+        "settings": {
+          "heading": "Section"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Suspendisse feugiat. Fusce commodo aliquam arcu. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Suspendisse feugiat. Fusce commodo aliquam arcu. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Suspendisse feugiat. Fusce commodo aliquam arcu. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>"
+        }
+      }
+    ]
+  }
+}
+
+{% endschema %}

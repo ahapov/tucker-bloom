@@ -1,0 +1,22 @@
+<div class="modal" data-modal data-open="false">
+  <div class="modal__overlay" data-modal-overlay></div>
+  <div class="modal__window" data-modal-window aria-label="modal window" tabindex="-1">
+    <button
+      class="modal__close-button"
+      type="button"
+      aria-label="{{ 'general.accessibility.close' | t }}"
+      data-modal-close
+    >
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 13L13 1M13 13L1 1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="modal__content" data-modal-content>
+      <div class="modal__content-loading">
+        <div class="loading-icon">
+          <div class="loading-icon__animation"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

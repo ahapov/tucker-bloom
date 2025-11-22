@@ -1,0 +1,76 @@
+{% comment %}
+  @param active_filters_count {Number} - Number of active filters
+  @param toggle {Boolean} - If true, filters should be collapsible
+  @param show_product_count {Boolean} - Whether to show the product count next to the filter
+{% endcomment %}
+
+{% if template contains "collection" %}
+  {%- assign filter_type = collection.filters %}
+  {%- assign filter_template = 'collection' %}
+  {%- assign clear_url = collection.url %}
+{% else %}
+  {%- assign filter_type = search.filters %}
+  {%- assign filter_template = 'search' %}
+
+  {%- capture clear_url -%}
+    {{ routes.search_url }}?q={{ search.terms | url_encode }}
+  {%- endcapture -%}
+{% endif %}
+
+<nav
+  class="navigation-mobile navigation-mobile-filters"
+  data-mobile-filters
+  tabindex="-1"
+  aria-label="{{ 'layout.general.menu' | t }}"
+>
+  <div class="navigation-mobile__overlay" data-mobile-overlay></div>
+  <div
+    class="
+      navigation-mobile__flyout
+      navigation-mobile-filters__flyout
+    "
+    data-mobile-main-flyout
+  >
+    <div class="navigation-mobile__flyout-header">
+      <div class="navigation-mobile__flyout-title">
+        {{ 'collections.sorting.filter' | t }}
+      </div>
+      <button
+        class="navigation-mobile__close-button"
+        data-mobile-nav-close
+        aria-label="{{ 'general.accessibility.close' | t }}"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 13L13 1M13 13L1 1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    {% if active_filters_count > 0 %}
+      <div class="navigation-mobile__filters--active">
+        {%
+          render 'active-filters',
+          active_filters_count: active_filters_count,
+          filters: filter_type,
+          clear_url: clear_url
+        %}
+      </div>
+    {% endif %}
+    <ul class="mobile-menu mobile-menu-filters"
+      data-sidebar
+      data-sidebar-mobile-menu-filters
+      data-faceted-search-mobile
+      data-has-toggle="{{ toggle }}"
+    >
+
+      {%- for filter in filter_type -%}
+        {%
+          render 'faceted-filter-group',
+          filter: filter,
+          class_prefix: filter_template,
+          show_product_count: show_product_count,
+          toggle: toggle,
+        %}
+      {%- endfor -%}
+    </ul>
+  </div>
+</nav>

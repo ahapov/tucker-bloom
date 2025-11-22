@@ -1,0 +1,208 @@
+{% comment %}
+  @param class_prefix
+  @param filter
+  @param filter_group_classes
+  @param toggle
+{% endcomment %}
+
+{% liquid
+  assign should_be_expanded = false
+
+  if filter.type == 'boolean' or 'list'
+    assign active_values_size = filter.active_values | size
+    if active_values_size > 0
+      assign should_be_expanded = true
+    endif
+  elsif filter.type == 'price_range' and filter.min_value.value or filter.max_value.value
+    assign should_be_expanded = true
+  endif
+%}
+
+<div
+  class="
+    sidebar__block
+    {{ filter_group_classes }}
+  "
+  aria-label="{{ 'collections.sorting.title_count.zero' | t }}"
+  data-filter-group
+>
+  {% if toggle %}
+    <a
+      class="sidebar__block-toggle"
+      href="#"
+      data-sidebar-toggle
+      aria-haspopup="true"
+      aria-controls="sidebar-content-{{ block.id }}"
+      {% if should_be_expanded %}
+        data-open="true"
+        aria-expanded="true"
+      {% else %}
+        data-open="false"
+        aria-expanded="false"
+      {% endif %}
+    >
+  {% endif %}
+    <div class="sidebar__block-heading">
+      {{ filter.label }}
+    </div>
+  {% if toggle %}
+    </a>
+  {% endif %}
+
+  {% case filter.type %}
+    {% when 'boolean' or 'list' %}
+      <ul
+        class="
+          sidebar__block-content
+          sidebar__tag-list
+          {{ class_prefix }}-filters__filter
+          {{ class_prefix }}-filters__filter-list
+        "
+        data-filter-group-list
+        {% if toggle and should_be_expanded %}
+          data-animation-state="open"
+        {% elsif toggle %}
+          data-animation-state="closed"
+        {% endif %}
+        >
+        {%- for value in filter.values -%}
+          <li
+            class="
+              {{ class_prefix }}-filters__filter-list-item
+              {% if filter.type == 'list' %}
+                {{ class_prefix }}-filters__filter-list-item--{{ filter.presentation }}-presentation
+              {% endif %}
+              {% if value.active %}
+                sidebar__block-link--active
+              {% endif %}
+            "
+            {% if value.active -%}
+              data-filter-open="true"
+          {% else %}
+              data-filter-open="false"
+            {% endif %}
+          >
+            <a
+              class="
+                sidebar__tag-link
+                {{ class_prefix }}-filters__filter-link
+                {{ class_prefix }}-filters__filter-link--{{ filter.presentation }}
+                {% if value.active %}
+                  sidebar__tag-link--active
+                  {{ class_prefix }}-filters__filter-link--active
+                {% endif %}
+              "
+              data-name="{{ value.param_name }}"
+              data-value="{{ value.value }}"
+
+              {% if value.active -%}
+                data-filter-active
+                data-url="{{ value.url_to_remove | replace: '%2C', ',' }}"
+                href="{{ value.url_to_remove | replace: '%2C', ',' }}"
+              {% else %}
+                data-url="{{ value.url_to_add | replace: '%2C', ',' }}"
+                href="{{ value.url_to_add | replace: '%2C', ',' }}"
+              {%- endif %}
+              {% if value.count == 0 and value.active == false -%}
+                data-disabled
+                tabindex="-1"
+              {%- endif %}
+              data-filter-input
+            >
+              {% if filter.presentation == 'swatch' %}
+                {%
+                  render 'faceted-filter-swatch',
+                  type: value.display.type,
+                  value: value.display.value,
+                %}
+              {% elsif filter.presentation == 'image' %}
+                <span class="faceted-filter-image">
+                  {%- if value.image -%}
+                    {{ value.image | image_url: width: 100 | image_tag: class: 'faceted-filter-image__image', alt: value.image.alt, loading: 'lazy' }}
+                  {%- endif -%}
+                </span>
+              {% endif %}
+
+              {{ value.label | escape }}
+
+              {% if show_product_count %}
+                ({{ value.count }})
+              {% endif %}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {% when 'price_range' %}
+      <form
+        id="sidebar-content-{{ block.id }}"
+        class="
+          sidebar__block-content
+          {{ class_prefix }}-filters__price-range-form
+        "
+        {% if toggle and should_be_expanded %}
+          data-animation-state="open"
+        {% elsif toggle %}
+          data-animation-state="closed"
+        {% endif %}
+      >
+        <div
+          class="
+            {{ class_prefix }}-filters__filter
+            {{ class_prefix }}-filters__filter-range
+          "
+          data-filter-group-range
+        >
+          <div class="{{ class_prefix }}-filters__filter-range--from">
+            <label
+              class="{{ class_prefix }}-filters__filter-range-label"
+              for="{{ filter_group_classes }}-filter-{{ filter.label }}-from"
+            >
+              From
+            </label>
+            <div class="{{ class_prefix }}-filters__filter-range-wrapper">
+              <span class="{{ class_prefix }}-filters__filter-range-currency">{{ cart.currency.symbol }}</span>
+              <input
+                class="{{ class_prefix }}-filters__filter-range-input"
+                name="{{ filter.min_value.param_name }}"
+                data-test="{{ filter.active_values }}"
+                id="{{ filter_group_classes }}-filter-{{ filter.label }}-from"
+                {% if filter.min_value.value -%}
+                  value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                {%- endif %}
+                type="number"
+                placeholder="0"
+                min="0"
+                max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                data-filter-range
+              >
+            </div>
+          </div>
+          <div class="{{ class_prefix }}-filters__filter-range--to">
+            <label
+              class="{{ class_prefix }}-filters__filter-range-label"
+              for="{{ filter_group_classes }}-filter-{{ filter.label }}-to"
+            >
+              To
+            </label>
+            <div class="{{ class_prefix }}-filters__filter-range-wrapper">
+              <span class="{{ class_prefix }}-filters__filter-range-currency">{{ cart.currency.symbol }}</span>
+              <input
+                class="{{ class_prefix }}-filters__filter-range-input"
+                name="{{ filter.max_value.param_name }}"
+                data-test="{{ filter.active_values }}"
+                id="{{ filter_group_classes }}-filter-{{ filter.label }}-to"
+                {% if filter.max_value.value -%}
+                  value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                {%- endif %}
+                type="number"
+                placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                min="0"
+                max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                data-filter-range
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+  {% endcase %}
+</div>

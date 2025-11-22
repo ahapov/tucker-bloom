@@ -1,0 +1,270 @@
+{% comment %}
+  collection_price_position: <string> One of 'left', 'center', 'right'
+    Default: settings.collection_price_position
+
+  Optional
+  ---------
+  enable_quick_shop: <boolean>
+{% endcomment %}
+
+{% if product %}
+  {%- liquid
+    assign display_quick_shop = enable_quick_shop | default: settings.quick_shop_enabled | default: false
+    if product.variants_count > 250
+      assign display_quick_shop = false
+    endif
+    assign collection_handles = product.collections | map: 'handle'
+    assign featured_image = product.featured_media
+    assign static_image = product.featured_media.preview_image
+    assign images = product.media
+    assign collection_price_position = collection_price_position | default: settings.collection_price_position
+  -%}
+
+  {%- assign image_size = '1200x' -%}
+  {%- assign crop = false -%}
+  {% if settings.align_height == true %}
+    {%- assign crop = 'center' -%}
+    {%- assign image_size = 'x' | append: settings.collection_height -%}
+  {% endif %}
+
+  {% if collection_handles contains 'coming-soon' %}
+    {%- assign coming_soon = true -%}
+  {% else %}
+    {%- assign coming_soon = false -%}
+  {% endif %}
+
+  {% comment %} This hash is used for the quickshop {% endcomment %}
+  {% capture to_hash %}
+    {{ product | json }}
+  {% endcapture %}
+  {% assign to_hash = to_hash | replace: ' ', '' | sha256 %}
+
+
+  {% capture product_card_price %}
+    <span
+      class="
+        product-thumbnail__price
+        product__price
+        {% if product.compare_at_price_max > product.price %}
+          product__sale-price
+        {% endif %}
+      "
+    >
+      {% if product.available and coming_soon == false %}
+        {% if product.price_varies and product.price_min > 0 %}
+          {{ 'products.general.from' | t }}
+        {% endif %}
+        {% if product.price_min > 0 %}
+          <span class="money">
+            {% render 'price-element', price: product.price_min %}
+          </span>
+        {% else %}
+          {{ settings.free_price_text }}
+        {% endif %}
+        {% if product.compare_at_price_max > product.price %}
+          <span class="product-thumbnail__compare-price">
+            <span class="money">
+              {% render 'price-element', price: product.compare_at_price_max %}
+            </span>
+          </span>
+        {% endif %}
+      {% elsif coming_soon %}
+        <span class="product-thumbnail__coming-soon-text">{{ 'collections.general.coming_soon' | t }}</span>
+      {% else %}
+        <span class="product-thumbnail__sold-out-text">{{ 'products.product.sold_out' | t }}</span>
+      {% endif %}
+
+      {% assign variant_for_unit_price = product.variants | sort: 'price' | first %}
+      {% if variant_for_unit_price.unit_price_measurement %}
+        {% capture total_quantity %}<span>{{ variant_for_unit_price.unit_price_measurement.quantity_value }}{{ variant_for_unit_price.unit_price_measurement.quantity_unit }}</span>{% endcapture %}
+        {% capture unit_price %}<span>{{ variant_for_unit_price.unit_price | money }}</span>{% endcapture %}
+        {% capture unit_measure %}<span>{%- if variant_for_unit_price.unit_price_measurement.reference_value != 1 -%}{{ variant_for_unit_price.unit_price_measurement.reference_value }}{%- endif %}{{ variant_for_unit_price.unit_price_measurement.reference_unit }}</span>{% endcapture %}
+
+        <div class="product-item__unit-price">
+          {{ 'product.unit_pricing.price_per_unit_html' | t: total_quantity: total_quantity, unit_price: unit_price, unit_measure: unit_measure | strip_newlines }}
+        </div>
+      {% endif %}
+    </span>
+  {% endcapture %}
+
+  <div
+    class="
+      product-thumbnail
+      {% if settings.collection_secondary_image != blank and product.media[1] != blank %}
+        product-thumbnail--has-secondary-media-swap
+      {% endif %}
+      product-thumbnail--align-height-{{ settings.align_height }}
+    "
+    data-product-thumbnail
+  >
+    <div class="product-thumbnail__media-wrapper" data-media-wrapper>
+      <a
+        href="{{ product.url | within: collection }}"
+        class="product-thumbnail__link"
+        aria-label="{{ product.url }}"
+        data-reference-url="{{ product.url }}"
+      >
+        {% if product.media != blank %}
+          <div class="product-thumbnail__media" data-primary-media>
+            {%
+              render 'rimg',
+              img: static_image,
+              alt: alt_text,
+              lazy: true,
+              canvas: true,
+              size: image_size,
+              crop: crop
+            %}
+          </div>
+        {% else %}
+          {% capture num %}{% cycle "1", "2", "3", "5", "6" %}{% endcapture %}
+          {{ 'collection-' | append: num | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+        {% endif %}
+
+        {% if settings.collection_secondary_image and product.media[1] != blank %}
+          {% if product.media[1].media_type == 'external_video' or product.media[1].media_type == 'video' %}
+            <div
+              class="
+                product-thumbnail__video
+                product-thumbnail__secondary-media
+                hidden
+              "
+              data-thumbnail-video
+              {% if product.media[1].media_type == 'video' %}
+                data-html5-video
+              {% endif %}
+            >
+              {% if product.media[1].media_type == 'external_video' %}
+                <div
+                  class="external-video-wrapper"
+                  data-external-video
+                >
+                  {{ product.media[1] | external_video_tag }}
+                </div>
+              {% else %}
+                {{ product.media[1] | video_tag: controls: false }}
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if product.media[1] != blank %}
+          <div
+            class="
+              product-thumbnail__secondary-media
+              product-thumbnail__image
+              hidden
+            "
+            data-secondary-media
+          >
+            {%
+              render 'rimg',
+              img: product.media[1].preview_image,
+              alt: alt_text,
+              lazy: true,
+              canvas: true,
+            %}
+          </div>
+        {% endif %}
+      </a>
+
+      <div class="product-thumbnail__product-stickers">
+        {% if settings.sale_banner_enabled %}
+          {% if product.compare_at_price_max > product.price %}
+            <div
+              class="product-thumbnail__product-sticker
+              product-thumbnail__product-sticker--sale"
+            >
+              {{ 'collections.general.sale' | t }}
+            </div>
+          {% endif %}
+          {% if collection_handles contains 'new' %}
+            <div
+              class="product-thumbnail__product-sticker
+              product-thumbnail__product-sticker--new"
+            >
+              {{ 'collections.general.new' | t }}
+            </div>
+          {% endif %}
+          {% if collection_handles contains 'coming-soon' %}
+            <div
+              class="product-thumbnail__product-sticker
+              product-thumbnail__product-sticker--coming-soon"
+            >
+              {{ 'collections.general.coming_soon' | t }}
+            </div>
+          {% endif %}
+          {% if collection_handles contains 'pre-order' %}
+            <div
+              class="product-thumbnail__product-sticker
+              product-thumbnail__product-sticker--pre-order"
+            >
+              {{ 'collections.general.pre_order' | t }}
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      {% if display_quick_shop %}
+        <button
+          class="product-thumbnail__quickshop-button"
+          data-quickshop-button
+          data-quickshop-url="{{ product.url }}"
+          data-product-quickshop-hash="{{ to_hash }}"
+        >
+          {{ 'collections.general.quick_shop' | t }}
+        </button>
+      {% endif %}
+    </div>
+
+    <div
+      class="product-thumbnail__info
+      product-thumbnail__info--{{ collection_price_position }}"
+    >
+      <div class="product-thumbnail__header">
+        <a href="{{ product.url | within: collection }}" class="product-thumbnail__title">
+          {{ product.title | escape }}
+        </a>
+
+        {% if collection_price_position == 'right' %}
+          {{ product_card_price }}
+        {% endif %}
+      </div>
+
+      {% if settings.display_vendor_collection %}
+        <span>
+          {{ product.vendor | escape }}
+        </span>
+      {% endif %}
+
+      {{ product_card_price }}
+
+      {% render 'collection-swatch', product: product %}
+
+      {% if settings.enable_shopify_collection_badges %}
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      {% endif %}
+    </div>
+  </div>
+
+{% else %}
+  {% comment %} When product is nil {% endcomment %}
+  <div class="product-thumbnail" data-product-thumbnail>
+    <a
+      href="#"
+      aria-label="{{ 'homepage.onboarding.product_title' | t }}"
+    >
+      <div class="product-thumbnail__media-wrapper">
+        {{ 'collection-' | append: num | placeholder_svg_tag: 'placeholder-svg placeholder-svg--product' }}
+      </div>
+      <div class="product-thumbnail__info">
+        <span class="product-thumbnail__title">
+          {{ 'homepage.onboarding.product_title' | t }}
+        </span>
+          <span class="product-thumbnail__price">
+          <span class="money">$49.60</span>
+        </span>
+      </div>
+    </a>
+  </div>
+{% endif %}

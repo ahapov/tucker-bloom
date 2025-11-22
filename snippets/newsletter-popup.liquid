@@ -1,0 +1,49 @@
+<aside class="newsletter-popup
+  newsletter-popup--position-{{ settings.newsletter_popup_position }}
+  newsletter-popup--image-{% if settings.newsletter_popup_image != blank %}true{% endif %}
+  newsletter-popup--display-mobile-{{ settings.newsletter_popup_mobile }}"
+  data-popup-opened="false"
+>
+  <button class="popup__close" data-popup-close>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 13L13 1M13 13L1 1" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  {% if settings.newsletter_popup_image != blank %}
+    <div class="popup__image">
+      {%
+        render 'rimg',
+        img: settings.newsletter_popup_image,
+        size: '1000x',
+        lazy: true,
+        canvas: true,
+        focal_point: settings.newsletter_popup_image.presentation.focal_point,
+      %}
+    </div>
+  {% endif %}
+
+  <div class="popup__content text-align-center">
+    {% if settings.newsletter_popup_title != blank %}
+      <h2 class="popup__heading">{{ settings.newsletter_popup_title }}</h2>
+    {% endif %}
+
+    {% if settings.newsletter_popup_text != blank %}
+      <div class="popup__text">{{ settings.newsletter_popup_text }}</div>
+    {% endif %}
+
+    {% if settings.newsletter_popup_form == true %}
+      <div class="popup__text-newsletter">
+        {% render 'newsletter' %}
+      </div>
+    {% endif %}
+
+    {% if settings.newsletter_popup_link != blank and settings.newsletter_popup_link_text != blank %}
+      <div class="popup__link-container">
+        <a class="popup__link" href="settings.newsletter_popup_link">
+          {{ settings.newsletter_popup_link_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</aside>

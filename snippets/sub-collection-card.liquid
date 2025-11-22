@@ -1,0 +1,54 @@
+{% comment %}
+  This creates a collection card based on the navigation created in the sub-collection.
+  It only gets used on the collection.sub-collections template.
+{% endcomment %}
+
+{%- assign link_item = link.object -%}
+
+{% if link.type == 'collection_link' %}
+  {% if link_item.image %}
+    {%- assign collection_image = link_item.image -%}
+  {% else %}
+    {%- assign collection_image = link_item.products.first.featured_image -%}
+  {% endif %}
+{% elsif link.type == 'product_link' %}
+  {%- assign collection_image = link_item.featured_image -%}
+{% elsif link.type == 'page_link' %}
+  {% if link_item.content contains "<img" %}
+    {%- assign image_src = link_item.content | split: 'src="' -%}
+    {%- assign image_src = src[1] | split: '"' | first -%}
+  {% endif %}
+{% elsif link.type == 'blog_link' %}
+  {% if link_item.articles.first.image %}
+    {%- assign collection_image = link_item.articles.first.image -%}
+  {% elsif link_item.articles.first.content contains "<img" %}
+    {%- assign image_src = link_item.articles.first.content | split: 'src="' -%}
+    {%- assign image_src = src[1] | split: '"' | first %}
+  {% endif %}
+{% endif %}
+
+<div class="collection-list-card">
+  <a class="collection-list-card__image" href="{{ link.url }}" title="{{ link_title }}">
+    {% if collection_image != blank %}
+      <div class="collection-list-card__image-wrapper">
+        {%
+          render 'rimg',
+          img: collection_image,
+          lazy: true,
+          canvas: true
+        %}
+      </div>
+    {% elsif image_src %}
+      <img src="{{ image_src }}" />
+    {% else %}
+      {% capture num %}{% cycle "1", "2", "3", "5", "6" %}{% endcapture %}
+      {{ 'collection-' | append: num | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+
+    <div class="collection-list-card__info text-align-center">
+      <span class="collection-list-card__title">
+        {{ link.title | escape }}
+      </span>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,473 @@
+{
+  "sections": {
+    "product": {
+      "blocks": {
+        "form": {
+          "show_gift_card_recipient_form": {
+            "label": "Show recipient information form for gift card products",
+            "info": "Gift card products can optionally be sent direct to a recipient along with a personal message. [Learn more](https://help.shopify.com/en/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
+          }
+        },
+        "complementary_products": {
+          "name": "Complementary products",
+          "settings": {
+            "paragraph": {
+              "content": "To select complementary products, add the Search & Discovery app. [Learn more](https://shopify.dev/themes/product-merchandising/recommendations)"
+            },
+            "heading": {
+              "label": "Heading"
+            },
+            "product_recommendation_limit": {
+              "label": "Maximum products to show"
+            },
+            "products_per_slide": {
+              "label": "Number of products per page"
+            }
+          }
+        }
+      }
+    },
+    "countdown_timer": {
+      "name": "Countdown timer",
+      "full_width": {
+        "label": "Full width"
+      },
+      "section_height": {
+        "label": "Section height",
+        "option_1": "Small",
+        "option_2": "Medium",
+        "option_3": "Large",
+        "option_4": "Natural"
+      },
+      "image": {
+        "label": "Image"
+      },
+      "image_focal_point": {
+        "label": "Image focal point",
+        "option_1": "Top left",
+        "option_2": "Top center",
+        "option_3": "Top right",
+        "option_4": "Center left",
+        "option_5": "Center",
+        "option_6": "Center right",
+        "option_7": "Bottom left",
+        "option_8": "Bottom center",
+        "option_9": "Bottom right"
+      },
+      "header_1": {
+        "content": "Timer"
+      },
+      "countdown_year": {
+        "label": "Year"
+      },
+      "countdown_month": {
+        "label": "Month",
+        "option_1": "January",
+        "option_2": "February",
+        "option_3": "March",
+        "option_4": "April",
+        "option_5": "May",
+        "option_6": "June",
+        "option_7": "July",
+        "option_8": "August",
+        "option_9": "September",
+        "option_10": "October",
+        "option_11": "November",
+        "option_12": "December"
+      },
+      "countdown_day": {
+        "label": "Day",
+        "option_1": "1",
+        "option_2": "2",
+        "option_3": "3",
+        "option_4": "4",
+        "option_5": "5",
+        "option_6": "6",
+        "option_7": "7",
+        "option_8": "8",
+        "option_9": "9",
+        "option_10": "10",
+        "option_11": "11",
+        "option_12": "12",
+        "option_13": "13",
+        "option_14": "14",
+        "option_15": "15",
+        "option_16": "16",
+        "option_17": "17",
+        "option_18": "18",
+        "option_19": "19",
+        "option_20": "20",
+        "option_21": "21",
+        "option_22": "22",
+        "option_23": "23",
+        "option_24": "24",
+        "option_25": "25",
+        "option_26": "26",
+        "option_27": "27",
+        "option_28": "28",
+        "option_29": "29",
+        "option_30": "30",
+        "option_31": "31"
+      },
+      "countdown_hour": {
+        "label": "Hour",
+        "option_1": "00:00",
+        "option_2": "01:00",
+        "option_3": "02:00",
+        "option_4": "03:00",
+        "option_5": "04:00",
+        "option_6": "05:00",
+        "option_7": "06:00",
+        "option_8": "07:00",
+        "option_9": "08:00",
+        "option_10": "09:00",
+        "option_11": "10:00",
+        "option_12": "11:00",
+        "option_13": "12:00",
+        "option_14": "13:00",
+        "option_15": "14:00",
+        "option_16": "15:00",
+        "option_17": "16:00",
+        "option_18": "17:00",
+        "option_19": "18:00",
+        "option_20": "19:00",
+        "option_21": "20:00",
+        "option_22": "21:00",
+        "option_23": "22:00",
+        "option_24": "23:00"
+      },
+      "countdown_minute": {
+        "label": "Minute",
+        "option_1": "00",
+        "option_2": "01",
+        "option_3": "02",
+        "option_4": "03",
+        "option_5": "04",
+        "option_6": "05",
+        "option_7": "06",
+        "option_8": "07",
+        "option_9": "08",
+        "option_10": "09",
+        "option_11": "10",
+        "option_12": "11",
+        "option_13": "12",
+        "option_14": "13",
+        "option_15": "14",
+        "option_16": "15",
+        "option_17": "16",
+        "option_18": "17",
+        "option_19": "18",
+        "option_20": "19",
+        "option_21": "20",
+        "option_22": "21",
+        "option_23": "22",
+        "option_24": "23",
+        "option_25": "24",
+        "option_26": "25",
+        "option_27": "26",
+        "option_28": "27",
+        "option_29": "28",
+        "option_30": "29",
+        "option_31": "30",
+        "option_32": "31",
+        "option_33": "32",
+        "option_34": "33",
+        "option_35": "34",
+        "option_36": "35",
+        "option_37": "36",
+        "option_38": "37",
+        "option_39": "38",
+        "option_40": "39",
+        "option_41": "40",
+        "option_42": "41",
+        "option_43": "42",
+        "option_44": "43",
+        "option_45": "44",
+        "option_46": "45",
+        "option_47": "46",
+        "option_48": "47",
+        "option_49": "48",
+        "option_50": "49",
+        "option_51": "50",
+        "option_52": "51",
+        "option_53": "52",
+        "option_54": "53",
+        "option_55": "54",
+        "option_56": "55",
+        "option_57": "56",
+        "option_58": "57",
+        "option_59": "58",
+        "option_60": "59"
+      },
+      "countdown_timer_background": {
+        "label": "Show countdown timer background"
+      },
+      "countdown_timer_complete": {
+        "label": "Hide timer on complete"
+      },
+      "countdown_timer_message": {
+        "label": "Timer complete message"
+      },
+      "product": {
+        "label": "Product"
+      },
+      "header_2": {
+        "content": "Content"
+      },
+      "title": {
+        "label": "Heading"
+      },
+      "text": {
+        "label": "Text"
+      },
+      "button_link": {
+        "label": "Button link"
+      },
+      "button_label": {
+        "label": "Button label"
+      },
+      "button_style": {
+        "label": "Button style",
+        "option_1": "Primary",
+        "option_2": "Secondary"
+      },
+      "header_3": {
+        "content": "Color"
+      },
+      "text_color": {
+        "label": "Text"
+      },
+      "overlay_color": {
+        "label": "Overlay"
+      },
+      "overlay_opacity": {
+        "label": "Overlay opacity",
+        "unit": "%"
+      },
+      "product_card_background_color": {
+        "label": "Product card background"
+      },
+      "presets": {
+        "countdown_timer": {
+          "name": "Countdown timer",
+          "category": "Promotional"
+        }
+      }
+    },
+    "age_gate": {
+      "name": "Page age gate",
+      "minimum_age": {
+        "label": "Minimum age required to access page"
+      },
+      "presets": {
+        "name": "Page age gate",
+        "category": "Layout"
+      }
+    }
+  },
+  "settings_schema": {
+    "age_gate": {
+      "name": "Age gate",
+      "enable_site_wide": {
+        "label": "Enable site-wide"
+      },
+      "minimum_age": {
+        "label": "Minimum age required to access site"
+      },
+      "heading": {
+        "label": "Heading"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "show_logo": {
+        "label": "Show logo",
+        "info": "Visit [brand settings](/admin/settings/branding) to edit logo."
+      }
+    }
+  },
+  "flex_pdp": {
+    "section": {
+      "high_variant": {
+        "name": "Product: 250+ variants",
+        "settings": {
+          "padding": {
+            "label": "Padding",
+            "options": {
+              "none": {
+                "label": "None"
+              },
+              "top": {
+                "label": "Top"
+              },
+              "bottom": {
+                "label": "Bottom"
+              },
+              "both": {
+                "label": "Both"
+              }
+            }
+          }
+        },
+        "presets": {
+          "high_variant": {
+            "name": "Product (250+ Variants)"
+          }
+        }
+      }
+    },
+    "blocks": {
+      "buy_buttons": {
+        "name": "Buy buttons",
+        "settings": {
+          "show_dynamic_checkout": {
+            "label": "Show accelerated checkout button",
+            "info": "Each customer will see their preferred payment method from those available on your store, such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/en/manual/online-store/dynamic-checkout)"
+          }
+        },
+        "presets": {
+          "buy_buttons": {
+            "name": "Buy buttons"
+          }
+        }
+      },
+      "description": {
+        "name": "Description"
+      },
+      "divider": {
+        "name": "Divider"
+      },
+      "gift_recipient": {
+        "name": "Gift recipient",
+        "settings": {
+          "content": "Renders the gift recipient form for the product."
+        }
+      },
+      "installments": {
+        "name": "Payment installments",
+        "settings": {
+          "content": "To display payment installments, your store needs to support Shop Pay Installments. [Learn more](https://help.shopify.com/en/manual/payments/shop-pay-installments)."
+        }
+      },
+      "inventory": {
+        "name": "Inventory",
+        "settings": {
+          "content": "Renders the inventory status for the product based on the inventory threshold, including low stock warning and incoming inventory.",
+          "inventory_threshold": {
+            "label": "Low inventory threshold"
+          }
+        }
+      },
+      "media_gallery": {
+        "name": "Media gallery",
+        "settings": {
+          "image_aspect_ratio": {
+            "label": "Aspect ratio",
+            "options": {
+              "initial": {
+                "label": "Natural"
+              },
+              "portrait": {
+                "label": "Portrait"
+              },
+              "square": {
+                "label": "Square"
+              },
+              "landscape": {
+                "label": "Landscape"
+              }
+            }
+          },
+          "enable_video_looping": {
+            "label": "Video looping"
+          },
+          "enable_video_autoplay": {
+            "label": "Autoplay video",
+            "info": "Autoplayed videos are muted for accessibility."
+          }
+        }
+      },
+      "media_grid": {
+        "name": "Media grid",
+        "settings": {
+          "image_aspect_ratio": {
+            "label": "Aspect ratio",
+            "options": {
+              "initial": {
+                "label": "Natural"
+              },
+              "portrait": {
+                "label": "Portrait"
+              },
+              "square": {
+                "label": "Square"
+              },
+              "landscape": {
+                "label": "Landscape"
+              }
+            }
+          },
+          "enable_video_looping": {
+            "label": "Video looping"
+          },
+          "enable_video_autoplay": {
+            "label": "Autoplay video",
+            "info": "Autoplayed videos are muted for accessibility."
+          }
+        }
+      },
+      "pick_up": {
+        "name": "Pickup availability",
+        "settings": {
+          "content": "Shows retail availability when local pickup is enabled. [Learn more](https://help.shopify.com/en/manual/fulfillment/setup/delivery-methods/pickup-in-store)."
+        }
+      },
+      "policies": {
+        "name": "Policies",
+        "settings": {
+          "content": "Shows if tax is included in the price and links to your shipping policy (if set). [Learn how to set up tax-inclusive pricing](https://help.shopify.com/en/manual/taxes) and [learn how to add a shipping policy](https://help.shopify.com/en/manual/fulfillment/setup/shipping-profiles#create-a-shipping-policy)."
+        }
+      },
+      "price": {
+        "name": "Price"
+      },
+      "quantity_picker": {
+        "name": "Quantity picker",
+        "settings": {
+          "show_inventory_status": {
+            "label": "Show inventory status"
+          },
+          "inventory_threshold": {
+            "label": "Low stock threshold"
+          }
+        }
+      },
+      "sku": {
+        "name": "SKU"
+      },
+      "title": {
+        "name": "Title"
+      },
+      "variant_picker": {
+        "name": "Variant picker",
+        "settings": {
+          "variant_selector_type": {
+            "label": "Style",
+            "options": {
+              "radio": {
+                "label": "Buttons"
+              },
+              "select": {
+                "label": "Dropdowns"
+              }
+            },
+            "info": "Show product options as buttons and swatches or dropdowns. [Learn how to set up color swatches](https://help.shopify.com/en/manual/custom-data/metafields/category-metafields/using-category-metafields)."
+          }
+        }
+      },
+      "vendor": {
+        "name": "Vendor"
+      }
+    }
+  }
+}

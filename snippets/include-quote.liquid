@@ -1,0 +1,19 @@
+{% comment %}
+** Quote - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+<section class="quote-section">
+  <div class="section__wrapper">
+    <blockquote>
+      {{ object.settings.page_quote }}
+    </blockquote>
+  </div>
+</section>

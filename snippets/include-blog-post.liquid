@@ -1,0 +1,70 @@
+{% comment %}
+** Blog posts - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Assign object as block or section {% endcomment %}
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{%- assign blog = blogs[object.settings.blog_widget_select] -%}
+{%- assign column_count = object.settings.article_count | plus: 0 -%}
+{%- if blog != blank and blog.articles.size < column_count -%}
+  {%- assign column_count = blog.articles.size -%}
+{%- endif -%}
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="blog-posts"
+  data-section-type="blog-posts"
+  data-section-id="{{ object.id }}"
+>
+  {% if object.settings.title != blank %}
+    <div class="blog-posts__header">
+      <h2 class="blog-posts__heading">
+        {{ object.settings.title | escape }}
+      </h2>
+    </div>
+  {% endif %}
+
+  <div
+    class="
+      blog-posts__wrapper
+      blog-posts__wrapper--{{column_count}}-column
+    "
+    data-blog-posts-wrapper
+  >
+    {% if blog != blank and column_count > 0 %}
+
+      {% for article in blog.articles limit: column_count %}
+        {%
+          render 'blog-article',
+          article: article,
+          show_date: object.settings.blog_date,
+          show_author: object.settings.blog_author,
+          show_tags: object.settings.blog_tags,
+          show_comment_count: object.settings.blog_comment_count,
+          show_link: object.settings.read_more_link
+        %}
+      {% endfor %}
+
+    {% else %}
+
+      {% for i in (1..object.settings.article_count) %}
+        {%
+          render 'blog-article',
+          article: nil,
+          show_date: object.settings.blog_date,
+          show_author: object.settings.blog_author,
+          show_tags: object.settings.blog_tags,
+          show_comment_count: object.settings.blog_comment_count,
+          show_link: object.settings.read_more_link
+        %}
+      {% endfor %}
+
+    {% endif %}
+  </div>
+</section>

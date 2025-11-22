@@ -1,0 +1,143 @@
+{% comment %}
+** Newsletter - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign title = section.settings.title -%}
+{%- assign subheading = section.settings.subheading -%}
+{%- assign newsletter_richtext = section.settings.newsletter_richtext -%}
+{% comment %} End content settings {% endcomment %}
+
+{% if section.settings.newsletter_background != blank %}
+  {%- assign newsletter_background = true -%}
+{% else %}
+  {%- assign newsletter_background = false -%}
+{% endif %}
+
+<section
+  class="newsletter-section
+  newsletter-section--wide-{{ section.settings.wide_display }}
+  newsletter-section--background-color-{{ newsletter_background }}"
+  data-section-id="{{ section.id }}"
+  style="--newsletter-background-color: {{ section.settings.newsletter_background }};"
+>
+  <div class="newsletter-section__wrapper">
+    {% if title != blank %}
+      <div
+        class="newsletter-section__header
+        newsletter-section_alignment--{{ section.settings.text_align }}"
+      >
+        <h2
+          class="newsletter-section__heading"
+          style="--newsletter-text-color:{{ section.settings.newsletter_text }};">
+          {{ title | escape }}
+        </h2>
+
+        {% if subheading != blank %}
+          <p class="newsletter-section__subheading">
+            {{ subheading | escape }}
+          </p>
+        {% endif %}
+
+        {% if newsletter_richtext != blank %}
+          <div class="newsletter-section__richtext">
+            {{ newsletter_richtext }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%
+      render 'newsletter'
+      display_first_name: section.settings.display_first_name,
+      display_last_name: section.settings.display_last_name
+    %}
+  </div>
+</section>
+
+<style>
+.shopify-section--newsletter {
+  color: {{ section.settings.newsletter_text }};
+  background-color: {{ section.settings.newsletter_background }};
+}
+{% unless section.settings.wide_display %}
+  .shopify-section--newsletter {
+    background-color: transparent;
+  }
+{% endunless %}
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "class": "shopify-section--newsletter",
+  "settings": [
+      {
+      "type": "checkbox",
+      "id": "wide_display",
+      "default": true,
+      "label": "Wide display"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sign up to get the latest on sales, new releases and more …"
+    },
+    {
+      "type": "richtext",
+      "id": "newsletter_richtext",
+      "label": "Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_first_name",
+      "label": "Show first name"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_last_name",
+      "label": "Show last name"
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_align",
+      "label": "Text alignment",
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_background",
+      "label": "Background",
+      "default": "#ede9dd"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_text",
+      "label": "Text",
+      "default": "#303030"
+    }
+  ],
+  "presets": [{
+    "name": "Newsletter",
+    "category": "Promotional",
+    "settings": {
+    }
+  }],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

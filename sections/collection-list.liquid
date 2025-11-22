@@ -1,0 +1,117 @@
+{% comment %}
+** Collection list - dynamic **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+<section
+  class="collection-list"
+  data-section-id="{{ section.id }}"
+>
+  {% if section.blocks.size > 0 %}
+    {% if section.settings.title != blank %}
+      <div class="collection-list__header">
+        <h2 class="collection-list__heading">
+          {{ section.settings.title | escape }}
+        </h2>
+      </div>
+    {% endif %}
+
+    <div
+      class="
+        collection-list__wrapper
+        collection-list__wrapper--{{ section.settings.frontpage_collections_per_row }}-column
+      "
+      {{ block.shopify_attributes }}
+    >
+      {% for block in section.blocks %}
+        {%
+          render 'collection-list-card',
+          collection: collections[block.settings.feature_collection],
+          image: block.settings.image
+        %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Collection list",
+  "class": "shopify-section--collection-list",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Collection list"
+    },
+    {
+      "type": "range",
+      "id": "frontpage_collections_per_row",
+      "label": "Collections per row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "frontpage_collections_title",
+      "label": "Display collection title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_count",
+      "label": "Display collection product count",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "feature_collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection list",
+      "category": "Collection",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

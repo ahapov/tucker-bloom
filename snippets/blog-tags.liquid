@@ -1,0 +1,23 @@
+{% comment %}
+@param class_prefix {String}
+  Parent class on UL element
+@param blog {Blog object}
+  Blog
+{% endcomment %}
+
+{% if blogs[blog.handle].all_tags != blank %}
+  <ul class="{{ class_prefix }}__blog-tags">
+    {% for tag in blogs[blog.handle].all_tags %}
+      <li>
+        <a
+          href="{{ shop.url }}/blogs/{{ blogs[blog.handle].handle }}/tagged/{{ tag | handleize }}"
+          class="{{ class_prefix }}__blog-tag"
+        >
+          {{ tag }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>{{ 'homepage.onboarding.no_content' | t }}</p>
+{% endif %}

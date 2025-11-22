@@ -1,0 +1,126 @@
+{% assign toggle = section.settings.toggle %}
+
+<script
+  type="application/json"
+  data-section-type="product-sidebar"
+  data-section-id="{{ section.id }}"
+>
+</script>
+
+<a name="pagecontent" id="pagecontent"></a>
+
+{% style %}
+
+  #shopify-section-{{ section.id }} {
+    width: 25%;
+  }
+
+  #shopify-section-{{ section.id }} + .is-product-main {
+    width: 75%;
+  }
+
+  @media screen and (max-width: 798px) {
+    #shopify-section-{{ section.id }} {
+      display: block;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} + .is-product-main {
+      display: block;
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<aside
+  class="
+    sidebar
+    product-page__sidebar
+  "
+  data-sidebar
+  data-sidebar-top
+  aria-label="{{ 'general.accessibility.sidebar' | t }}"
+  data-has-toggle="{{ toggle }}"
+>
+  {%
+    render 'sidebar-content',
+    toggle: toggle
+  %}
+</aside>
+
+{% schema %}
+{
+  "name": "Sidebar",
+  "class": "shopify-section--product-sidebar is-product-sidebar",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}

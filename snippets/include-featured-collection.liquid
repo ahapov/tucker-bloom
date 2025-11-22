@@ -1,0 +1,139 @@
+{% comment %}
+** Featured collection - dynamic **
+- Draggable section
+{% endcomment %}
+
+{% if type == 'block' %}
+  {%- assign object = block -%}
+{% else %}
+  {%- assign object = section -%}
+{% endif %}
+
+{% comment %} Content settings {% endcomment %}
+{%- assign collection = collections[object.settings.frontpage_collection] -%}
+{%- assign blocks = object.blocks -%}
+{%- assign view_all = object.settings.view_all -%}
+{%- assign toggle = object.settings.toggle -%}
+{%- assign limit = object.settings.products_limit -%}
+{% comment %} End content settings {% endcomment %}
+
+{% comment %} Stick to grid layout if the number of items is less than the max in the row {% endcomment %}
+{% assign layout_type = 'grid' %}
+{% if object.settings.products_per_row < collection.products.size %}
+  {% assign layout_type = object.settings.layout_type %}
+{% endif %}
+
+{% comment %} Check to see if sidebar should be enabled {% endcomment %}
+{% if blocks.size > 0 %}
+  {%- assign sidebar = true -%}
+{% else %}
+  {%- assign sidebar = false -%}
+{% endif %}
+
+<script
+  type="application/json"
+  data-section-type="featured-collection"
+  data-section-id="{{ object.id }}"
+  data-section-data
+>
+  {
+    "products_per_row" : {{ object.settings.products_per_row | json }},
+    "products_limit": {{ object.settings.products_limit | json }},
+    "show_secondary_media": {{ settings.collection_secondary_image | json }}
+  }
+</script>
+
+{% comment %} HTML markup {% endcomment %}
+<section
+  class="
+    featured-collection
+    {% if layout_type == 'slideshow' %}
+      {% if settings.enable_shopify_collection_badges or settings.collection_swatches %}featured-collection--extra-space{% endif %}
+    {% endif %}
+  "
+  data-section-id="{{ object.id }}"
+>
+  {% if object.settings.title != blank or collection.description != blank or view_all %}
+    <div
+      class="featured-collection__header"
+    >
+      {% if object.settings.title != blank %}
+        <h2 class="featured-collection__heading">
+          {% if collection != blank %}
+            <a href="{{ collection.url }}">
+          {% endif %}
+            {{ object.settings.title | escape }}
+          {% if collection != blank %}</a>{% endif %}
+        </h2>
+      {% endif %}
+
+      {% if view_all != false %}
+        <a href="{{ collection.url }}" class="featured-collection__view-all">
+          {{ 'collections.general.view_all' | t }}
+        </a>
+      {% endif %}
+
+      {% if collection.description != blank %}
+        <div class="featured-collection__description">
+          {{ collection.description }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if sidebar %}
+    <div class="section-with-sidebar__wrapper">
+      <aside
+        class="sidebar"
+        data-sidebar
+        aria-label="{{ 'general.accessibility.sidebar' | t }}"
+        data-has-toggle="{{ toggle }}"
+      >
+        {%
+          render 'sidebar-content',
+          toggle: toggle
+        %}
+      </aside>
+  {% endif %}
+
+    <div
+      class="
+        featured-collection__wrapper
+        featured-collection__wrapper--{{ object.settings.products_per_row}}-column
+        featured-collection__wrapper--{{ settings.mobile_products_per_row }}-mobile-column
+        featured-collection__wrapper--layout-{{ layout_type }}
+      "
+    >
+      {% if layout_type == 'slideshow' %}
+        <div
+          class="featured-collection__slideshow-wrapper"
+          data-collection-slideshow
+        >
+      {% endif %}
+
+      {% if collection.products.size > 0 %}
+
+        {% for product in collection.products limit: limit %}
+          {% render 'product-thumbnail', product: product %}
+        {% endfor %}
+
+      {% else %}
+        {% for i in (1..limit) %}
+          {% capture num %}{% cycle "1", "2", "3", "5", "6" %}{% endcapture %}
+          {%
+            render 'product-thumbnail',
+            product: nil,
+            num: num
+          %}
+        {% endfor %}
+      {% endif %}
+
+      {% if layout_type == 'slideshow' %}
+        </div>
+      {% endif %}
+    </div>
+
+  {% if sidebar %}
+    </div>
+  {% endif %}
+</section>

@@ -1,0 +1,20 @@
+{% comment %}
+  @param type {String}
+    The type of visual representation, either "colors" or "image".
+
+  @param value {Object}
+    The visual representation, either a list of colors, or an image.
+{% endcomment %}
+
+<div class="faceted-filter-swatch">
+  <div
+    class="faceted-filter-swatch__inner"
+    {% if type == 'colors' %}
+      style="--faceted-filter-swatch-color: {{ value }};"
+    {% endif %}
+  >
+    {% if type == 'image' %}
+      {{- value | image_url: width: 100 | image_tag: class: 'faceted-filter-swatch__image', alt: value.alt, loading: 'lazy' -}}
+    {% endif %}
+  </div>
+</div>

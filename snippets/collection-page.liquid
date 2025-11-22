@@ -1,0 +1,235 @@
+{% liquid
+  assign toggle = section.settings.toggle
+  assign filter_block = nil
+  assign active_filters_count = 0
+  assign has_sidebar = false
+  assign has_configured_filters = false
+  assign show_product_count = false
+
+  for block in section.blocks
+    if block.type == 'filter'
+      assign filter_block = block
+      assign show_product_count = filter_block.settings.show_filter_product_count
+
+      for filter in collection.filters
+        assign has_sidebar = true
+        assign has_configured_filters = true
+
+        if filter.type == 'boolean' or 'list'
+          assign active_filters_count = active_filters_count | plus: filter.active_values.size
+        elsif filter.type == 'price_range' and filter.min_value.value or filter.max_value.value
+          assign active_filters_count = active_filters_count | plus: 1
+        endif
+      endfor
+
+    else
+      assign has_sidebar = true
+    endif
+  endfor
+%}
+<script
+  type="application/json"
+  data-section-type="collection-page"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "show_secondary_media": {{ settings.collection_secondary_image | json }}
+  }
+</script>
+
+<section
+  class="
+    collection-page
+    {% if filter_block %}collection-page--with-tag-filters{% endif %}
+    {% if section.settings.collection_sort %}collection-page--with-sorting{% endif %}
+  "
+  data-section-id="{{ section.id }}"
+>
+  <div class="collection-page__header-wrapper">
+    {% render 'breadcrumbs' %}
+
+    <div class="collection-page__header">
+      <h1 class="collection-page__heading">{{ collection.title | escape }}</h1>
+    </div>
+
+    {% if collection.description != blank %}
+      <div class="collection-page__description">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+  </div>
+
+  {% paginate collection.products by section.settings.pagination_limit %}
+  {% if has_sidebar %}
+    <div class="section-with-sidebar__wrapper">
+      <aside
+        class="
+          sidebar
+          collection-page__sidebar
+          {% if section.settings.sidebar_mobile_position == 'below' %}collection-page__sidebar--hide-mobile{% endif %}
+        "
+        data-sidebar
+        data-sidebar-top
+        aria-label="{{ 'general.accessibility.sidebar' | t }}"
+        data-has-toggle="{{ toggle }}"
+        style="--filter-bar-height: 1rem;"
+      >
+        {%
+          render 'sidebar-content',
+          toggle: toggle,
+          filter_group_classes: 'sidebar__block-faceted-search',
+          show_product_count: show_product_count,
+          has_configured_filters: has_configured_filters
+        %}
+      </aside>
+  {% endif %}
+
+  {% if filter_block %}
+    {%
+      render 'navigation-mobile-filters',
+      toggle: toggle,
+      active_filters_count: active_filters_count,
+      show_product_count: show_product_count,
+    %}
+  {% endif %}
+
+  <div class="collection-page__content">
+    {%- assign products = collection.products -%}
+    {%- assign products_per_row = section.settings.products_per_row -%}
+
+    {% if collection.handle != blank and filter_block or section.settings.collection_sort %}
+      <div class="collection-page__filters" data-collection-filters>
+        {% if has_configured_filters and collection.handle != 'vendors' %}
+          <button class="collection-page__tag-filter" data-mobile-filters-button>
+            {{ 'collections.sorting.title_count' | t: count: active_filters_count }}
+          </button>
+        {% endif %}
+
+        {% if active_filters_count > 0 and collection.products.size > 0 %}
+          <div class="collection-page__filters--active">
+            {%
+              render 'active-filters',
+              active_filters_count: active_filters_count,
+              filters: collection.filters,
+              clear_url: collection.url
+            %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.collection_sort %}
+          {% for option in collection.sort_options %}
+            {% if option.value == collection.default_sort_by %}
+              {% assign default_option = option.name %}
+            {% endif %}
+            {% if option.value == collection.sort_by %}
+              {% assign selected_option = option.name %}
+            {% endif %}
+          {% endfor %}
+          {% if selected_option == blank %}
+            {% assign selected_option = default_option %}
+          {% endif %}
+
+          <div class="collection-page__sort-filter">
+            <div class="disclosure sort-filter" data-sort-by-disclosure>
+              <button
+                type="button"
+                class="disclosure__toggle sort-filter__toggle"
+                aria-expanded="false"
+                aria-controls="sort-list"
+                data-disclosure-toggle
+              >
+                {{ 'collections.sorting.title' | t }}: <span class="sort-filter__toggle-selected-text">{{ selected_option }}</span>
+              </button>
+              <ul
+                id="sort-list"
+                class="
+                  disclosure-list
+                  sort-filter__list
+                "
+                data-disclosure-list
+              >
+                {% for option in collection.sort_options %}
+                  <li>
+                    <a
+                      class="disclosure-list__item {% if option.value == collection.sort_by %}disclosure-list__item--current{% endif %}"
+                      href="#"
+                      aria-current="{% if option.value == collection.sort_by %}true{% else %}false{% endif %}"
+                      data-sort-by-value
+                      data-value="{{ option.value }}"
+                    >
+                      <span class="disclosure-list__option">{{ option.name }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if collection.products.size == 0 %}
+      <div class="collection-page__empty">
+        {% if active_filters_count > 0 %}
+          <div class="collection-page__filters--active">
+            {%
+              render 'active-filters',
+              active_filters_count: active_filters_count,
+              filters: collection.filters,
+              clear_url: collection.url
+            %}
+          </div>
+        {% endif %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      </div>
+    {% else %}
+
+      <div
+        class="
+          collection-page__list
+          collection-page__list--{{ section.settings.products_per_row }}-column
+          collection-page__list--{{ settings.mobile_products_per_row }}-column-mobile
+        "
+      >
+        {% for product in products %}
+          {%
+            render 'product-thumbnail',
+            product: product
+          %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {%
+      render 'pagination',
+      paginate: paginate
+    %}
+  </div>
+
+  {% if has_sidebar %}
+    </div>
+  {% endif %}
+  {% endpaginate %}
+
+  {% if section.settings.sidebar_mobile_position == 'below' and has_sidebar %}
+    <aside
+      class="
+        sidebar
+        collection-page__bottom-sidebar
+      "
+      data-sidebar
+      data-sidebar-bottom
+      aria-label="{{ 'general.accessibility.sidebar' | t }}"
+      data-has-toggle="{{ toggle }}"
+    >
+      {%
+        render 'sidebar-content',
+        filter_group_classes: 'sidebar__block-faceted-search--hidden',
+        toggle: toggle,
+        show_product_count: show_product_count,
+        has_configured_filters: has_configured_filters
+      %}
+    </aside>
+  {% endif %}
+</section>

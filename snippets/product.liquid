@@ -5,6 +5,7 @@
   @param collection_handles
   @param onboarding
   @param sidebar_enabled
+  @param section
 {% endcomment %}
 
 {% liquid
@@ -35,6 +36,11 @@
         onboarding: onboarding,
         quickshop: quickshop,
         sidebar_enabled: sidebar_enabled
+      %}
+      {%
+        render 'lifestyle-images',
+        product: product,
+        section: section
       %}
   </div>
   <div

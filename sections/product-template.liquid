@@ -33,6 +33,7 @@
       select_first_available_variant: settings.select_first_available_variant,
       template: 'product',
       collection_handles: collection_handles,
+      section: section
     %}
   </div>
 </section>
@@ -78,6 +79,13 @@
       "id": "enable_product_lightbox",
       "label": "Enable lightbox",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lifestyle_images",
+      "label": "Enable lifestyle images",
+      "default": false,
+      "info": "Display lifestyle images from product metafield custom.lifestyle_image"
     },
     {
       "type": "checkbox",

@@ -45,7 +45,8 @@
     select_first_available_variant: settings.select_first_available_variant,
     template: 'featured-product',
     collection_handles: collection_handles,
-    onboarding: onboarding
+    onboarding: onboarding,
+    section: section
   %}
 </section>
 
@@ -222,6 +223,17 @@
       "id": "video_looping",
       "label": "Enable video looping",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Lifestyle Images"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lifestyle_images",
+      "label": "Enable lifestyle images",
+      "default": false,
+      "info": "Display lifestyle images from product metafield custom.lifestyle_image"
     }
   ],
   "blocks": [

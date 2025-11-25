@@ -41,7 +41,8 @@
       template: 'product-quickshop',
       collection_handles: collection_handles,
       quickshop: true,
-      show_payment_button_quickshop: section.settings.show_payment_button
+      show_payment_button_quickshop: section.settings.show_payment_button,
+      section: section
     %}
   </div>
 </section>
@@ -161,6 +162,17 @@
       "type": "checkbox",
       "id": "video_looping",
       "label": "Enable video looping"
+    },
+    {
+      "type": "header",
+      "content": "Lifestyle Images"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lifestyle_images",
+      "label": "Enable lifestyle images",
+      "default": false,
+      "info": "Display lifestyle images from product metafield custom.lifestyle_image"
     }
   ],
   "blocks": [

@@ -1,1 +1,43 @@
-{"type":"header","name":"Header","sections":{"header":{"type":"header","settings":{"logo_alignment":"left","fixed_header":true,"transparent_header":"home","show_border":false,"border_opacity":0,"show_locale_selector":true,"show_currency_selector":true,"show_announcement":false,"home_page_only":true,"announcement_text":"Announcement message","announcement_link":"","promo_bg_color":"#ffffff","promo_text_color":"#000000","logo":"shopify:\/\/shop_images\/TB_Flower_Logo-WEB_efbb2944-c233-4c6e-a07d-5037c8afbfc9.png","logo_home":"shopify:\/\/shop_images\/TB-Flower-Logo-WEB-white.png","logo_width":70,"mobile_logo_width":70,"main_linklist":"main-menu","search_enabled":true,"social_icons_enabled":true}}},"order":["header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_alignment": "left",
+        "fixed_header": true,
+        "transparent_header": "home",
+        "show_border": false,
+        "border_opacity": 0,
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "show_announcement": false,
+        "home_page_only": true,
+        "announcement_text": "Announcement message",
+        "announcement_link": "",
+        "promo_bg_color": "#ffffff",
+        "promo_text_color": "#000000",
+        "logo": "shopify://shop_images/TB_Flower_Logo-WEB_efbb2944-c233-4c6e-a07d-5037c8afbfc9.png",
+        "logo_home": "shopify://shop_images/TB-Flower-Logo-WEB-white.png",
+        "logo_width": 70,
+        "mobile_logo_width": 70,
+        "main_linklist": "new-menu",
+        "search_enabled": true,
+        "social_icons_enabled": true
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

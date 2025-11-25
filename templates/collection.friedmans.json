@@ -11,21 +11,10 @@
   "sections": {
     "main": {
       "type": "collection-template",
-      "blocks": {
-        "block-1": {
-          "type": "filter",
-          "settings": {
-            "show_filter_product_count": true
-          }
-        }
-      },
-      "block_order": [
-        "block-1"
-      ],
       "settings": {
-        "products_per_row": 3,
-        "pagination_limit": 10,
-        "collection_sort": true,
+        "products_per_row": 4,
+        "pagination_limit": 50,
+        "collection_sort": false,
         "toggle": true,
         "sidebar_mobile_position": "below"
       }

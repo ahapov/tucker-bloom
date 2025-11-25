@@ -37,8 +37,29 @@
 
 {% capture product_images %}
   {% if product.selected_or_first_available_variant.image != blank %}
+    {% assign variant_image = product.selected_or_first_available_variant.image %}
+    {% assign variant = product.selected_or_first_available_variant %}
+    {% comment %} Build alt tag with variant information {% endcomment %}
+    {% if variant_image.alt != blank %}
+      {% assign variant_alt = variant_image.alt %}
+    {% else %}
+      {% assign variant_options = '' %}
+      {% for option in variant.options %}
+        {% if option != blank %}
+          {% if variant_options != blank %}
+            {% assign variant_options = variant_options | append: ', ' %}
+          {% endif %}
+          {% assign variant_options = variant_options | append: option %}
+        {% endif %}
+      {% endfor %}
+      {% if variant_options != blank %}
+        {% assign variant_alt = product.title | append: ' - ' | append: variant_options %}
+      {% else %}
+        {% assign variant_alt = product.title %}
+      {% endif %}
+    {% endif %}
     {% capture image_content %}
-      {{ product.selected_or_first_available_variant.image | image_url: width: 2400 | image_tag }}
+      {{ variant_image | image_url: width: 2400 | image_tag: alt: variant_alt }}
     {% endcapture %}
 
     <div class="media-grid__container media-grid__container--image">

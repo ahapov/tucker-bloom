@@ -46,8 +46,29 @@
 
     {% if product.selected_or_first_available_variant.image != blank %}
       {% assign is_active = true %}
+      {% assign variant_image = product.selected_or_first_available_variant.image %}
+      {% assign variant = product.selected_or_first_available_variant %}
+      {% comment %} Build alt tag with variant information {% endcomment %}
+      {% if variant_image.alt != blank %}
+        {% assign variant_alt = variant_image.alt %}
+      {% else %}
+        {% assign variant_options = '' %}
+        {% for option in variant.options %}
+          {% if option != blank %}
+            {% if variant_options != blank %}
+              {% assign variant_options = variant_options | append: ', ' %}
+            {% endif %}
+            {% assign variant_options = variant_options | append: option %}
+          {% endif %}
+        {% endfor %}
+        {% if variant_options != blank %}
+          {% assign variant_alt = product.title | append: ' - ' | append: variant_options %}
+        {% else %}
+          {% assign variant_alt = product.title %}
+        {% endif %}
+      {% endif %}
       {% capture image_content %}
-        {{ product.selected_or_first_available_variant.image | image_url: width: 2400 | image_tag:  alt: media.alt }}
+        {{ variant_image | image_url: width: 2400 | image_tag: alt: variant_alt }}
       {% endcapture %}
 
       <div class="media-gallery__slide media-gallery__slide--active" data-media-id="{{ product.selected_or_first_available_variant.image.id }}" data-media-type="image">
@@ -99,20 +120,39 @@
 
       {% if product.selected_or_first_available_variant.image != blank %}
         {% assign media = product.selected_or_first_available_variant.image %}
+        {% assign variant = product.selected_or_first_available_variant %}
         {% assign is_active = true %}
+        {% comment %} Build alt tag with variant information {% endcomment %}
+        {% if media.alt != blank %}
+          {% assign variant_alt = media.alt %}
+        {% else %}
+          {% assign variant_options = '' %}
+          {% for option in variant.options %}
+            {% if option != blank %}
+              {% if variant_options != blank %}
+                {% assign variant_options = variant_options | append: ', ' %}
+              {% endif %}
+              {% assign variant_options = variant_options | append: option %}
+            {% endif %}
+          {% endfor %}
+          {% if variant_options != blank %}
+            {% assign variant_alt = product.title | append: ' - ' | append: variant_options %}
+          {% else %}
+            {% assign variant_alt = product.title %}
+          {% endif %}
+        {% endif %}
         {% capture image_content %}
-          {{ product.selected_or_first_available_variant.image | image_url: width: 2400 | image_tag:  alt: media.alt }}
+          {{ product.selected_or_first_available_variant.image | image_url: width: 2400 | image_tag: alt: variant_alt }}
         {% endcapture %}
 
         <button
           class="media-gallery__thumb media-gallery__thumb--active"
           data-media-id="{{ media.id }}"
           data-media-type="{{ media.media_type }}"
-          aria-label="View {{ media.alt | default: 'image' | escape }}"
+          aria-label="View {{ variant_alt | default: 'image' | escape }}"
         >
           <div class="media-gallery__thumb-image">
-
-            {{ media | image_url: width: 240 | image_tag }}
+            {{ media | image_url: width: 240 | image_tag: alt: variant_alt }}
           </div>
         </button>
       {% endif %}

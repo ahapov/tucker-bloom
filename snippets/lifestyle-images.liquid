@@ -7,54 +7,46 @@
 
 {% if section.settings.enable_lifestyle_images and product.metafields.custom.lifestyle_image.value != blank %}
   <div class="scroll-carousel-wrapper">
-    <div class="product-vertical-carousel owl-carousel">
-      {% for image in product.metafields.custom.lifestyle_image.value %}
-        <div class="carousel-cell">
-          {%
-            render 'rimg',
-            img: image,
-            lazy: true,
-            size: '1200x'
-          %}
-        </div>
-      {% endfor %}
-    </div>
+    {% for image in product.metafields.custom.lifestyle_image.value %}
+      <div class="lifestyle-image">
+        {%
+          render 'rimg',
+          img: image,
+          lazy: true,
+          size: '1200x'
+        %}
+      </div>
+    {% endfor %}
   </div>
 {% endif %}
 
 {% style %}
-  /* Styles for Lifestyle Images Metafield */
   .scroll-carousel-wrapper {
     margin-top: var(--gap-size-md, 1rem);
+    display: none;
   }
 
-  .product-vertical-carousel {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-size-sm, 0.5rem);
+  @media screen and (min-width: 768px) {
+    .scroll-carousel-wrapper {
+      display: block;
+    }
   }
 
-  .product-vertical-carousel .carousel-cell {
+  .lifestyle-image {
+    width: 100%;
     height: 550px;
     overflow: hidden;
+    margin-bottom: 1rem;
   }
 
-  .product-vertical-carousel .carousel-cell img {
+  .lifestyle-image:last-child {
+    margin-bottom: 0;
+  }
+
+  .lifestyle-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  /* If owl-carousel is available, it will override these styles */
-  .owl-item .carousel-cell {
-    height: 550px;
-    overflow: hidden;
-  }
-
-  .owl-item .carousel-cell img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    display: block;
   }
 {% endstyle %}
-

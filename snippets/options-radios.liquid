@@ -187,13 +187,18 @@
                       {% endif %}
                     {% endfor %}
                   {%- else -%}
-                    {% comment %} Then look for a pattern image. {% endcomment %}
-                    {% assign swatch_file_name = color_name | downcase | handleize | append: '.png' %}
+                    {% comment %} Then look for a pattern image. Try original case first, then handleized {% endcomment %}
+                    {% assign swatch_file_name_original = color_name | append: '.png' %}
+                    {% assign swatch_file_name_handleized = color_name | downcase | handleize | append: '.png' %}
                     {%- capture swatch_image_resolution -%}{{ swatch_size | times: 2 }}x{{ swatch_size | times: 2 }}{%- endcapture -%}
                     {%- if swatch_file_type == 'files' -%}
-                      {%- assign swatch_file_url = swatch_file_name | file_img_url: swatch_image_resolution, crop: 'center' -%}
+                      {%- comment -%} Try original case first (e.g., "Tan.png"), then handleized (e.g., "tan.png") {% endcomment -%}
+                      {%- assign swatch_file_url = swatch_file_name_original | file_img_url: swatch_image_resolution, crop: 'center' -%}
+                      {%- if swatch_file_url == blank -%}
+                        {%- assign swatch_file_url = swatch_file_name_handleized | file_img_url: swatch_image_resolution, crop: 'center' -%}
+                      {%- endif -%}
                     {%- else -%}
-                      {%- assign swatch_file_url = swatch_file_name | asset_img_url: swatch_image_resolution, crop: 'center' | prepend: 'https:' -%}
+                      {%- assign swatch_file_url = swatch_file_name_handleized | asset_img_url: swatch_image_resolution, crop: 'center' | prepend: 'https:' -%}
                     {%- endif -%}
                     {%- capture swatch_bg_image -%}
                       background-image: url('{{- swatch_file_url  -}}');

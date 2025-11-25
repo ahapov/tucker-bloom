@@ -38,6 +38,7 @@
       assign swatches_option_style = settings.swatches_option_style
       assign swatches_product_page_size = settings.swatches_product_page_size
       assign swatches_custom_colors = settings.swatches_custom_colors
+      assign swatch_file_type = 'files'
 
       if section.settings.show_payment_button
         assign show_payment_button = true
@@ -176,6 +177,7 @@
           {% for option in product.options_with_values %}
             {% assign option_index = forloop.index0 %}
             {% assign show_swatches = false %}
+            {% assign swatch_option_key = blank %}
             {% if enable_swatches %}
               {%- assign swatches_option_trigger = swatches_option_trigger | strip | downcase -%}
               {%- assign option_name = option.name | strip | downcase -%}
@@ -183,6 +185,11 @@
               {% if option_name == swatches_option_trigger %}
                 {% assign show_swatches = true %}
                 {% assign swatch_option_key = 'option' | append: forloop.index %}
+              {% elsif swatch_file_type == 'files' and option_index == 1 %}
+                {% comment %} Enable swatches for secondary variant (option2) when using files {% endcomment %}
+                {% assign show_swatches = true %}
+                {% assign swatch_option_key = 'option' | append: forloop.index %}
+                {% assign swatches_option_style = 'color_swatch' %}
               {% endif %}
             {% endif %}
         

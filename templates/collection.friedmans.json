@@ -33,10 +33,57 @@
         "judge_me_reviews_featured_carousel_e6eckH"
       ],
       "settings": {}
+    },
+    "logo_bar_8jwCpF": {
+      "type": "logo-bar",
+      "blocks": {
+        "logo_image_XAbAd3": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/fish_patch.png",
+            "link": "",
+            "description": "The store has always been a destination for more than just surplus military gear. The fishing aisle was a popular section, and this icon hung below the soldier on the sign facing 21st ave. He's super chill, even with a hook in his mouth."
+          }
+        },
+        "logo_image_Lk3iYT": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/kilroy_5.png",
+            "link": "",
+            "description": "The legendary meme popularized by GIs during WWII was originally the creation of James K. Kilroy, an American shipyard inspector who checked the work of riveters and was paid by how many rivets they installed. \"Kilroy Was Here\" was his way of collecting a paycheck, and after work he had completed was \"misattributed\" to other inspectors, he switched from chalk to more permanent marks."
+          }
+        },
+        "logo_image_XHLpM3": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/sign_4.png",
+            "link": "",
+            "description": "﻿A Nashville landmark that has already been sold off for restoration. We are going to miss this guy immensely. If you've spent any time around Vanderbilt you have likely seen its beautiful patina and sun faded colors. Large, menacing a little."
+          }
+        },
+        "logo_image_tnyqPH": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/smile_3.png",
+            "link": "",
+            "description": "The war in Vietnam pulled many American away from their loved ones and sent them into hell. The stories of these men are modern tragedies. To be pulled away because of your birthday, sent into a jungle to kill people you didn't know on account of \"orders,\" and being met with hostility on your return? It was a dark time in American history. This patch is for those soldiers, it represents peace and also the love they didn't get from the general public for all the muck they trudged."
+          }
+        }
+      },
+      "block_order": [
+        "logo_image_XAbAd3",
+        "logo_image_Lk3iYT",
+        "logo_image_XHLpM3",
+        "logo_image_tnyqPH"
+      ],
+      "settings": {
+        "title": ""
+      }
     }
   },
   "order": [
     "main",
+    "logo_bar_8jwCpF",
     "17629953339fc9b07a"
   ]
 }

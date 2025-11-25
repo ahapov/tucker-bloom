@@ -1,13 +1,18 @@
 {% comment %} Content settings {% endcomment %}
+
 {%- assign title = section.settings.title | escape -%}
+
 {%- assign blocks = section.blocks -%}
+
 {% comment %} End content settings {% endcomment %}
+
+{{ 'logo-bar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'logo-bar.js' | asset_url }}" defer></script>
 
 <section
   class="logo-bar"
   data-section-id="{{ section.id }}"
 >
-
   {% if title != blank %}
     <div class="logo-bar__header">
       <h2 class="logo-bar__heading">
@@ -20,27 +25,37 @@
     <div class="logo-bar__wrapper">
       {% for block in blocks %}
         {%- assign image = block.settings.image -%}
-        <div
-          class="logo-bar__item"
-          {{ block.shopify_attributes }}
-        >
-        {% if block.settings.link != blank %}
-          <a href="{{ block.settings.link }}" class="logo-bar__link">
-        {% endif %}
-          {% if image != blank %}
-            {%
-              render 'rimg',
-              img: image,
-              lazy: true,
-              canvas: true,
-              focal_point: image.presentation.focal_point,
-            %}
-          {% else %}
-            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+        <div class="logo-bar__item" data-block-id="{{ block.id }}">
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="logo-bar__link">
           {% endif %}
-        {% if block.settings.link != blank %}
-          </a>
-        {% endif %}
+            {% if image != blank %}
+              {%
+                render 'rimg',
+                img: image,
+                lazy: true,
+                canvas: true,
+                focal_point: image.presentation.focal_point,
+              %}
+            {% else %}
+              {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+          {% if block.settings.description != blank %}
+            <div class="logo-bar__popup" data-popup-id="{{ block.id }}" aria-hidden="true">
+              <div class="logo-bar__popup-backdrop"></div>
+              <div class="logo-bar__popup-content">
+                <button class="logo-bar__popup-close" aria-label="Close popup">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="logo-bar__popup-text">
+                  {{ block.settings.description }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
         </div>
       {% endfor %}
     </div>
@@ -75,6 +90,12 @@
           "id": "link",
           "label": "Link",
           "info": "Optional"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Enter description here..."
         }
       ]
     }
@@ -98,14 +119,6 @@
         }
       ]
     }
-  ],
-  "enabled_on": {
-    "templates": [
-      "index",
-      "product",
-      "page"
-    ]
-  }
+  ]
 }
-
 {% endschema %}

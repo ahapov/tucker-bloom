@@ -190,6 +190,22 @@
                 {% assign show_swatches = true %}
                 {% assign swatch_option_key = 'option' | append: forloop.index %}
                 {% assign swatches_option_style = 'color_swatch' %}
+              {% elsif template contains 'friedmans' and option.name == 'Size' %}
+                {% comment %}
+                  For Friedmans products, force swatch-style selectors for Size
+                  so we can use custom image assets (S.png, etc.) as in old theme.
+                {% endcomment %}
+                {% assign show_swatches = true %}
+                {% assign swatch_option_key = 'option' | append: forloop.index %}
+                {% assign swatches_option_style = 'color_swatch' %}
+              {% elsif template contains 'friedmans' and option.name == 'Style' %}
+                {% comment %}
+                  For Friedmans products, force swatch-style selectors for Style
+                  so we can use custom image assets (Fish.png, Peace.png, etc.).
+                {% endcomment %}
+                {% assign show_swatches = true %}
+                {% assign swatch_option_key = 'option' | append: forloop.index %}
+                {% assign swatches_option_style = 'color_swatch' %}
               {% endif %}
             {% endif %}
         
@@ -612,13 +628,13 @@
       {% endif %}
 
       <button
-        type="{% if settings.cart_action == 'ajax' %} button {% else %} submit {% endif %}"
+        type="{% if settings.cart_action == 'ajax' %}button{% else %}submit{% endif %}"
         name="add"
         class="
           product__add-to-cart-button
           add_to_cart
           {% if show_payment_button %}product__add-to-cart-button--secondary{% endif %}
-          {{ product.available }}
+          {% if product.available %}available{% else %}unavailable{% endif %}
         "
         data-label="{{ add_to_cart_label | strip }}"
         data-product-atc

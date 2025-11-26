@@ -1,15 +1,15 @@
 .logo-bar {
-  padding: var(--gap-size-md, 2rem) 0;
+  padding: 2rem 0;
 }
 
 .logo-bar__header {
   text-align: center;
-  margin-bottom: var(--gap-size-lg, 3rem);
+  margin-bottom: 3rem;
 }
 
 .logo-bar__heading {
   margin: 0;
-  font-size: var(--text-size-6, 1.5rem);
+  font-size: 1.5rem;
 }
 
 .logo-bar__wrapper {
@@ -17,40 +17,40 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--gap-size-md, 2rem);
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--gap-size-sm, 1rem);
+  padding: 0 1rem;
 }
 
 .logo-bar__item {
   position: relative;
   cursor: pointer;
-  flex: 0 0 calc(50% - var(--gap-size-md, 2rem));
-  max-width: calc(50% - var(--gap-size-md, 2rem));
-  padding: var(--gap-size-sm, 1rem);
+  flex: 0 0 calc(50% - 2rem);
+  max-width: calc(50% - 2rem);
+  padding: 1rem;
   transition: transform 0.3s ease, opacity 0.3s ease;
   animation: logoPulse 2s ease-in-out infinite;
 }
 
 @media screen and (min-width: 576px) {
   .logo-bar__item {
-    flex: 0 0 calc(33.333% - var(--gap-size-md, 2rem));
-    max-width: calc(33.333% - var(--gap-size-md, 2rem));
+    flex: 0 0 calc(33.333% - 2rem);
+    max-width: calc(33.333% - 2rem);
   }
 }
 
 @media screen and (min-width: 768px) {
   .logo-bar__item {
-    flex: 0 0 calc(25% - var(--gap-size-md, 2rem));
-    max-width: calc(25% - var(--gap-size-md, 2rem));
+    flex: 0 0 calc(25% - 2rem);
+    max-width: calc(25% - 2rem);
   }
 }
 
 @media screen and (min-width: 992px) {
   .logo-bar__item {
-    flex: 0 0 calc(20% - var(--gap-size-md, 2rem));
-    max-width: calc(20% - var(--gap-size-md, 2rem));
+    flex: 0 0 calc(20% - 2rem);
+    max-width: calc(20% - 2rem);
   }
 }
 
@@ -80,20 +80,23 @@
 
 /* Popup Styles */
 .logo-bar__popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--gap-size-md, 2rem);
+  padding: 1rem;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
+  overflow-y: auto;
 }
 
 .logo-bar__popup.is-active {
@@ -103,28 +106,35 @@
 }
 
 .logo-bar__popup-backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 1;
 }
 
 .logo-bar__popup-content {
   position: relative;
+  z-index: 2;
   background: #fff;
-  border: var(--line-size-sm, 1px) solid #000;
-  border-radius: var(--radius-md, 12px);
-  padding: var(--gap-size-xl, 4rem) var(--gap-size-lg, 3rem) var(--gap-size-lg, 3rem);
-  max-width: 90%;
-  max-height: 80vh;
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  padding: 3rem 1.5rem 1.5rem;
+  width: calc(100vw - 2rem);
+  max-width: calc(100vw - 2rem);
+  max-height: 85vh;
   overflow-y: auto;
-  box-shadow: var(--shadow-2xl, 0px 16px 64px -12px rgba(0, 0, 0, 0.22));
-  transform: scale(0.9);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+  transform: scale(0.95);
   transition: transform 0.3s ease;
   box-sizing: border-box;
+  display: block;
+  margin: auto;
 }
 
 .logo-bar__popup.is-active .logo-bar__popup-content {
@@ -133,47 +143,94 @@
 
 .logo-bar__popup-text {
   color: #000;
-  line-height: 1.7;
-  font-size: var(--text-size-4, 1rem);
-  white-space: normal;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  line-height: 1.6;
+  font-size: 1rem;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto;
+  word-break: normal !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  direction: ltr !important;
+  letter-spacing: normal !important;
+  text-align: left !important;
   padding: 0;
   margin: 0;
-  display: block;
-  width: 100%;
-  min-height: 2rem;
+  display: block !important;
+  width: 100% !important;
+}
+
+.logo-bar__popup-text * {
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  direction: ltr !important;
+}
+
+.logo-bar__popup-text p,
+.logo-bar__popup-text ul,
+.logo-bar__popup-text ol,
+.logo-bar__popup-text li,
+.logo-bar__popup-text div {
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+}
+
+.logo-bar__popup-text p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.logo-bar__popup-text p:last-child {
+  margin-bottom: 0;
 }
 
 .logo-bar__popup-close {
   position: absolute;
-  top: var(--gap-size-sm, 1rem);
-  right: var(--gap-size-sm, 1rem);
+  top: 0.5rem;
+  right: 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: var(--text-size-8, 2rem);
+  font-size: 1.5rem;
   line-height: 1;
   color: #000;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
   padding: 0;
-  z-index: 1;
+  z-index: 10;
 }
 
 .logo-bar__popup-close:hover,
 .logo-bar__popup-close:focus {
+  background: #fff;
   color: #d32f2f;
-  transform: scale(1.1);
+  transform: scale(1.15);
+  border-color: #d32f2f;
 }
 
 .logo-bar__popup-close span {
   display: block;
-  font-weight: var(--font-weight-700, 700);
+  font-weight: 700;
+}
+
+/* Hide scrollbar on body when modal is open */
+body.modal-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* Animations */
@@ -186,48 +243,55 @@
   }
 }
 
-/* Responsive Popup */
-@media screen and (max-width: 767px) {
+/* Tablet and up */
+@media screen and (min-width: 480px) {
   .logo-bar__popup {
-    padding: var(--gap-size-sm, 1rem);
-    align-items: flex-end;
+    padding: 2rem;
   }
   
   .logo-bar__popup-content {
-    padding: var(--gap-size-lg, 3rem) var(--gap-size-md, 2rem) var(--gap-size-md, 2rem);
-    max-height: 60vh;
-    border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
+    width: auto;
+    min-width: 20rem;
+    max-width: 28rem;
+    padding: 3rem 2rem 2rem;
+    border-radius: 0.75rem;
   }
   
   .logo-bar__popup-text {
-    font-size: var(--text-size-3-5, 0.875rem);
-    padding: 0;
+    font-size: 1rem;
   }
   
   .logo-bar__popup-close {
-    top: var(--gap-size-2, 0.5rem);
-    right: var(--gap-size-2, 0.5rem);
-    width: 2rem;
-    height: 2rem;
-    font-size: var(--text-size-6, 1.5rem);
+    top: 0.75rem;
+    right: 0.75rem;
   }
 }
 
 @media screen and (min-width: 768px) {
   .logo-bar__popup-content {
-    max-width: 600px;
-    padding: var(--gap-size-xl, 4rem) var(--gap-size-lg, 3rem) var(--gap-size-lg, 3rem);
+    max-width: 36rem;
+    padding: 3rem 2.5rem 2.5rem;
+    border-radius: 0.875rem;
+  }
+  
+  .logo-bar__popup-close {
+    top: 1rem;
+    right: 1rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.75rem;
   }
 }
 
 @media screen and (min-width: 992px) {
   .logo-bar__popup-content {
-    max-width: 700px;
-    padding: var(--gap-size-xl, 4rem) var(--gap-size-xl, 4rem) var(--gap-size-xl, 4rem);
+    max-width: 42rem;
+    padding: 3.5rem 3rem 2.5rem;
+    border-radius: 1rem;
   }
   
   .logo-bar__popup-text {
-    font-size: var(--text-size-4-5, 1.125rem);
+    font-size: 1.0625rem;
+    line-height: 1.7;
   }
 }
-

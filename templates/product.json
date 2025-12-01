@@ -87,7 +87,7 @@
       "settings": {
         "enable_thumbnails": "desktop",
         "gallery_arrows": true,
-        "enable_product_lightbox": true,
+        "enable_product_lightbox": false,
         "enable_lifestyle_images": true,
         "activate_zoom": true,
         "slideshow_speed": 3,

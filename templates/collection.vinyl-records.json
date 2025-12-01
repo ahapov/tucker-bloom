@@ -1,1 +1,59 @@
-{"sections":{"main":{"type":"collection-template","blocks":{"block-1":{"type":"filter","settings":{"show_filter_product_count":true}}},"block_order":["block-1"],"settings":{"products_per_row":4,"pagination_limit":12,"collection_sort":true,"toggle":true,"sidebar_mobile_position":"above"}},"17629953339fc9b07a":{"type":"apps","blocks":{"judge_me_reviews_featured_carousel_e6eckH":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/featured_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"maxwidth":1080}}},"block_order":["judge_me_reviews_featured_carousel_e6eckH"],"settings":{}}},"order":["main","17629953339fc9b07a"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "collection-template",
+      "blocks": {
+        "block-1": {
+          "type": "filter",
+          "settings": {
+            "show_filter_product_count": true
+          }
+        },
+        "filter_by_collection_KJnDJe": {
+          "type": "filter_by_collection",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "block-1",
+        "filter_by_collection_KJnDJe"
+      ],
+      "settings": {
+        "products_per_row": 4,
+        "pagination_limit": 12,
+        "collection_sort": true,
+        "toggle": true,
+        "sidebar_mobile_position": "above"
+      }
+    },
+    "17629953339fc9b07a": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_e6eckH": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_e6eckH"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "17629953339fc9b07a"
+  ]
+}

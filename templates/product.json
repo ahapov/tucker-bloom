@@ -108,6 +108,7 @@
         "wide_display": true,
         "section_height": "small",
         "image": "shopify://shop_images/CosmoGif1.gif",
+        "alternative_image": "{{ product.metafields.custom.section_alternative_image_1.value }}",
         "title": "Tried & true, like the man himself.",
         "text": "<p>Cosmo Baker North To South Messenger</p>",
         "text_position": "center",
@@ -131,6 +132,7 @@
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.35.55-1.png",
+        "alternative_image": "{{ product.metafields.custom.section_alternative_image_2.value }}",
         "image_position": "right",
         "desktop_image_height": "small",
         "mobile_image_height": "small",
@@ -148,6 +150,7 @@
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.36.10-1.jpg",
+        "alternative_image": "{{ product.metafields.custom.section_alternative_image_3.value }}",
         "image_position": "left",
         "desktop_image_height": "small",
         "mobile_image_height": "small",

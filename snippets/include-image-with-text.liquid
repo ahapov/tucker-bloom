@@ -8,6 +8,7 @@
 
 {% liquid
   assign image = object.settings.image
+  assign alternative_image = object.settings.alternative_image
   assign desktop_height = object.settings.desktop_image_height
   assign mobile_height = object.settings.mobile_image_height
   assign heading = object.settings.title
@@ -183,7 +184,19 @@
   {%- endif -%}
   <div class="{{ base_name }}__container">
     <div class="{{ base_name }}__image-wrapper">
-      {%- if image != blank -%}
+      {%- if alternative_image != blank -%}
+        {% assign alt = alternative_image.alt | default: heading %}
+        {% capture image_classes %}{{ base_name }}__image{% endcapture %}
+        {%
+          render 'rimg'
+          img: alternative_image,
+          alt: alt,
+          size: '1500x',
+          lazy: true,
+          class: image_classes,
+          focal_point: alternative_image.presentation.focal_point,
+        %}
+      {%- elsif image != blank -%}
         {% assign alt = image.alt | default: heading %}
         {% capture image_classes %}{{ base_name }}__image{% endcapture %}
         {%

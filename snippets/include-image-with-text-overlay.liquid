@@ -12,6 +12,7 @@
   assign heading = heading | default: object.settings.title
   assign subheading = subheading | default: object.settings.text
   assign image = image | default: object.settings.image
+  assign alternative_image = alternative_image | default: object.settings.alternative_image
   assign overlay_opacity_setting = overlay_opacity_setting | default: object.settings.overlay_opacity
   assign overlay_color_setting = overlay_color_setting | default: object.settings.overlay_color
   assign text_color = text_color | default: object.settings.overlay_text_color
@@ -195,7 +196,19 @@
   {%- endif -%}
   <div class="{{ base_name }}__container">
     <div class="{{ base_name }}__image-wrapper">
-      {%- if image != blank -%}
+      {%- if alternative_image != blank -%}
+        {% assign alt = alternative_image.alt | default: heading %}
+        {% capture image_classes %}{{ base_name }}__image{% endcapture %}
+        {%
+          render 'rimg'
+          img: alternative_image,
+          alt: alt,
+          size: '1500x',
+          lazy: true,
+          class: image_classes,
+          focal_point: alternative_image.presentation.focal_point,
+        %}
+      {%- elsif image != blank -%}
         {% assign alt = image.alt | default: heading %}
         {% capture image_classes %}{{ base_name }}__image{% endcapture %}
         {%

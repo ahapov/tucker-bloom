@@ -127,6 +127,20 @@
             {% render 'social-buttons' %}
 
           {% when 'description' %}
+            {% if product.metafields.Record.Sample != blank %}
+              <dl class="accordion">
+                <dt>
+                  <a href="#" aria-controls="panel-record-sample" aria-expanded="false">
+                    <small></small>
+                    Record sample
+                  </a>
+                </dt>
+                <dd id="panel-record-sample" aria-hidden="true">
+                  {{ product.metafields.Record.Sample }}
+                </dd>
+              </dl>
+            {% endif %}
+
             {% if onboarding %}
               {{ 'homepage.onboarding.product_description' | t }}
             {% elsif product.description != blank %}

@@ -652,7 +652,7 @@
         {{ form | payment_terms }}
       </div>
 
-      <div class="surface-pick-up {% unless product.available %}surface-pick-up--hidden{% endunless %}" data-surface-pick-up></div>
+      {% comment %} <div class="surface-pick-up {% unless product.available %}surface-pick-up--hidden{% endunless %}" data-surface-pick-up></div> {% endcomment %}
     </div>
   {% endform %}
 </div>

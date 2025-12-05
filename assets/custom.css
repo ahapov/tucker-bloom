@@ -26,4 +26,14 @@
   .richtext-section__image--mobile {
     display: none;
   }
+
+  .product__record-sample {
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+}
+
+.product__record-sample {
+  margin-top: 20px;
+  margin-bottom: 15px;
 }

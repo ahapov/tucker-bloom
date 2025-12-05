@@ -16,6 +16,7 @@
 {%- assign content = object.settings.content -%}
 {%- assign background_color = object.settings.background_color -%}
 {%- assign background_alpha = background_color | color_extract: 'alpha' %}
+{%- assign enable_parallax = object.settings.enable_parallax_effect | default: false %}
 {% comment %} End content settings {% endcomment %}
 
 {% if image != blank %}
@@ -36,22 +37,50 @@
     richtext-section--wide-{{ object.settings.wide_display }}
     richtext-section--image-{{ has_image }}
     richtext-section--background-{{ has_background }}
+    {% if enable_parallax %}richtext-section--parallax{% endif %}
   "
   data-section-id="{{ object.id }}"
   style="--richtext-background-color: {{ object.settings.background_color }};"
 >
+  {% if image and enable_parallax %}
+    <div 
+      class="richtext-section__image richtext-section__image--parallax"
+      {%
+        render 'rimg',
+        img: object.settings.image,
+        size: '2000x',
+        lazy: true,
+        background: true,
+        focal_point: image.presentation.focal_point,
+      %}
+    ></div>
+  {% endif %}
+
   <div class="richtext-section__wrapper">
     {% if image %}
-      <div class="richtext-section__image">
-        {%
-          render 'rimg',
-          img: object.settings.image,
-          size: '2000x',
-          lazy: true,
-          canvas: true,
-          focal_point: image.presentation.focal_point,
-        %}
-      </div>
+      {% if enable_parallax %}
+        <div class="richtext-section__image richtext-section__image--mobile">
+          {%
+            render 'rimg',
+            img: object.settings.image,
+            size: '2000x',
+            lazy: true,
+            canvas: true,
+            focal_point: image.presentation.focal_point,
+          %}
+        </div>
+      {% else %}
+        <div class="richtext-section__image">
+          {%
+            render 'rimg',
+            img: object.settings.image,
+            size: '2000x',
+            lazy: true,
+            canvas: true,
+            focal_point: image.presentation.focal_point,
+          %}
+        </div>
+      {% endif %}
     {% endif %}
 
     <div

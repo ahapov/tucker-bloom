@@ -1,0 +1,29 @@
+.richtext-section--parallax {
+  overflow: hidden;
+}
+
+.richtext-section__image--parallax {
+  width: 100%;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: block;
+}
+
+@media screen and (max-width: 767px) {
+  .richtext-section__image--parallax {
+    display: none;
+  }
+  
+  .richtext-section__image--mobile {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .richtext-section__image--mobile {
+    display: none;
+  }
+}

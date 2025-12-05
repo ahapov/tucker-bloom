@@ -54,13 +54,17 @@
     %}
 
     {%- capture add_to_cart_label -%}
-      {% if collection_handles contains 'pre-order' %}
-        {{ 'collections.general.pre_order' | t }}
+      {% if product.metafields.custom.enable_coming_soon == true %}
+        {{ 'products.product.coming_soon' | t }}
       {% else %}
-        {% if product.available or selected_variant.available %}
-          {{ 'products.product.add_to_cart' | t }}
+        {% if collection_handles contains 'pre-order' %}
+          {{ 'collections.general.pre_order' | t }}
         {% else %}
-          {{ 'products.product.sold_out' | t }}
+          {% if product.available or selected_variant.available %}
+            {{ 'products.product.add_to_cart' | t }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
         {% endif %}
       {% endif %}
     {%- endcapture -%}
@@ -636,6 +640,7 @@
           {% if show_payment_button %}product__add-to-cart-button--secondary{% endif %}
           {% if product.available %}available{% else %}unavailable{% endif %}
         "
+        {% if product.metafields.custom.enable_coming_soon == true %}disabled{% endif %}
         data-label="{{ add_to_cart_label | strip }}"
         data-product-atc
         {% if product.available == false %}disabled{% endif %}

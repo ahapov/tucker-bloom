@@ -9,28 +9,69 @@
 {% liquid
   assign base_name = 'image-with-text-overlay'
   assign wide_display = wide_display | default: object.settings.wide_display
-  assign heading = heading | default: object.settings.title
-  assign subheading = subheading | default: object.settings.text
-  assign image = image | default: object.settings.image
-  assign alternative_image = alternative_image | default: object.settings.alternative_image
   assign overlay_opacity_setting = overlay_opacity_setting | default: object.settings.overlay_opacity
   assign overlay_color_setting = overlay_color_setting | default: object.settings.overlay_color
   assign text_color = text_color | default: object.settings.overlay_text_color
   assign text_position = text_position | default: object.settings.text_position
-
-  if object.settings.button_label
-    assign button_label = object.settings.button_label
-  endif
-
-  if object.settings.link
-    assign button_link = object.settings.link
-  endif
-
   assign button_style = object.settings.button_style | default: 'primary'
 
   if overlay_opacity_setting > 0 and overlay_color_setting != 'rgba(0,0,0,0)' and overlay_color != 'rgba(0, 0, 0, 0)'
     assign overlay_opacity = overlay_opacity_setting
     assign overlay_color = overlay_color_setting
+  endif
+
+  if object.settings.alternative_image.image != blank
+    assign alternative_image_value = object.settings.alternative_image.image
+  elsif object.settings.alternative_image != blank
+    assign alternative_image_value = object.settings.alternative_image
+  endif
+
+  if object.settings.alternative_title.heading != blank
+    assign alternative_heading_value = object.settings.alternative_title.heading
+  elsif object.settings.alternative_title != blank
+    assign alternative_heading_value = object.settings.alternative_title
+  endif
+
+  if object.settings.alternative_text.text != blank
+    assign alternative_text_value = object.settings.alternative_text.text
+  elsif object.settings.alternative_text != blank
+    assign alternative_text_value = object.settings.alternative_text
+  endif
+
+  if object.settings.alternative_link.cta_link != blank
+    assign alternative_link_value = object.settings.alternative_link.cta_link
+  elsif object.settings.alternative_link != blank
+    assign alternative_link_value = object.settings.alternative_link
+  endif
+
+  if alternative_image_value != blank
+    assign image = image | default: alternative_image_value
+  elsif alternative_image != blank
+    assign image = image | default: alternative_image
+  else
+    assign image = image | default: object.settings.image
+  endif
+
+  if alternative_heading_value != blank
+    assign heading = heading | default: alternative_heading_value
+  else
+    assign heading = heading | default: object.settings.title
+  endif
+
+  if alternative_text_value != blank
+    assign subheading = subheading | default: alternative_text_value
+  else
+    assign subheading = subheading | default: object.settings.text
+  endif
+
+  if alternative_link_value != blank
+    assign button_link = alternative_link_value
+  elsif object.settings.link != blank
+    assign button_link = object.settings.link
+  endif
+
+  if object.settings.button_label
+    assign button_label = object.settings.button_label
   endif
 %}
 
@@ -196,19 +237,7 @@
   {%- endif -%}
   <div class="{{ base_name }}__container">
     <div class="{{ base_name }}__image-wrapper">
-      {%- if alternative_image != blank -%}
-        {% assign alt = alternative_image.alt | default: heading %}
-        {% capture image_classes %}{{ base_name }}__image{% endcapture %}
-        {%
-          render 'rimg'
-          img: alternative_image,
-          alt: alt,
-          size: '1500x',
-          lazy: true,
-          class: image_classes,
-          focal_point: alternative_image.presentation.focal_point,
-        %}
-      {%- elsif image != blank -%}
+      {%- if image != blank -%}
         {% assign alt = image.alt | default: heading %}
         {% capture image_classes %}{{ base_name }}__image{% endcapture %}
         {%

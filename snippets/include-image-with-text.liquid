@@ -7,16 +7,58 @@
 {% endif %}
 
 {% liquid
-  assign image = object.settings.image
-  assign alternative_image = object.settings.alternative_image
   assign desktop_height = object.settings.desktop_image_height
   assign mobile_height = object.settings.mobile_image_height
-  assign heading = object.settings.title
-  assign subheading = object.settings.text
   assign overlay_color = object.settings.background_color
   assign text_color = object.settings.text_color
   assign button_label = object.settings.button_label
+
+  if object.settings.alternative_image.image != blank
+    assign alternative_image_value = object.settings.alternative_image.image
+  elsif object.settings.alternative_image != blank
+    assign alternative_image_value = object.settings.alternative_image
+  endif
+
+  if object.settings.alternative_title.heading != blank
+    assign alternative_heading_value = object.settings.alternative_title.heading
+  elsif object.settings.alternative_title != blank
+    assign alternative_heading_value = object.settings.alternative_title
+  endif
+
+  if object.settings.alternative_text.text != blank
+    assign alternative_text_value = object.settings.alternative_text.text
+  elsif object.settings.alternative_text != blank
+    assign alternative_text_value = object.settings.alternative_text
+  endif
+
+  if object.settings.alternative_link.cta_link != blank
+    assign alternative_link_value = object.settings.alternative_link.cta_link
+  elsif object.settings.alternative_link != blank
+    assign alternative_link_value = object.settings.alternative_link
+  endif
+
+  if alternative_image_value != blank
+    assign image = alternative_image_value
+  else
+    assign image = object.settings.image
+  endif
+
+  if alternative_heading_value != blank
+    assign heading = alternative_heading_value
+  else
+    assign heading = object.settings.title
+  endif
+
+  if alternative_text_value != blank
+    assign subheading = alternative_text_value
+  else
+    assign subheading = object.settings.text
+  endif
+
   assign button_link = object.settings.link
+  if alternative_link_value != blank
+    assign button_link = alternative_link_value
+  endif
 %}
 
 {% capture section_classes %}
@@ -184,19 +226,7 @@
   {%- endif -%}
   <div class="{{ base_name }}__container">
     <div class="{{ base_name }}__image-wrapper">
-      {%- if alternative_image != blank -%}
-        {% assign alt = alternative_image.alt | default: heading %}
-        {% capture image_classes %}{{ base_name }}__image{% endcapture %}
-        {%
-          render 'rimg'
-          img: alternative_image,
-          alt: alt,
-          size: '1500x',
-          lazy: true,
-          class: image_classes,
-          focal_point: alternative_image.presentation.focal_point,
-        %}
-      {%- elsif image != blank -%}
+      {%- if image != blank -%}
         {% assign alt = image.alt | default: heading %}
         {% capture image_classes %}{{ base_name }}__image{% endcapture %}
         {%

@@ -1,1 +1,367 @@
-{"sections":{"gallery-1":{"type":"gallery","blocks":{"block-1":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/backpack-walden-backpack-12_5d8f6f52-f16f-432c-aaff-ea3797d88222.png"}},"block-2":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/2024-09-29_12.35.55-1.png"}}},"block_order":["block-1","block-2"],"settings":{"title":"","gallery_type":"grid","images_per_row":2,"wide_display":true}},"featured-text-1":{"type":"featured-text","settings":{"wide_display":true,"image":"shopify:\/\/shop_images\/32.jpg","title":"Our Philosophy","content":"<p>We are dedicated to making quality products through streamlined, sustainable manufacturing. Made to order from high quality ingredients, our bags are constructed using traditional European manufacturing techniques in our Nashville, TN workshop.<\/p>","text_size":"featured_text","text_alignment":"center","button_label":"Learn More","button_link":"","background_color":"rgba(0,0,0,0)"}},"featured-collection-1":{"type":"featured-collection","settings":{"title":"","layout_type":"grid","frontpage_collection":"all-products","products_per_row":3,"products_limit":6,"view_all":false,"toggle":true}},"divider-1":{"type":"divider","settings":{"divider_spacing":0,"divider_border":false}},"0e56d486-9b75-4e08-acd1-d24f93fdf605":{"type":"countdown-timer","settings":{"full_width":true,"section_height":"medium","image":"shopify:\/\/shop_images\/rm45lifestyleV2.png","countdown_year":"2025","countdown_month":"11","countdown_day":"25","countdown_hour":"12","countdown_minute":"30","countdown_timer_background":false,"countdown_timer_complete":false,"countdown_timer_message":"","product":"rich-medina-45-bag","title":"RECORD BAG RESTOCK","text":"<p>We've been hard at work getting ready for this. A limited run of RM45 and MUTOs just in time for the holidays!<\/p>","button_link":"shopify:\/\/products\/rich-medina-45-bag","button_label":"","button_style":"primary","text_color":"#ffffff","overlay_color":"#512323","overlay_opacity":75,"product_card_background_color":"#ffffff"}},"divider-2":{"type":"divider","settings":{"divider_spacing":0,"divider_border":false}},"featured-promotions-1":{"type":"featured-promotions","blocks":{"block-1":{"type":"promotion","settings":{"image":"shopify:\/\/shop_images\/2024-09-29_12.45.52.jpg","title":"DJ BAGS","content":"<p>Shop All<\/p>","overlay":"solid","show_background":false,"background_link":"shopify:\/\/collections\/record-bags","button_text":"","link":"","button_style":"tertiary","button_text2":"","link2":"","button_style2":"tertiary","position":"center","alignment":"center"}},"block-2":{"type":"promotion","settings":{"image":"shopify:\/\/shop_images\/Mini_Messenger_Camo_Lifestyle.png","title":"MESSENGER BAGS","content":"<p>Shop All<\/p>","overlay":"solid","show_background":false,"background_link":"shopify:\/\/collections\/messenger-bag","button_text":"","link":"","button_style":"secondary","button_text2":"","link2":"","button_style2":"tertiary","position":"center","alignment":"center"}},"block-3":{"type":"promotion","settings":{"image":"shopify:\/\/shop_images\/Sedgwick_Tote_Lifestyle_1216x704-ezgif.com-webp-to-jpg-converter_e158c010-9434-4e73-9b0f-9c637bf0901e.png","title":"TOTES","content":"<p>Shop All<\/p>","overlay":"solid","show_background":false,"background_link":"shopify:\/\/collections\/tote-bag","button_text":"","link":"","button_style":"tertiary","button_text2":"","link2":"","button_style2":"tertiary","position":"center","alignment":"center"}}},"block_order":["block-1","block-2","block-3"],"settings":{"features_per_row":3}},"divider-3":{"type":"divider","settings":{"divider_spacing":0,"divider_border":false}},"featured-product-1":{"type":"featured-product","blocks":{"title":{"type":"title","settings":{}},"7eb9e88d-8823-4123-b847-5ca2552a0b13":{"type":"size_chart","settings":{"size_chart":"","size_chart_title":true}},"price":{"type":"price","settings":{}},"description":{"type":"description","settings":{}},"form":{"type":"form","settings":{}}},"block_order":["title","7eb9e88d-8823-4123-b847-5ca2552a0b13","price","description","form"],"settings":{"title":"","featured_product":"north-to-south-messenger-bag","enable_thumbnails":"disabled","gallery_arrows":true,"enable_product_lightbox":true,"activate_zoom":false,"slideshow_speed":6,"slideshow_transition":"slide","thumbnail_position":"bottom-thumbnails","crop_thumbnails":false,"enable_thumbnail_slider":true,"show_payment_button":false,"product_images_position":"left","set_product_height":true,"product_height":800,"video_looping":false}},"1762996333e98d5907":{"type":"apps","blocks":{"judge_me_reviews_featured_carousel_TCwQWW":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/featured_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"maxwidth":1080}}},"block_order":["judge_me_reviews_featured_carousel_TCwQWW"],"settings":{}},"testimonial-1":{"type":"testimonial","blocks":{"block-1":{"type":"quote","disabled":true,"settings":{"star_rating":"none","testimonial":"<p>These pieces are intentional, beautiful, and most importantly, timeless. We are blown away by the care and attention to detail that has been put into every single design. One of everything, please!<\/p>","name":"","info":""}},"block-2":{"type":"quote","settings":{"star_rating":"none","testimonial":"<p>From the colours to the materials to the fits, we couldn't recommend this clothing brand more. The pieces are a true testament to everyday-chic and eternal comfort.<\/p>","name":"","info":""}},"block-3":{"type":"quote","settings":{"star_rating":"none","testimonial":"<p>We came across this brand early last year and haven't been able to take our eyes off them since. With every new, anticipated collection comes exciting and unique pieces that we love.<\/p>","name":"","info":""}}},"block_order":["block-1","block-2","block-3"],"disabled":true,"settings":{"title":"","image_crop":"original","desktop_navigation_style":"buttons"}},"image-text-1":{"type":"image-text","settings":{"wide_display":true,"image":"shopify:\/\/shop_images\/Dante_MUTO4.png","image_position":"left","desktop_image_height":"medium","mobile_image_height":"medium","title":"MUTO Holiday Restock","text":"<p>Dante Ross, music industry legend,  former scrub.<\/p>","text_align":"left","button_label":"SHOP","link":"shopify:\/\/products\/muto-record-bag","text_color":"#000000","background_color":"#f7f6f1"}},"blog-post-1":{"type":"blog-posts","disabled":true,"settings":{"title":"Journal","blog_widget_select":"news","article_count":"2","blog_tags":false,"blog_author":false,"blog_date":false,"blog_comment_count":false,"read_more_link":false}},"divider-4":{"type":"divider","settings":{"divider_spacing":0,"divider_border":false}},"newsletter-1":{"type":"newsletter","disabled":true,"settings":{"wide_display":true,"title":"Newsletter","subheading":"Sign up to our mailing list and receive 15% off of your first order!","newsletter_richtext":"","display_first_name":false,"display_last_name":false,"text_align":"center","newsletter_background":"#ffffff","newsletter_text":"#303030"}}},"order":["gallery-1","featured-text-1","featured-collection-1","divider-1","0e56d486-9b75-4e08-acd1-d24f93fdf605","divider-2","featured-promotions-1","divider-3","featured-product-1","1762996333e98d5907","testimonial-1","image-text-1","blog-post-1","divider-4","newsletter-1"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gallery-1": {
+      "type": "gallery",
+      "blocks": {
+        "block-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/backpack-walden-backpack-12_5d8f6f52-f16f-432c-aaff-ea3797d88222.png"
+          }
+        },
+        "block-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2024-09-29_12.35.55-1.png"
+          }
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2"
+      ],
+      "settings": {
+        "title": "",
+        "gallery_type": "grid",
+        "images_per_row": 2,
+        "wide_display": true
+      }
+    },
+    "featured-text-1": {
+      "type": "featured-text",
+      "settings": {
+        "wide_display": true,
+        "enable_parallax_effect": true,
+        "image": "shopify://shop_images/32.jpg",
+        "title": "Our Philosophy",
+        "content": "<p>We are dedicated to making quality products through streamlined, sustainable manufacturing. Made to order from high quality ingredients, our bags are constructed using traditional European manufacturing techniques in our Nashville, TN workshop.</p>",
+        "text_size": "featured_text",
+        "text_alignment": "center",
+        "button_label": "Learn More",
+        "button_link": "",
+        "background_color": "rgba(0,0,0,0)"
+      }
+    },
+    "featured-collection-1": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "",
+        "layout_type": "grid",
+        "frontpage_collection": "all-products",
+        "products_per_row": 3,
+        "products_limit": 6,
+        "view_all": false,
+        "toggle": true
+      }
+    },
+    "divider-1": {
+      "type": "divider",
+      "settings": {
+        "divider_spacing": 0,
+        "divider_border": false
+      }
+    },
+    "0e56d486-9b75-4e08-acd1-d24f93fdf605": {
+      "type": "countdown-timer",
+      "settings": {
+        "full_width": true,
+        "section_height": "medium",
+        "image": "shopify://shop_images/rm45lifestyleV2.png",
+        "countdown_year": "2025",
+        "countdown_month": "11",
+        "countdown_day": "25",
+        "countdown_hour": "12",
+        "countdown_minute": "30",
+        "countdown_timer_background": false,
+        "countdown_timer_complete": false,
+        "countdown_timer_message": "",
+        "product": "rich-medina-45-bag",
+        "title": "RECORD BAG RESTOCK",
+        "text": "<p>We've been hard at work getting ready for this. A limited run of RM45 and MUTOs just in time for the holidays!</p>",
+        "button_link": "shopify://products/rich-medina-45-bag",
+        "button_label": "",
+        "button_style": "primary",
+        "text_color": "#ffffff",
+        "overlay_color": "#512323",
+        "overlay_opacity": 75,
+        "product_card_background_color": "#ffffff"
+      }
+    },
+    "divider-2": {
+      "type": "divider",
+      "settings": {
+        "divider_spacing": 0,
+        "divider_border": false
+      }
+    },
+    "featured-promotions-1": {
+      "type": "featured-promotions",
+      "blocks": {
+        "block-1": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/2024-09-29_12.45.52.jpg",
+            "title": "DJ BAGS",
+            "content": "<p>Shop All</p>",
+            "overlay": "solid",
+            "show_background": false,
+            "background_link": "shopify://collections/record-bags",
+            "button_text": "",
+            "link": "",
+            "button_style": "tertiary",
+            "button_text2": "",
+            "link2": "",
+            "button_style2": "tertiary",
+            "position": "center",
+            "alignment": "center"
+          }
+        },
+        "block-2": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Mini_Messenger_Camo_Lifestyle.png",
+            "title": "MESSENGER BAGS",
+            "content": "<p>Shop All</p>",
+            "overlay": "solid",
+            "show_background": false,
+            "background_link": "shopify://collections/messenger-bag",
+            "button_text": "",
+            "link": "",
+            "button_style": "secondary",
+            "button_text2": "",
+            "link2": "",
+            "button_style2": "tertiary",
+            "position": "center",
+            "alignment": "center"
+          }
+        },
+        "block-3": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Sedgwick_Tote_Lifestyle_1216x704-ezgif.com-webp-to-jpg-converter_e158c010-9434-4e73-9b0f-9c637bf0901e.png",
+            "title": "TOTES",
+            "content": "<p>Shop All</p>",
+            "overlay": "solid",
+            "show_background": false,
+            "background_link": "shopify://collections/tote-bag",
+            "button_text": "",
+            "link": "",
+            "button_style": "tertiary",
+            "button_text2": "",
+            "link2": "",
+            "button_style2": "tertiary",
+            "position": "center",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "settings": {
+        "features_per_row": 3
+      }
+    },
+    "divider-3": {
+      "type": "divider",
+      "settings": {
+        "divider_spacing": 0,
+        "divider_border": false
+      }
+    },
+    "featured-product-1": {
+      "type": "featured-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "7eb9e88d-8823-4123-b847-5ca2552a0b13": {
+          "type": "size_chart",
+          "settings": {
+            "size_chart": "",
+            "size_chart_title": true
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "form": {
+          "type": "form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "7eb9e88d-8823-4123-b847-5ca2552a0b13",
+        "price",
+        "description",
+        "form"
+      ],
+      "settings": {
+        "title": "",
+        "featured_product": "north-to-south-messenger-bag",
+        "enable_thumbnails": "disabled",
+        "gallery_arrows": true,
+        "enable_product_lightbox": true,
+        "activate_zoom": false,
+        "slideshow_speed": 6,
+        "slideshow_transition": "slide",
+        "thumbnail_position": "bottom-thumbnails",
+        "crop_thumbnails": false,
+        "enable_thumbnail_slider": true,
+        "show_payment_button": false,
+        "product_images_position": "left",
+        "set_product_height": true,
+        "product_height": 800,
+        "video_looping": false,
+        "enable_lifestyle_images": false
+      }
+    },
+    "1762996333e98d5907": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_TCwQWW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_TCwQWW"
+      ],
+      "settings": {}
+    },
+    "testimonial-1": {
+      "type": "testimonial",
+      "blocks": {
+        "block-1": {
+          "type": "quote",
+          "disabled": true,
+          "settings": {
+            "star_rating": "none",
+            "testimonial": "<p>These pieces are intentional, beautiful, and most importantly, timeless. We are blown away by the care and attention to detail that has been put into every single design. One of everything, please!</p>",
+            "name": "",
+            "info": ""
+          }
+        },
+        "block-2": {
+          "type": "quote",
+          "settings": {
+            "star_rating": "none",
+            "testimonial": "<p>From the colours to the materials to the fits, we couldn't recommend this clothing brand more. The pieces are a true testament to everyday-chic and eternal comfort.</p>",
+            "name": "",
+            "info": ""
+          }
+        },
+        "block-3": {
+          "type": "quote",
+          "settings": {
+            "star_rating": "none",
+            "testimonial": "<p>We came across this brand early last year and haven't been able to take our eyes off them since. With every new, anticipated collection comes exciting and unique pieces that we love.</p>",
+            "name": "",
+            "info": ""
+          }
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "image_crop": "original",
+        "desktop_navigation_style": "buttons"
+      }
+    },
+    "image-text-1": {
+      "type": "image-text",
+      "settings": {
+        "wide_display": true,
+        "image": "shopify://shop_images/Dante_MUTO4.png",
+        "image_position": "left",
+        "desktop_image_height": "medium",
+        "mobile_image_height": "medium",
+        "title": "MUTO Holiday Restock",
+        "text": "<p>Dante Ross, music industry legend,  former scrub.</p>",
+        "text_align": "left",
+        "button_label": "SHOP",
+        "link": "shopify://products/muto-record-bag",
+        "text_color": "#000000",
+        "background_color": "#f7f6f1"
+      }
+    },
+    "blog-post-1": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "title": "Journal",
+        "blog_widget_select": "news",
+        "article_count": "2",
+        "blog_tags": false,
+        "blog_author": false,
+        "blog_date": false,
+        "blog_comment_count": false,
+        "read_more_link": false
+      }
+    },
+    "divider-4": {
+      "type": "divider",
+      "settings": {
+        "divider_spacing": 0,
+        "divider_border": false
+      }
+    },
+    "newsletter-1": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "wide_display": true,
+        "title": "Newsletter",
+        "subheading": "Sign up to our mailing list and receive 15% off of your first order!",
+        "newsletter_richtext": "",
+        "display_first_name": false,
+        "display_last_name": false,
+        "text_align": "center",
+        "newsletter_background": "#ffffff",
+        "newsletter_text": "#303030"
+      }
+    }
+  },
+  "order": [
+    "gallery-1",
+    "featured-text-1",
+    "featured-collection-1",
+    "divider-1",
+    "0e56d486-9b75-4e08-acd1-d24f93fdf605",
+    "divider-2",
+    "featured-promotions-1",
+    "divider-3",
+    "featured-product-1",
+    "1762996333e98d5907",
+    "testimonial-1",
+    "image-text-1",
+    "blog-post-1",
+    "divider-4",
+    "newsletter-1"
+  ]
+}

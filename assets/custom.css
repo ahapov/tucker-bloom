@@ -37,3 +37,7 @@
   margin-top: 20px;
   margin-bottom: 15px;
 }
+
+.moreless-button {
+  display: none;
+}

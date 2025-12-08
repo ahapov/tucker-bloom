@@ -106,10 +106,10 @@
       "type": "product-recommendations",
       "settings": {
         "show_product_recommendations": true,
-        "product_recommendations_layout": "slider",
+        "product_recommendations_layout": "grid",
         "product_recommendations_heading": "You may also like",
-        "products_per_row": 3,
-        "recommended_products_limit": 7
+        "products_per_row": 4,
+        "recommended_products_limit": 8
       }
     },
     "16334414056cf0ce6d": {

@@ -45,7 +45,7 @@
         {% assign image_alt_tag = image.alt | downcase %}
         {% if image_alt_tag contains current_variant_sku %}
           <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
-            {{ image | image_url: width: 1000 | image_tag }}
+            {{ image | image_url: width: 1500 | image_tag }}
           </div>
         {% endif %}
       {% endfor %}
@@ -86,7 +86,6 @@
 
     if (showThumbs) {
       window.productGallerySwiper.thumb = new Swiper(".mySwiper", {
-        loop: true,
         spaceBetween: 10,
         slidesPerView: 5,
         freeMode: true,
@@ -95,7 +94,6 @@
     }
 
     window.productGallerySwiper.main = new Swiper(".mySwiper2", {
-      loop: true,
       spaceBetween: 10,
       navigation: {
         nextEl: ".swiper-button-next",

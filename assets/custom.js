@@ -293,7 +293,6 @@
 
         if (this.showThumbnails) {
           window.productGallerySwiper.thumb = new Swiper(".mySwiper", {
-            loop: true,
             spaceBetween: 10,
             slidesPerView: 5,
             freeMode: true,
@@ -303,7 +302,6 @@
         }
 
         window.productGallerySwiper.main = new Swiper(".mySwiper2", {
-          loop: true,
           spaceBetween: 10,
           speed: 300,
           navigation: {
@@ -326,12 +324,77 @@
     }
   }
 
+  class ImageZoomHandler {
+    constructor() {
+      this.currentSlide = null;
+      this.zoomLevel = 2;
+      this.init();
+    }
+
+    init() {
+      this.attachEventListeners();
+    }
+
+    attachEventListeners() {
+      document.addEventListener('mouseenter', (e) => {
+        if (!e.target || !e.target.closest) return;
+        const slide = e.target.closest('.mySwiper2 .swiper-slide:not(.swiper-slide-duplicate)');
+        if (slide && !e.target.closest('.swiper-button-next, .swiper-button-prev')) {
+          this.enableZoom(slide);
+        }
+      }, true);
+
+      document.addEventListener('mouseleave', (e) => {
+        if (!e.target || !e.target.closest) return;
+        const slide = e.target.closest('.mySwiper2 .swiper-slide');
+        if (slide) {
+          this.disableZoom(slide);
+        }
+      }, true);
+    }
+
+    enableZoom(slide) {
+      this.currentSlide = slide;
+      const img = slide.querySelector('img');
+      if (!img) return;
+
+      slide.classList.add('zoom-active');
+
+      const moveZoom = (e) => {
+        const rect = slide.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        img.style.transformOrigin = `${x}% ${y}%`;
+        img.style.transform = `scale(${this.zoomLevel})`;
+      };
+
+      slide.addEventListener('mousemove', moveZoom);
+      this.currentMoveZoom = moveZoom;
+    }
+
+    disableZoom(slide) {
+      const img = slide.querySelector('img');
+      if (!img) return;
+
+      slide.classList.remove('zoom-active');
+      img.style.transform = 'scale(1)';
+      img.style.transformOrigin = 'center center';
+      
+      if (this.currentMoveZoom) {
+        slide.removeEventListener('mousemove', this.currentMoveZoom);
+      }
+    }
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       new VariantGalleryHandler();
+      new ImageZoomHandler();
     });
   } else {
     new VariantGalleryHandler();
+    new ImageZoomHandler();
   }
 
 })();

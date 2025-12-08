@@ -119,13 +119,16 @@
         "section_height": "small",
         "image": "shopify://shop_images/2024-09-29_13.27.33.jpg",
         "title": "Dig in the Stacks",
+        "alternative_title": "",
         "text": "",
+        "alternative_text": "",
         "text_position": "center",
         "overlay_opacity": 35,
         "overlay_color": "#000000",
         "overlay_text_color": "#ffffff",
         "button_label": "RECORDS",
         "link": "shopify://collections/vinyl-records",
+        "alternative_link": "",
         "button_style": "primary"
       }
     },
@@ -162,10 +165,13 @@
         "desktop_image_height": "small",
         "mobile_image_height": "small",
         "title": "Details & Care",
+        "alternative_title": "",
         "text": "<p>When it comes to caring for your garments, we recommend hand washing in cold water with similar colors and textures. Then lay flat to dry and out of the sun to avoid sun fading. </p>",
+        "alternative_text": "",
         "text_align": "left",
         "button_label": "Learn more",
         "link": "",
+        "alternative_link": "",
         "text_color": "#000000",
         "background_color": "rgba(0,0,0,0)"
       }
@@ -180,10 +186,13 @@
         "desktop_image_height": "small",
         "mobile_image_height": "small",
         "title": "The Importance of Buying Locally and Ethically",
+        "alternative_title": "",
         "text": "<p>Have you ever thought about wearing sustainable clothing that lasts longer than a season? Here are some things you can incorporate into your pursuit of timeless pieces. </p>",
+        "alternative_text": "",
         "text_align": "left",
         "button_label": "Read Article",
         "link": "",
+        "alternative_link": "",
         "text_color": "#000000",
         "background_color": "rgba(0,0,0,0)"
       }
@@ -194,7 +203,7 @@
         "collection_6zz9LL": {
           "type": "collection",
           "settings": {
-            "feature_collection": "vinyl-records"
+            "feature_collection": "accessories"
           }
         },
         "collection_XThix8": {

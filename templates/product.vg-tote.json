@@ -109,7 +109,7 @@
         "section_height": "small",
         "image": "shopify://shop_images/CosmoGif1.gif",
         "alternative_image": "{{ product.metafields.custom.section_alternative_content_1.value.image.value }}",
-        "title": "Tried & true, like the man himself.",
+        "title": "The Sidekick 45 Bag",
         "alternative_title": "{{ product.metafields.custom.section_alternative_content_1.value.heading.value }}",
         "text": "",
         "alternative_text": "{{ product.metafields.custom.section_alternative_content_1.value.text | metafield_tag }}",

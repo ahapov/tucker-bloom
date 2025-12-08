@@ -111,14 +111,14 @@
         "alternative_image": "{{ product.metafields.custom.section_alternative_content_1.value.image.value }}",
         "title": "Tried & true, like the man himself.",
         "alternative_title": "{{ product.metafields.custom.section_alternative_content_1.value.heading.value }}",
-        "text": "<p>Cosmo Baker North To South Messenger</p>",
+        "text": "",
         "alternative_text": "{{ product.metafields.custom.section_alternative_content_1.value.text | metafield_tag }}",
         "text_position": "center",
         "overlay_opacity": 35,
         "overlay_color": "#000000",
         "overlay_text_color": "#ffffff",
         "button_label": "Shop",
-        "link": "shopify://products/cosmo-baker-north-to-south-messenger-bag",
+        "link": "shopify://products/transit-pass",
         "alternative_link": "{{ product.metafields.custom.section_alternative_content_1.value.cta_link.value }}",
         "button_style": "primary"
       }

@@ -30,13 +30,15 @@
   data-product-url="{{ product.url }}"
 >
   <div class="product-gallery__wrapper">
-      {%
+      {% render 'custom-gallery', product: product %}
+
+      {% comment %} {%
         render 'product-images',
         product: product,
         onboarding: onboarding,
         quickshop: quickshop,
         sidebar_enabled: sidebar_enabled
-      %}
+      %} {% endcomment %}
       {%
         render 'lifestyle-images',
         product: product,

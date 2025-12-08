@@ -1,0 +1,109 @@
+{% if product.images.size > 1 %}
+  {% assign show_thumbnails = true %}
+{% else %}
+  {% assign show_thumbnails = false %}
+{% endif %}
+
+{% assign current_variant_sku = product.selected_or_first_available_variant.sku | downcase %}
+
+{% capture images_data %}
+  [
+    {% for image in product.images %}
+      {
+        "url": {{ image | image_url: width: 1000 | json }},
+        "alt": {{ image.alt | json }},
+        "alt_lower": {{ image.alt | downcase | json }},
+        "id": {{ image.id | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+{% endcapture %}
+
+{% capture variants_data %}
+  [
+    {% for variant in product.variants %}
+      {
+        "id": {{ variant.id | json }},
+        "sku": {{ variant.sku | downcase | json }},
+        "title": {{ variant.title | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+{% endcapture %}
+
+<div 
+  class="custom-gallery__wrapper" 
+  data-product-gallery
+  data-images='{{ images_data | strip_newlines }}'
+  data-variants='{{ variants_data | strip_newlines }}'
+  data-current-sku="{{ current_variant_sku }}"
+  data-show-thumbnails="{{ show_thumbnails }}"
+>
+  <div class="swiper mySwiper2" data-main-swiper>
+    <div class="swiper-wrapper" data-main-swiper-wrapper>
+      {% for image in product.images %}
+        {% assign image_alt_tag = image.alt | downcase %}
+        {% if image_alt_tag contains current_variant_sku %}
+          <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
+            {{ image | image_url: width: 1000 | image_tag }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if show_thumbnails %}
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    {% endif %}
+  </div>
+
+  {% if show_thumbnails %}
+    <div thumbsSlider="" class="swiper mySwiper" data-thumb-swiper>
+      <div class="swiper-wrapper" data-thumb-swiper-wrapper>
+        {% for image in product.images %}
+          {% assign image_alt_tag = image.alt | downcase %}
+          {% if image_alt_tag contains current_variant_sku %}
+            <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
+              {{ image | image_url: width: 1000 | image_tag }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  (function() {
+    const galleryWrapper = document.querySelector('[data-product-gallery]');
+    if (!galleryWrapper) return;
+
+    const showThumbs = galleryWrapper.dataset.showThumbnails === 'true';
+    
+    window.productGallerySwiper = {
+      thumb: null,
+      main: null
+    };
+
+    if (showThumbs) {
+      window.productGallerySwiper.thumb = new Swiper(".mySwiper", {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 5,
+        freeMode: true,
+        watchSlidesProgress: true,
+      });
+    }
+
+    window.productGallerySwiper.main = new Swiper(".mySwiper2", {
+      loop: true,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      thumbs: showThumbs ? {
+        swiper: window.productGallerySwiper.thumb,
+      } : undefined,
+    });
+  })();
+</script>

@@ -35,9 +35,39 @@
         "search_enabled": true,
         "social_icons_enabled": true
       }
+    },
+    "blocks_bNygAi": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_e8403a0_FXaMiN": {
+          "type": "ai_gen_block_e8403a0",
+          "settings": {
+            "heading": "Lifestyle",
+            "heading_alignment": "left",
+            "images_per_row": 3,
+            "tablet_layout": "2",
+            "mobile_layout": "1",
+            "image_spacing": 16,
+            "image_aspect_ratio": "75",
+            "heading_size": 24,
+            "heading_color": "#2a2a2a",
+            "spacing_below_heading": 24,
+            "section_padding": 32,
+            "image_border_radius": 0,
+            "enable_hover_zoom": true
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e8403a0_FXaMiN"
+      ],
+      "name": "Lifestyle image gallery",
+      "settings": {}
     }
   },
   "order": [
-    "header"
+    "header",
+    "blocks_bNygAi"
   ]
 }

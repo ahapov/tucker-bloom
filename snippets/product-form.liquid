@@ -1,3 +1,5 @@
+{% assign engraving_enabled = product.metafields.custom.engraving %}
+
 <div
   class="product-form">
   {% form 'product', product, class: 'product_form_classes', data-product-form: '' %}
@@ -238,6 +240,62 @@
               %}
             {% endif %}
           {% endfor %}
+
+          {% if engraving_enabled and product.title != 'Engraving Service' %}
+            <fieldset class="options-selection__radios engraving-options">
+              <legend class="options-selection__option-header">
+                <span class="options-selection__option-name">
+                  Engraving:
+                </span>
+              </legend>
+              <div class="options-selection__option-values">
+                <div class="options-selection__option-value">
+                  <label class="options-selection__option-value-label">
+                    <input
+                      class="options-selection__option-value-input"
+                      type="radio"
+                      name="engraving_enabled"
+                      value="yes"
+                      data-engraving-yes
+                      tabindex="0"
+                      aria-label="Yes"
+                    >
+                    <span class="options-selection__option-value-name" tabindex="-1">
+                      Yes
+                    </span>
+                  </label>
+                </div>
+                <div class="options-selection__option-value options-selection__option-value--selected">
+                  <label class="options-selection__option-value-label">
+                    <input
+                      class="options-selection__option-value-input"
+                      type="radio"
+                      name="engraving_enabled"
+                      value="no"
+                      checked
+                      data-engraving-no
+                      tabindex="0"
+                      aria-label="No"
+                    >
+                    <span class="options-selection__option-value-name" tabindex="-1">
+                      No
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div class="engraving-input-wrapper" data-engraving-input-wrapper style="display: none;">
+                <input 
+                  type="text" 
+                  name="properties[Engraving]" 
+                  placeholder="Enter your engraving text"
+                  data-engraving-input
+                  maxlength="50"
+                  class="engraving-text-input"
+                >
+                <small class="engraving-note">Maximum 50 characters</small>
+              </div>
+            </fieldset>
+          {% endif %}
         </options-selection>
         {% comment %}Inject @pixelunion/shopify-variants-ui/options-selection end{% endcomment %}
     
@@ -659,5 +717,39 @@
 
       {% comment %} <div class="surface-pick-up {% unless product.available %}surface-pick-up--hidden{% endunless %}" data-surface-pick-up></div> {% endcomment %}
     </div>
+
+    {% if engraving_enabled and product.title != 'Engraving Service' %}
+      <script type="application/json" data-engraving-variants>
+        {
+          "variants": [
+            {% for variant in product.variants %}
+              {% assign engraving_service = variant.metafields.custom.engraving_service.value %}
+              {% assign engraving_variant_id = null %}
+              {% if engraving_service %}
+                {% if engraving_service.variants.size > 0 %}
+                  {% assign engraving_variant_id = engraving_service.selected_or_first_available_variant.id %}
+                {% elsif engraving_service.id %}
+                  {% assign engraving_variant_id = engraving_service.id %}
+                {% endif %}
+              {% endif %}
+              {
+                "variantData": {
+                  "variantId": {{ variant.id }},
+                  "variantEngravingId": {% if engraving_variant_id %}
+                    {{ engraving_variant_id }}
+                  {% else %}
+                    null
+                  {% endif %}
+                }
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        }
+        </script>
+    {% endif %}
   {% endform %}
 </div>
+
+{% if engraving_enabled and product.title != 'Engraving Service' %}
+  <script src="{{ 'engraving-handler.js' | asset_url }}" defer></script>
+{% endif %}

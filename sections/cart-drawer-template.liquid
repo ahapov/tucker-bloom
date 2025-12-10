@@ -58,6 +58,16 @@
                       {% endfor %}
                     </p>
                   {% endunless %}
+                  {% if item.properties != blank %}
+                    {% for property in item.properties %}
+                      {% if property.first == 'Engraving' and property.last != blank %}
+                        <p class="item-info__engraving">
+                          <span class="item-info__engraving-label">Engraving:</span><br>
+                          <span class="item-info__engraving-value">{{ property.last }}</span>
+                        </p>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
                   {% if item.selling_plan_allocation.selling_plan %}
                     <p class="item-info__selling-plan">
                       {{ item.selling_plan_allocation.selling_plan.name }}

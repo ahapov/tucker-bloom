@@ -72,13 +72,14 @@
     },
     "0e56d486-9b75-4e08-acd1-d24f93fdf605": {
       "type": "countdown-timer",
+      "disabled": true,
       "settings": {
         "full_width": true,
         "section_height": "medium",
         "image": "shopify://shop_images/rm45lifestyleV2.png",
         "countdown_year": "2025",
         "countdown_month": "12",
-        "countdown_day": "11",
+        "countdown_day": "12",
         "countdown_hour": "12",
         "countdown_minute": "30",
         "countdown_timer_background": false,

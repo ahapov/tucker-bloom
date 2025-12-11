@@ -125,6 +125,22 @@
               {{ block.settings.text }}
             </div>
 
+          {% when 'availability_info' %}
+            {% if block.settings.custom_content != blank %}
+              <div class="product-custom-info">
+                <div class="product-custom-info__row">
+                  <span class="product-custom-info__icon">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                      <path d="M4.33346 10.5625L3.80311 11.0928L4.33344 11.6232L4.86379 11.0928L4.33346 10.5625ZM0.191824 7.48134L3.80311 11.0928L4.8638 10.0322L1.25251 6.4207L0.191824 7.48134ZM4.86379 11.0928L12.9888 2.96783L11.9281 1.90717L3.80313 10.0322L4.86379 11.0928Z"/>
+                    </svg>
+                  </span>
+                  <div class="product-custom-info__content">
+                    {{ block.settings.custom_content }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
           {% when 'social' %}
             {% render 'social-buttons' %}
 

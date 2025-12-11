@@ -280,3 +280,43 @@
 .product__description a:visited {
   color: #000
 }
+
+.product-custom-info {
+  margin: 1rem 0;
+}
+
+.product-custom-info__row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.product-custom-info__icon {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+}
+
+.product-custom-info__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--success-green, #56ad6a);
+}
+
+.product-custom-info__content {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.product-custom-info__content p {
+  margin: 0 0 0.5rem 0;
+}
+
+.product-custom-info__content p:last-child {
+  margin-bottom: 0;
+}
+
+.product-custom-info__content strong {
+  font-weight: 600;
+}

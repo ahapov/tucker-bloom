@@ -387,14 +387,102 @@
     }
   }
 
+  class ProductDescriptionAccordion {
+    constructor() {
+      this.init();
+    }
+
+    init() {
+      const descriptionWrapper = document.querySelector('.product__description');
+      if (!descriptionWrapper) return;
+
+      // Look for tab structure in the description
+      const tabsUl = descriptionWrapper.querySelector('ul.tabs');
+      const tabsContentUl = descriptionWrapper.querySelector('ul.tabs-content');
+      
+      if (!tabsUl || !tabsContentUl) return;
+
+      // Get tab labels
+      const tabLabels = Array.from(tabsUl.querySelectorAll('li a')).map(link => ({
+        href: link.getAttribute('href'),
+        text: link.textContent.trim()
+      }));
+
+      // Get tab contents
+      const tabContents = Array.from(tabsContentUl.querySelectorAll('li[id^="tab"]')).map(tab => ({
+        id: tab.getAttribute('id'),
+        content: tab.innerHTML
+      }));
+
+      // Create accordion structure
+      const accordionHTML = tabLabels.map((label, index) => {
+        const tabId = label.href.replace('#', '');
+        const content = tabContents.find(t => t.id === tabId);
+        if (!content) return '';
+
+        const isFirst = index === 0;
+        return `
+          <dl class="accordion">
+            <dt>
+              <a href="#" class="${isFirst ? 'active' : ''}" aria-controls="panel-${tabId}" aria-expanded="${isFirst}">
+                <small></small>
+                ${label.text}
+              </a>
+            </dt>
+            <dd id="panel-${tabId}" class="${isFirst ? 'active' : ''}" aria-hidden="${!isFirst}">
+              ${content.content}
+            </dd>
+          </dl>
+        `;
+      }).join('');
+
+      // Replace the tabs with accordion
+      descriptionWrapper.innerHTML = accordionHTML;
+
+      // Add event listeners to accordion links
+      this.attachAccordionListeners(descriptionWrapper);
+    }
+
+    attachAccordionListeners(wrapper) {
+      const accordionLinks = wrapper.querySelectorAll('.accordion dt a');
+      
+      accordionLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.toggleAccordion(link);
+        });
+      });
+    }
+
+    toggleAccordion(link) {
+      const dt = link.parentElement;
+      const dd = dt.nextElementSibling;
+      const isExpanded = link.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        link.setAttribute('aria-expanded', 'false');
+        link.classList.remove('active');
+        dd.setAttribute('aria-hidden', 'true');
+        dd.classList.remove('active');
+      } else {
+        link.setAttribute('aria-expanded', 'true');
+        link.classList.add('active');
+        dd.setAttribute('aria-hidden', 'false');
+        dd.classList.add('active');
+      }
+    }
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       new VariantGalleryHandler();
       new ImageZoomHandler();
+      new ProductDescriptionAccordion();
     });
   } else {
     new VariantGalleryHandler();
     new ImageZoomHandler();
+    new ProductDescriptionAccordion();
   }
 
 })();

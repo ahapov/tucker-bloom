@@ -63,6 +63,12 @@
             "show_gift_card_recipient_form": false
           }
         },
+        "availability_info_egReid": {
+          "type": "availability_info",
+          "settings": {
+            "custom_content": "{{ product.metafields.custom.availability_information | metafield_tag }}"
+          }
+        },
         "description": {
           "type": "description",
           "settings": {}
@@ -81,6 +87,7 @@
         "dc16d0f0-d02c-4a34-9342-420f50d320ea",
         "price",
         "form",
+        "availability_info_egReid",
         "description",
         "e1135ae9-913e-476e-990c-091d12c963d7"
       ],

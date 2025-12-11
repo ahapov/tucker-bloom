@@ -44,30 +44,23 @@
     assign alternative_link_value = object.settings.alternative_link
   endif
 
-  if alternative_image_value != blank
+  assign has_metafield = false
+  if alternative_image_value != blank or alternative_heading_value != blank or alternative_text_value != blank or alternative_link_value != blank
+    assign has_metafield = true
+  endif
+
+  if has_metafield
     assign image = image | default: alternative_image_value
-  elsif alternative_image != blank
-    assign image = image | default: alternative_image
+    assign heading = heading | default: alternative_heading_value
+    assign subheading = subheading | default: alternative_text_value
+    assign button_link = alternative_link_value
   else
     assign image = image | default: object.settings.image
-  endif
-
-  if alternative_heading_value != blank
-    assign heading = heading | default: alternative_heading_value
-  else
     assign heading = heading | default: object.settings.title
-  endif
-
-  if alternative_text_value != blank
-    assign subheading = subheading | default: alternative_text_value
-  else
     assign subheading = subheading | default: object.settings.text
-  endif
-
-  if alternative_link_value != blank
-    assign button_link = alternative_link_value
-  elsif object.settings.link != blank
-    assign button_link = object.settings.link
+    if object.settings.link != blank
+      assign button_link = object.settings.link
+    endif
   endif
 
   if object.settings.button_label
@@ -75,7 +68,6 @@
   endif
 %}
 
-{% comment %} On the page.banner template, the only setting that is different is text/subtext {% endcomment %}
 {% if object.settings.subtext %}
   {% assign subheading = object.settings.subtext %}
 {% endif %}

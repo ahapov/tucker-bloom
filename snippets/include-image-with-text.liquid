@@ -11,7 +11,6 @@
   assign mobile_height = object.settings.mobile_image_height
   assign overlay_color = object.settings.background_color
   assign text_color = object.settings.text_color
-  assign button_label = object.settings.button_label
 
   if object.settings.alternative_image.image != blank
     assign alternative_image_value = object.settings.alternative_image.image
@@ -37,27 +36,25 @@
     assign alternative_link_value = object.settings.alternative_link
   endif
 
-  if alternative_image_value != blank
+  assign has_metafield = false
+  if alternative_image_value != blank or alternative_heading_value != blank or alternative_text_value != blank or alternative_link_value != blank
+    assign has_metafield = true
+  endif
+
+  if has_metafield
     assign image = alternative_image_value
+    assign heading = alternative_heading_value
+    assign subheading = alternative_text_value
+    assign button_link = alternative_link_value
   else
     assign image = object.settings.image
-  endif
-
-  if alternative_heading_value != blank
-    assign heading = alternative_heading_value
-  else
     assign heading = object.settings.title
-  endif
-
-  if alternative_text_value != blank
-    assign subheading = alternative_text_value
-  else
     assign subheading = object.settings.text
+    assign button_link = object.settings.link
   endif
 
-  assign button_link = object.settings.link
-  if alternative_link_value != blank
-    assign button_link = alternative_link_value
+  if object.settings.button_label
+    assign button_label = object.settings.button_label
   endif
 %}
 

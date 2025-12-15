@@ -12,22 +12,22 @@
     "gallery-1": {
       "type": "gallery",
       "blocks": {
+        "block-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2025-07-31_18.36.41.png"
+          }
+        },
         "block-1": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/backpack-walden-backpack-12_5d8f6f52-f16f-432c-aaff-ea3797d88222.png"
           }
-        },
-        "block-2": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/2024-09-29_12.35.55-1.png"
-          }
         }
       },
       "block_order": [
-        "block-1",
-        "block-2"
+        "block-2",
+        "block-1"
       ],
       "settings": {
         "title": "",

@@ -12,26 +12,32 @@
     "gallery-1": {
       "type": "gallery",
       "blocks": {
+        "image_erNMja": {
+          "type": "image",
+          "disabled": true,
+          "settings": {}
+        },
         "block-2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/MUTO_print.png"
+            "image": "shopify://shop_images/2025-07-31_18.36.41.png"
           }
         },
         "block-1": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/backpack-walden-backpack-12_5d8f6f52-f16f-432c-aaff-ea3797d88222.png"
+            "image": "shopify://shop_images/DUO_GROUP_2_9218ba36-3cc8-4c24-ac28-b3d081cd26fe.jpg"
           }
         }
       },
       "block_order": [
+        "image_erNMja",
         "block-2",
         "block-1"
       ],
       "settings": {
         "title": "",
-        "gallery_type": "grid",
+        "gallery_type": "slideshow",
         "images_per_row": 2,
         "wide_display": true
       }

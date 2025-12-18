@@ -109,8 +109,35 @@
         "video_looping": false
       }
     },
+    "176298330660ca0e8e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_gpc3Pn": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        },
+        "judge_me_reviews_featured_carousel_4qwf89": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {
+            "maxwidth": 1090
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_gpc3Pn",
+        "judge_me_reviews_featured_carousel_4qwf89"
+      ],
+      "settings": {}
+    },
     "16334414056cf0ce6d": {
       "type": "image-with-text-overlay-section",
+      "disabled": true,
       "settings": {
         "wide_display": true,
         "section_height": "small",
@@ -137,8 +164,47 @@
         "divider_border": true
       }
     },
+    "features_grid_jXVFEY": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_ByhNVc": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/2025-07-31_18.36.41.jpg",
+            "heading": "Small Batch Manufacturing",
+            "text": "<p>We take great care with our products. That means low-waste manufacturing in small batches, with many things made to order.</p>"
+          }
+        },
+        "feature_JhkdJC": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/camo_walden_beach.jpg",
+            "heading": "Built for adventure",
+            "text": "<p>Our products are designed for a life full of bumps, downpours, and overhead bins. Made from the best materials, crafted using traditional European craftsmanship for two generations.</p>"
+          }
+        },
+        "feature_Rcw8xP": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/duffel-bags-london-duffel-bag-with-leather-trim-and-a-lifetime-warranty-31.jpg",
+            "heading": "Ready for life",
+            "text": "<p>We offer a lifetime warranty so you can worry about getting to your departure gate or catching the train, and let us worry about the bag holding up on the way.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_ByhNVc",
+        "feature_JhkdJC",
+        "feature_Rcw8xP"
+      ],
+      "name": "Features Grid",
+      "settings": {
+        "section_heading": "Why You'll Love It"
+      }
+    },
     "16334416611b39db75": {
       "type": "image-text",
+      "disabled": true,
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.35.55-1.png",
@@ -160,6 +226,7 @@
     },
     "1633441880502148af": {
       "type": "image-text",
+      "disabled": true,
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.36.10-1.jpg",
@@ -179,32 +246,6 @@
         "background_color": "rgba(0,0,0,0)"
       }
     },
-    "176298330660ca0e8e": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_gpc3Pn": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "other_products_reviews"
-          }
-        },
-        "judge_me_reviews_featured_carousel_4qwf89": {
-          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "disabled": true,
-          "settings": {
-            "maxwidth": 1090
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_gpc3Pn",
-        "judge_me_reviews_featured_carousel_4qwf89"
-      ],
-      "settings": {}
-    },
     "recommendations": {
       "type": "product-recommendations",
       "settings": {
@@ -219,11 +260,12 @@
   "order": [
     "sidebar",
     "main",
+    "176298330660ca0e8e",
     "16334414056cf0ce6d",
     "163344186528b6f100",
+    "features_grid_jXVFEY",
     "16334416611b39db75",
     "1633441880502148af",
-    "176298330660ca0e8e",
     "recommendations"
   ]
 }

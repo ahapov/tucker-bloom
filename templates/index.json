@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "banner_Y6HgDb": {
+      "type": "banner",
+      "name": "Banner",
+      "settings": {
+        "image_1": "shopify://shop_images/2025-07-31_18.36.41.png",
+        "image_1_link": "",
+        "image_2": "shopify://shop_images/DUO_GROUP_2_9218ba36-3cc8-4c24-ac28-b3d081cd26fe.jpg",
+        "image_2_link": "",
+        "image_3": "shopify://shop_images/2025-07-31_18.36.41.jpg",
+        "image_3_link": ""
+      }
+    },
     "gallery-1": {
       "type": "gallery",
       "blocks": {
@@ -35,6 +47,7 @@
         "block-2",
         "block-1"
       ],
+      "disabled": true,
       "settings": {
         "title": "",
         "gallery_type": "slideshow",
@@ -358,6 +371,7 @@
     }
   },
   "order": [
+    "banner_Y6HgDb",
     "gallery-1",
     "featured-text-1",
     "featured-collection-1",

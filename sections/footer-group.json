@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer",
@@ -7,18 +16,22 @@
       "blocks": {
         "1483145109201": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Thank You",
+            "content": ""
           }
         },
         "52883245-be55-4cd8-a145-06f46f6742e7": {
           "type": "link_list",
+          "disabled": true,
           "settings": {
             "footer_linklist": "footer"
           }
         },
         "ee4ccb4a-793c-4423-896f-435bfeaa1823": {
           "type": "link_list",
+          "disabled": true,
           "settings": {
             "footer_linklist": "footer"
           }
@@ -40,6 +53,7 @@
         "copyright_text": "",
         "display_payment_methods": false,
         "social_icons_enabled": true,
+        "enable_follow_on_shop": true,
         "show_locale_selector": true,
         "show_currency_selector": true
       }

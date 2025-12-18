@@ -118,7 +118,7 @@
             "review_data": "real_data",
             "max_width": 1200,
             "show_shop_reviews": false,
-            "empty_state": "other_products_reviews"
+            "empty_state": "hide_widget"
           }
         },
         "judge_me_reviews_featured_carousel_4qwf89": {
@@ -197,6 +197,7 @@
         "feature_JhkdJC",
         "feature_Rcw8xP"
       ],
+      "disabled": true,
       "name": "Features Grid",
       "settings": {
         "section_heading": "Why You'll Love It"

@@ -1,0 +1,180 @@
+{% liquid
+  assign mobile_image = section.settings.image_3
+  assign mobile_link = section.settings.image_3_link
+  
+  if mobile_image == blank
+    assign mobile_image = section.settings.image_1
+    assign mobile_link = section.settings.image_1_link
+  endif
+%}
+
+<section class="split-banner">
+  <div class="split-banner__desktop">
+    {% if section.settings.image_1 != blank %}
+      <div class="split-banner__item split-banner__item--left">
+        {% if section.settings.image_1_link != blank %}
+          <a href="{{ section.settings.image_1_link }}" class="split-banner__link">
+        {% endif %}
+            <img
+              src="{{ section.settings.image_1 | image_url: width: 1200 }}"
+              alt="{{ section.settings.image_1.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.image_1.width }}"
+              height="{{ section.settings.image_1.height }}"
+            >
+        {% if section.settings.image_1_link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.image_2 != blank %}
+      <div class="split-banner__item split-banner__item--right">
+        {% if section.settings.image_2_link != blank %}
+          <a href="{{ section.settings.image_2_link }}" class="split-banner__link">
+        {% endif %}
+            <img
+              src="{{ section.settings.image_2 | image_url: width: 1200 }}"
+              alt="{{ section.settings.image_2.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.image_2.width }}"
+              height="{{ section.settings.image_2.height }}"
+            >
+        {% if section.settings.image_2_link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="split-banner__mobile">
+    {% if mobile_image != blank %}
+      <div class="split-banner__item">
+        {% if mobile_link != blank %}
+          <a href="{{ mobile_link }}" class="split-banner__link">
+        {% endif %}
+            <img
+              src="{{ mobile_image | image_url: width: 800 }}"
+              alt="{{ mobile_image.alt | escape }}"
+              loading="lazy"
+              width="{{ mobile_image.width }}"
+              height="{{ mobile_image.height }}"
+            >
+        {% if mobile_link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .split-banner {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .split-banner__desktop {
+    display: none;
+  }
+
+  .split-banner__mobile {
+    display: block;
+    width: 100%;
+  }
+
+  .split-banner__item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .split-banner__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .split-banner__item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  @media screen and (min-width: 768px) {
+    .split-banner__desktop {
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+    }
+
+    .split-banner__mobile {
+      display: none;
+    }
+
+    .split-banner__item--left,
+    .split-banner__item--right {
+      width: 50%;
+      flex: 1;
+    }
+
+    .split-banner__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Banner",
+  "class": "shopify-section--banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Left Image"
+    },
+    {
+      "type": "url",
+      "id": "image_1_link",
+      "label": "Left Image Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Right Image"
+    },
+    {
+      "type": "url",
+      "id": "image_2_link",
+      "label": "Right Image Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "url",
+      "id": "image_3_link",
+      "label": "Mobile Image Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+}
+
+{% endschema %}

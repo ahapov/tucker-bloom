@@ -171,8 +171,8 @@
           "type": "feature",
           "settings": {
             "image": "shopify://shop_images/NAVY_TOTE_ANIMATION.gif",
-            "heading": "Small Batch Manufacturing",
-            "text": "<p>We take great care with our products. That means low-waste manufacturing in small batches, with many things made to order.</p>"
+            "heading": "Made with purpose",
+            "text": "<p>The VG+ tote was designed as a collaborative blank and is released in support of community-driven events. </p>"
           }
         },
         "feature_JhkdJC": {
@@ -180,7 +180,7 @@
           "settings": {
             "image": "shopify://shop_images/VG_TOTE_lifestyle_19.jpg",
             "heading": "Built for adventure",
-            "text": "<p>Our products are designed for a life full of bumps, downpours, and overhead bins. Made from the best materials, crafted using traditional European craftsmanship for two generations.</p>"
+            "text": "<p>Surprisingly sturdy and handy in almost any situation. It's a great bag, and minimalists for the first time ever!</p>"
           }
         },
         "feature_Rcw8xP": {
@@ -188,7 +188,7 @@
           "settings": {
             "image": "shopify://shop_images/Southern_Word_Tote_Bag_Animation_8285155b-2f01-4ecd-a050-6b8447b8e2a3.gif",
             "heading": "VG+ TOTE",
-            "text": "<p>You never know what you might need to stash. This tote is mom and auntie approved.</p><p>  </p>"
+            "text": "<p>This tote is mom and auntie approved.</p><p>  </p>"
           }
         }
       },

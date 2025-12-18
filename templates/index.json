@@ -55,6 +55,26 @@
         "wide_display": true
       }
     },
+    "image-text-1": {
+      "type": "image-text",
+      "settings": {
+        "wide_display": true,
+        "image": "shopify://shop_images/MUTO-OLV-1-5.jpg",
+        "image_position": "left",
+        "desktop_image_height": "medium",
+        "mobile_image_height": "medium",
+        "title": "INVENTORY ITEMS",
+        "alternative_title": "",
+        "text": "<p>These are ready to go out the door</p>",
+        "alternative_text": "",
+        "text_align": "left",
+        "button_label": "SHOP",
+        "link": "shopify://collections/holiday-inventory",
+        "alternative_link": "",
+        "text_color": "#000000",
+        "background_color": "#f7f6f1"
+      }
+    },
     "featured-text-1": {
       "type": "featured-text",
       "settings": {
@@ -313,26 +333,6 @@
         "desktop_navigation_style": "buttons"
       }
     },
-    "image-text-1": {
-      "type": "image-text",
-      "settings": {
-        "wide_display": true,
-        "image": "shopify://shop_images/MUTO-OLV-1-5.jpg",
-        "image_position": "left",
-        "desktop_image_height": "medium",
-        "mobile_image_height": "medium",
-        "title": "INVENTORY ITEMS",
-        "alternative_title": "",
-        "text": "<p>These are ready to go out the door</p>",
-        "alternative_text": "",
-        "text_align": "left",
-        "button_label": "SHOP",
-        "link": "shopify://collections/holiday-inventory",
-        "alternative_link": "",
-        "text_color": "#000000",
-        "background_color": "#f7f6f1"
-      }
-    },
     "blog-post-1": {
       "type": "blog-posts",
       "disabled": true,
@@ -373,6 +373,7 @@
   "order": [
     "banner_Y6HgDb",
     "gallery-1",
+    "image-text-1",
     "featured-text-1",
     "featured-collection-1",
     "divider-1",
@@ -383,7 +384,6 @@
     "featured-product-1",
     "1762996333e98d5907",
     "testimonial-1",
-    "image-text-1",
     "blog-post-1",
     "divider-4",
     "newsletter-1"

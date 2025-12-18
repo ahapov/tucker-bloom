@@ -177,6 +177,7 @@
     },
     "16334416611b39db75": {
       "type": "image-text",
+      "disabled": true,
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.35.55-1.png",
@@ -198,6 +199,7 @@
     },
     "1633441880502148af": {
       "type": "image-text",
+      "disabled": true,
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.36.10-1.jpg",

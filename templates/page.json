@@ -1,1 +1,36 @@
-{"sections":{"main":{"type":"page-template","settings":{}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-template",
+      "settings": {}
+    },
+    "featured_text_eCcYwK": {
+      "type": "featured-text",
+      "name": "Rich text",
+      "settings": {
+        "wide_display": true,
+        "enable_parallax_effect": false,
+        "title": "",
+        "content": "<p>Tucker & Bloom is a family business with over 30 years in the bag industry, focusing on organizational products and clean design. Since the beginning, Tucker & Bloom has manufactured bags that emphasize organization, and individuality through functional design. </p><p>Tucker and Bloom's designs aim to organize people with a need to look professional while providing an alternative to the norm. Our products are produced from materials that meet our high expectations for quality, durability, and aesthetics.  All bags are made in small batches, using traditional European craftsman techniques, and the finest materials sourced from around the world.</p><p><strong>History</strong></p><p>The father and son team of David and Case Bloom established Tucker & Bloom after the collapse of the travel wear industry following September 11. David, a 30-year bag veteran, was the director of Coach travel products in New York prior to the attack and after was forced to take piecemeal design gigs to feed the family. Case, then a high school art student, watched his father’s craft being wasted, and together the concept for Tucker & Bloom was formed. Tucker & Bloom first released its flagship North to South Messenger Bag, which has garnered worldwide acclaim as a functional messenger bag and DJ record bag. Over the years Tucker & Bloom has established itself as a leader of innovative designs for the seasoned traveler while remaining rooted in American manufacturing. Its bags and leather goods are refined and constructed at its factory in Nashville utilizing locally and nationally sourced, ethically responsible materials, and it has collaborated with <a href=\"https://richmedina.com/\" target=\"_blank\" title=\"Rich Medina\">DJ Rich Medina</a>, <a href=\"https://thirdmanrecords.com/\" target=\"_blank\" title=\"Third Man Records\">Jack White’s Third Man Record</a>s, and many others. Tucker & Bloom’s classic pieces, created by the Bloom family, are built to withstand a lifetime’s worth of use. </p><p></p><p><strong>Heritage</strong></p><p>Tucker & Bloom is the combination of a rich history of design and outdoorsmanship. Long involved with some of this country’s greatest designs, William Feinbloom, one of the founders of Champion Sportswear and grandfather to David Bloom, designed the first hooded sweatshirt in the 1930s and developed the process of felt flocking. Serving a distinct purpose in the athletic world and adopted by US factory workers, the hooded sweatshirt was birthed from need before becoming a ubiquitous fashion accessory. This idea of functional design is the foundation and cornerstone of what we believe. Hailing from the rugged coastline of New England Alonzo Case, whose family worked as whalers in Nantucket, moved to NYC, where he would eventually start Case Lace, a lace manufacturing company. He married Ada Tucker, the daughter of Brooklyn's harbormaster, and started a family. The resulting family tree is filled with sailors, world travelers, and artisans, all of whom depended on their equipment in perilous conditions. From this relationship of design and dependence grew Tucker & Bloom’s commitment to quality workmanship and reliable, functional products. It’s from this marriage of function and design that Tucker & Bloom creates its world-renowned leather goods, luggage, and messenger bags</p><p></p><p></p><p></p><p></p><p></p>",
+        "text_size": "featured_text",
+        "text_alignment": "center",
+        "button_label": "",
+        "button_link": "",
+        "background_color": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_text_eCcYwK"
+  ]
+}

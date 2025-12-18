@@ -15,6 +15,7 @@
     },
     "featured_text_eCcYwK": {
       "type": "featured-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "wide_display": true,

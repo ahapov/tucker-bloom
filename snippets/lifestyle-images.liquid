@@ -6,41 +6,81 @@
 {% endcomment %}
 
 {% if section.settings.enable_lifestyle_images and product.metafields.custom.lifestyle_image.value != blank %}
-  <div class="scroll-carousel-wrapper">
-    {% for image in product.metafields.custom.lifestyle_image.value %}
-      <div class="lifestyle-image">
-        {%
-          render 'rimg',
-          img: image,
-          lazy: true,
-          size: '1200x'
-        %}
+  {% assign lifestyle_images = product.metafields.custom.lifestyle_image.value %}
+  {% assign image_count = lifestyle_images.size %}
+  
+  <div class="lifestyle-swiper-container">
+    <div class="swiper lifestyle-swiper">
+      <div class="swiper-wrapper">
+        {% for image in lifestyle_images %}
+          <div class="swiper-slide lifestyle-image">
+            {%
+              render 'rimg',
+              img: image,
+              lazy: true,
+              size: '1200x'
+            %}
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+      
+      {% if image_count > 1 %}
+        <div class="swiper-pagination"></div>
+      {% endif %}
+    </div>
   </div>
+  
+  <script>
+    (function() {
+      var lifestyleSwiper = new Swiper(".lifestyle-swiper", {
+        direction: "vertical",
+        slidesPerView: 1,
+        spaceBetween: 16,
+        {% if image_count > 1 %}
+        pagination: {
+          el: ".lifestyle-swiper .swiper-pagination",
+          clickable: true,
+        },
+        {% endif %}
+        mousewheel: true,
+        keyboard: {
+          enabled: true,
+        },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: true,
+        },
+      });
+    })();
+  </script>
 {% endif %}
 
 {% style %}
-  .scroll-carousel-wrapper {
+  .lifestyle-swiper-container {
     margin-top: var(--gap-size-md, 1rem);
     display: none;
+    position: relative;
   }
 
   @media screen and (min-width: 768px) {
-    .scroll-carousel-wrapper {
+    .lifestyle-swiper-container {
       display: block;
     }
   }
 
-  .lifestyle-image {
+  .lifestyle-swiper {
     width: 100%;
     height: 550px;
-    overflow: hidden;
-    margin-bottom: 1rem;
   }
 
-  .lifestyle-image:last-child {
-    margin-bottom: 0;
+  .lifestyle-swiper .swiper-slide {
+    height: 550px;
+  }
+
+  .lifestyle-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   .lifestyle-image img {
@@ -48,5 +88,33 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .lifestyle-swiper .swiper-pagination {
+    right: 10px;
+    left: auto;
+    width: auto;
+  }
+
+  .lifestyle-swiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+    margin: 6px 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .lifestyle-swiper .swiper-pagination-bullet:hover {
+    transform: scale(1.2);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .lifestyle-swiper .swiper-pagination-bullet-active {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.5);
+    transform: scale(1.15);
   }
 {% endstyle %}

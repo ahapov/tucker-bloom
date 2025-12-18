@@ -137,6 +137,44 @@
         "divider_border": true
       }
     },
+    "features_grid_jXVFEY": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_ByhNVc": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/2024-09-29_12.35.55-1.png",
+            "heading": "Small Batch Manufacturing",
+            "text": "<p>We take great care with our products. That means low-waste manufacturing in small batches, with many things made to order.</p>"
+          }
+        },
+        "feature_JhkdJC": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/2024-09-29_12.36.10-1.jpg",
+            "heading": "Built for adventure",
+            "text": "<p>Our products are designed for a life full of bumps, downpours, and overhead bins. Made from the best materials, crafted using traditional European craftsmanship for two generations.</p>"
+          }
+        },
+        "feature_Rcw8xP": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/MUTO_print.png",
+            "heading": "Ready When the Boots Come Off",
+            "text": "<p>The après-adventure pro model—made for slope side beers and trailhead tailgates.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_ByhNVc",
+        "feature_JhkdJC",
+        "feature_Rcw8xP"
+      ],
+      "name": "Features Grid",
+      "settings": {
+        "section_heading": "Why You'll Love It"
+      }
+    },
     "16334416611b39db75": {
       "type": "image-text",
       "settings": {
@@ -221,6 +259,7 @@
     "main",
     "16334414056cf0ce6d",
     "163344186528b6f100",
+    "features_grid_jXVFEY",
     "16334416611b39db75",
     "1633441880502148af",
     "176298330660ca0e8e",

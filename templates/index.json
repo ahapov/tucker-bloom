@@ -323,11 +323,11 @@
         "mobile_image_height": "medium",
         "title": "INVENTORY ITEMS",
         "alternative_title": "",
-        "text": "",
+        "text": "<p>These are ready to go out the door</p>",
         "alternative_text": "",
         "text_align": "left",
         "button_label": "SHOP",
-        "link": "shopify://products/muto-record-bag",
+        "link": "shopify://collections/holiday-inventory",
         "alternative_link": "",
         "text_color": "#000000",
         "background_color": "#f7f6f1"

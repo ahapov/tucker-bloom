@@ -375,13 +375,13 @@
     </div>
   {% endfor %}
 
-  {% if template != 'featured-product' %}
+  {% comment %} {% if template != 'featured-product' %}
     {% if settings.enable_shopify_review_comments and settings.review_position == "top" %}
       <div id="shopify-product-reviews" data-id="{{ product.id }}">
         {{ product.metafields.spr.reviews }}
       </div>
     {% endif %}
-  {% endif %}
+  {% endif %} {% endcomment %}
   </div>
 </div>
 

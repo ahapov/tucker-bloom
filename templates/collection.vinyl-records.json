@@ -30,7 +30,7 @@
       ],
       "settings": {
         "products_per_row": 4,
-        "pagination_limit": 12,
+        "pagination_limit": 20,
         "collection_sort": true,
         "toggle": true,
         "sidebar_mobile_position": "above"

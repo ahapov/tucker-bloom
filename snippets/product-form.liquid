@@ -820,11 +820,5 @@
   .product__add-to-cart-button--backorder .text {
     font-weight: 600;
   }
-
-  {% if product.metafields.custom.backorder_enable %}
-    form[data-payment-terms-target] {
-      display: none;
-    }
-  {% endif %}
 </style>
 {% endstyle %}

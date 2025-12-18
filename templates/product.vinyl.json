@@ -95,7 +95,7 @@
         "enable_thumbnails": "desktop",
         "gallery_arrows": true,
         "enable_product_lightbox": false,
-        "enable_lifestyle_images": true,
+        "enable_lifestyle_images": false,
         "activate_zoom": true,
         "slideshow_speed": 3,
         "slideshow_transition": "slide",
@@ -109,31 +109,15 @@
         "video_looping": false
       }
     },
-    "176298330660ca0e8e": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_gpc3Pn": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "real_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "other_products_reviews"
-          }
-        },
-        "judge_me_reviews_featured_carousel_4qwf89": {
-          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "disabled": true,
-          "settings": {
-            "maxwidth": 1090
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_gpc3Pn",
-        "judge_me_reviews_featured_carousel_4qwf89"
-      ],
-      "settings": {}
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_layout": "grid",
+        "product_recommendations_heading": "You may also like",
+        "products_per_row": 3,
+        "recommended_products_limit": 9
+      }
     },
     "16334414056cf0ce6d": {
       "type": "image-with-text-overlay-section",
@@ -197,6 +181,7 @@
         "feature_JhkdJC",
         "feature_Rcw8xP"
       ],
+      "disabled": true,
       "name": "Features Grid",
       "settings": {
         "section_heading": "Why You'll Love It"
@@ -246,26 +231,42 @@
         "background_color": "rgba(0,0,0,0)"
       }
     },
-    "recommendations": {
-      "type": "product-recommendations",
-      "settings": {
-        "show_product_recommendations": true,
-        "product_recommendations_layout": "grid",
-        "product_recommendations_heading": "You may also like",
-        "products_per_row": 3,
-        "recommended_products_limit": 9
-      }
+    "176298330660ca0e8e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_gpc3Pn": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        },
+        "judge_me_reviews_featured_carousel_4qwf89": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1090
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_gpc3Pn",
+        "judge_me_reviews_featured_carousel_4qwf89"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "sidebar",
     "main",
-    "176298330660ca0e8e",
+    "recommendations",
     "16334414056cf0ce6d",
     "163344186528b6f100",
     "features_grid_jXVFEY",
     "16334416611b39db75",
     "1633441880502148af",
-    "recommendations"
+    "176298330660ca0e8e"
   ]
 }

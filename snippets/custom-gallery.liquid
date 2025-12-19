@@ -5,6 +5,10 @@
 {% endif %}
 
 {% assign current_variant_sku = product.selected_or_first_available_variant.sku | downcase %}
+{% assign is_single_variant = false %}
+{% if product.variants.size == 1 %}
+  {% assign is_single_variant = true %}
+{% endif %}
 
 {% capture images_data %}
   [
@@ -38,12 +42,17 @@
   data-variants='{{ variants_data | strip_newlines }}'
   data-current-sku="{{ current_variant_sku }}"
   data-show-thumbnails="{{ show_thumbnails }}"
+  data-single-variant="{{ is_single_variant }}"
 >
   <div class="swiper mySwiper2" data-main-swiper>
     <div class="swiper-wrapper" data-main-swiper-wrapper>
       {% for image in product.images %}
         {% assign image_alt_tag = image.alt | downcase %}
-        {% if image_alt_tag contains current_variant_sku %}
+        {% if is_single_variant %}
+          <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
+            {{ image | image_url: width: 1500 | image_tag }}
+          </div>
+        {% elsif image_alt_tag contains current_variant_sku %}
           <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
             {{ image | image_url: width: 1500 | image_tag }}
           </div>
@@ -61,7 +70,11 @@
       <div class="swiper-wrapper" data-thumb-swiper-wrapper>
         {% for image in product.images %}
           {% assign image_alt_tag = image.alt | downcase %}
-          {% if image_alt_tag contains current_variant_sku %}
+          {% if is_single_variant %}
+            <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
+              {{ image | image_url: width: 1000 | image_tag }}
+            </div>
+          {% elsif image_alt_tag contains current_variant_sku %}
             <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
               {{ image | image_url: width: 1000 | image_tag }}
             </div>

@@ -9,6 +9,7 @@
       this.imagesData = null;
       this.variantsData = null;
       this.showThumbnails = this.galleryWrapper.dataset.showThumbnails === 'true';
+      this.isSingleVariant = this.galleryWrapper.dataset.singleVariant === 'true';
       this.currentSku = '';
       
       try {
@@ -194,7 +195,15 @@
     }
 
     updateGallery(variantSku) {
-      if (!variantSku || !this.imagesData) return;
+      if (!this.imagesData) return;
+
+      // If single variant product, show all images without filtering
+      if (this.isSingleVariant) {
+        this.rebuildSwiper(this.imagesData);
+        return;
+      }
+
+      if (!variantSku) return;
 
       const normalizedSku = variantSku.toLowerCase().trim();
       this.currentSku = normalizedSku;

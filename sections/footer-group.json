@@ -50,10 +50,10 @@
         "e05e6fc4-c233-4a2a-9898-13173cb44681"
       ],
       "settings": {
-        "copyright_text": "",
+        "copyright_text": "Tucker-Bloom",
         "display_payment_methods": false,
         "social_icons_enabled": true,
-        "enable_follow_on_shop": true,
+        "enable_follow_on_shop": false,
         "show_locale_selector": true,
         "show_currency_selector": true
       }

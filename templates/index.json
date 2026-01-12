@@ -14,10 +14,10 @@
       "name": "Banner",
       "settings": {
         "image_1": "shopify://shop_images/2025-07-31_18.36.41.png",
-        "image_1_link": "",
-        "image_2": "shopify://shop_images/backpack-walden-backpack-12_5d8f6f52-f16f-432c-aaff-ea3797d88222.png",
+        "image_1_link": "shopify://products/walden-dj-backpack",
+        "image_2": "shopify://shop_images/2024-09-29_12.35.55-1.png",
         "image_2_link": "",
-        "image_3": "shopify://shop_images/backpack-walden-backpack-12_5d8f6f52-f16f-432c-aaff-ea3797d88222.png",
+        "image_3": "shopify://shop_images/2024-09-29_12.35.55-1.png",
         "image_3_link": "shopify://products/walden-dj-backpack"
       }
     },

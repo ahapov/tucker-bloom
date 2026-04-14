@@ -16,7 +16,7 @@
         "image_1": "shopify://shop_images/2025-07-31_18.36.41.png",
         "image_1_link": "shopify://products/walden-dj-backpack",
         "image_2": "shopify://shop_images/2024-09-29_12.35.55-1.png",
-        "image_2_link": "",
+        "image_2_link": "shopify://products/walden-dj-backpack",
         "image_3": "shopify://shop_images/2024-09-29_12.35.55-1.png",
         "image_3_link": "shopify://products/walden-dj-backpack"
       }
@@ -57,6 +57,7 @@
     },
     "image-text-1": {
       "type": "image-text",
+      "disabled": true,
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/MUTO-OLV-1-5.jpg",

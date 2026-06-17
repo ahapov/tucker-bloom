@@ -369,6 +369,58 @@
         "newsletter_background": "#ffffff",
         "newsletter_text": "#303030"
       }
+    },
+    "17817169630a300402": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5d4139e_GUmWwf": {
+          "type": "ai_gen_block_5d4139e",
+          "disabled": true,
+          "settings": {
+            "heading": "Why Tucker-Bloom",
+            "section_padding": 60,
+            "desktop_width_percent": 100,
+            "background_color": "#ffffff",
+            "heading_size": 30,
+            "heading_color": "#2a2a2a",
+            "heading_alignment": "left",
+            "heading_spacing": 40,
+            "columns_desktop": "4",
+            "columns_mobile": "1",
+            "grid_gap": 30,
+            "item_alignment": "center",
+            "item_padding": 20,
+            "item_background_color": "#ffffff",
+            "item_border_radius": 0,
+            "enable_hover_effect": false,
+            "icon_size": 50,
+            "icon_color": "#326663",
+            "icon_spacing": 20,
+            "item_title_size": 18,
+            "item_title_color": "#2a2a2a",
+            "title_spacing": 10,
+            "item_text_size": 14,
+            "item_text_color": "#000000",
+            "item_1_enabled": true,
+            "item_1_title": "Made in USA",
+            "item_1_text": "<p>Handcrafted in Nashville, TN since the 1990s</p>",
+            "item_2_enabled": true,
+            "item_2_title": "Lifetime Warranty",
+            "item_2_text": "<p>Built to last, backed by our guarantee</p>",
+            "item_3_enabled": true,
+            "item_3_title": "Family Owned",
+            "item_3_text": "<p>30 years of bag-making expertise</p>",
+            "item_4_enabled": true,
+            "item_4_title": "Premium Materials",
+            "item_4_text": "<p>Chrome-tanned leather, shock-absorbing foam backing</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5d4139e_GUmWwf"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -387,6 +439,7 @@
     "testimonial-1",
     "blog-post-1",
     "divider-4",
-    "newsletter-1"
+    "newsletter-1",
+    "17817169630a300402"
   ]
 }

@@ -237,7 +237,7 @@
 
           const mainWrapper = this.galleryWrapper.querySelector('[data-main-swiper-wrapper]');
           if (mainWrapper) {
-            mainWrapper.innerHTML = this.generateSlidesHTML(images);
+            mainWrapper.innerHTML = this.generateSlidesHTML(images, true);
           }
 
           if (this.showThumbnails) {
@@ -286,12 +286,18 @@
       return Promise.all(imagePromises);
     }
 
-    generateSlidesHTML(images) {
-      return images.map(img => `
+    generateSlidesHTML(images, isMain = false) {
+      return images.map(img => {
+        const imgTag = `<img src="${img.url}" alt="${img.alt || ''}" loading="lazy">`;
+        const inner = isMain
+          ? `<div class="swiper-zoom-container">${imgTag}</div>`
+          : imgTag;
+        return `
         <div class="swiper-slide" data-image-id="${img.id}" data-alt="${img.alt || ''}">
-          <img src="${img.url}" alt="${img.alt || ''}" loading="lazy">
+          ${inner}
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     initializeSwiper(onComplete) {
@@ -313,6 +319,10 @@
         window.productGallerySwiper.main = new Swiper(".mySwiper2", {
           spaceBetween: 10,
           speed: 300,
+          zoom: {
+            maxRatio: 3,
+            toggle: true,
+          },
           navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",

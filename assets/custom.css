@@ -84,6 +84,16 @@
   cursor: pointer;
 }
 
+/* Swiper pinch-to-zoom container (main gallery only) */
+.custom-gallery__wrapper .mySwiper2 .swiper-zoom-container {
+  width: 100%;
+  height: auto;
+}
+
+.custom-gallery__wrapper .mySwiper2 .swiper-slide-zoomed {
+  cursor: zoom-out;
+}
+
 .custom-gallery__wrapper .swiper-slide img {
   width: 100%;
   height: auto;

@@ -50,11 +50,15 @@
         {% assign image_alt_tag = image.alt | downcase %}
         {% if is_single_variant %}
           <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
-            {{ image | image_url: width: 1500 | image_tag }}
+            <div class="swiper-zoom-container">
+              {{ image | image_url: width: 1500 | image_tag }}
+            </div>
           </div>
         {% elsif image_alt_tag contains current_variant_sku %}
           <div class="swiper-slide" data-image-id="{{ image.id }}" data-alt="{{ image.alt }}">
-            {{ image | image_url: width: 1500 | image_tag }}
+            <div class="swiper-zoom-container">
+              {{ image | image_url: width: 1500 | image_tag }}
+            </div>
           </div>
         {% endif %}
       {% endfor %}
@@ -108,6 +112,10 @@
 
     window.productGallerySwiper.main = new Swiper(".mySwiper2", {
       spaceBetween: 10,
+      zoom: {
+        maxRatio: 3,
+        toggle: true,
+      },
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",

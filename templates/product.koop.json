@@ -175,26 +175,17 @@
             "text": "<p>The VG+ tote was designed as a collaborative blank and is released in support of community-driven events. </p>"
           }
         },
-        "feature_JhkdJC": {
-          "type": "feature",
-          "settings": {
-            "image": "shopify://shop_images/VG_TOTE_lifestyle_19.jpg",
-            "heading": "Built for adventure",
-            "text": "<p>Surprisingly sturdy and handy in almost any situation. It's a great bag, and minimalists for the first time ever!</p>"
-          }
-        },
         "feature_Rcw8xP": {
           "type": "feature",
           "settings": {
-            "image": "shopify://shop_images/Southern_Word_Tote_Bag_Animation_8285155b-2f01-4ecd-a050-6b8447b8e2a3.gif",
-            "heading": "VG+ TOTE",
-            "text": "<p>This tote is also mom and auntie-approved.   </p>"
+            "image": "shopify://shop_images/1_f917452f-9a78-4248-9318-8a67590f44f3.png",
+            "heading": "over built",
+            "text": "<p>Full-grain leather exterior, double-coated yellow nylon interior.</p>"
           }
         }
       },
       "block_order": [
         "feature_ByhNVc",
-        "feature_JhkdJC",
         "feature_Rcw8xP"
       ],
       "name": "Features Grid",
@@ -204,7 +195,6 @@
     },
     "16334416611b39db75": {
       "type": "image-text",
-      "disabled": true,
       "settings": {
         "wide_display": true,
         "image": "shopify://shop_images/2024-09-29_12.35.55-1.png",

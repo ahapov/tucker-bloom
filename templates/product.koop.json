@@ -103,7 +103,7 @@
         "crop_thumbnails": true,
         "enable_thumbnail_slider": true,
         "show_payment_button": false,
-        "product_images_position": "left",
+        "product_images_position": "right",
         "set_product_height": true,
         "product_height": 800,
         "video_looping": false
@@ -139,10 +139,10 @@
       "type": "image-with-text-overlay-section",
       "disabled": true,
       "settings": {
-        "wide_display": true,
+        "wide_display": false,
         "section_height": "small",
-        "image": "shopify://shop_images/CosmoGif1.gif",
-        "alternative_image": "{{ product.metafields.custom.section_alternative_content_1.value.image.value }}",
+        "image": "shopify://shop_images/koop_lifestyle_3.jpg",
+        "alternative_image": "shopify://shop_images/koop_lifestyle_2.jpg",
         "title": "Tried & true, like the man himself.",
         "alternative_title": "{{ product.metafields.custom.section_alternative_content_1.value.heading.value }}",
         "text": "<p>Cosmo Baker North To South Messenger</p>",

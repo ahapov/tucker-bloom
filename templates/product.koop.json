@@ -92,7 +92,7 @@
         "e1135ae9-913e-476e-990c-091d12c963d7"
       ],
       "settings": {
-        "enable_thumbnails": "desktop",
+        "enable_thumbnails": "always",
         "gallery_arrows": true,
         "enable_product_lightbox": false,
         "enable_lifestyle_images": true,

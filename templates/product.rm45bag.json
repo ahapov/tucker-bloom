@@ -76,9 +76,9 @@
         "e1135ae9-913e-476e-990c-091d12c963d7": {
           "type": "product_links",
           "settings": {
-            "display_collections": true,
+            "display_collections": false,
             "display_tags": false,
-            "display_type": false
+            "display_type": true
           }
         }
       },

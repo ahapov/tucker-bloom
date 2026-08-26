@@ -109,6 +109,13 @@
         "video_looping": false
       }
     },
+    "163344186528b6f100": {
+      "type": "divider",
+      "settings": {
+        "divider_spacing": 15,
+        "divider_border": true
+      }
+    },
     "176298330660ca0e8e": {
       "type": "apps",
       "blocks": {
@@ -155,13 +162,6 @@
         "link": "shopify://products/cosmo-baker-north-to-south-messenger-bag",
         "alternative_link": "{{ product.metafields.custom.section_alternative_content_1.value.cta_link.value }}",
         "button_style": "primary"
-      }
-    },
-    "163344186528b6f100": {
-      "type": "divider",
-      "settings": {
-        "divider_spacing": 15,
-        "divider_border": true
       }
     },
     "features_grid_jXVFEY": {
@@ -251,11 +251,11 @@
   "order": [
     "sidebar",
     "main",
+    "163344186528b6f100",
+    "16334416611b39db75",
     "176298330660ca0e8e",
     "16334414056cf0ce6d",
-    "163344186528b6f100",
     "features_grid_jXVFEY",
-    "16334416611b39db75",
     "1633441880502148af",
     "recommendations"
   ]

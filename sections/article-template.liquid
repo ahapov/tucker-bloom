@@ -18,7 +18,7 @@
   {% endif %}
 
   {% if section.settings.blog_author %}
-    {% capture 'subheading' %}
+    {% capture subheading %}
       {{ 'blogs.article.by_author' | t: author: article.author }}
     {% endcapture %}
   {% endif %}
@@ -202,7 +202,7 @@
                   <h2 class="article-template__articles-heading">{{ 'blogs.article.additional_articles' | t: title: blog.title }}</h2>
                 </div>
                 {% if blog.articles.size >= 2 %}
-                  {% capture 'articles_wrapper_classes' %}
+                  {% capture articles_wrapper_classes %}
                     article-template__articles-wrapper
                     {% if blog.articles.size == 3 %}
                       article-template__articles-wrapper--2-column
@@ -558,4 +558,16 @@
   ]
 }
 
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% capture 'subheading' %}"
+  to: "{% capture subheading %}"
+  position: 595..619
+- from: "{% capture 'articles_wrapper_classes' %}"
+  to: "{% capture articles_wrapper_classes %}"
+  position: 7796..7834
+{%- endcomment -%}

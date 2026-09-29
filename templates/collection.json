@@ -45,10 +45,15 @@
         "judge_me_reviews_featured_carousel_e6eckH"
       ],
       "settings": {}
+    },
+    "17907067285c473030": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "17629953339fc9b07a"
+    "17629953339fc9b07a",
+    "17907067285c473030"
   ]
 }

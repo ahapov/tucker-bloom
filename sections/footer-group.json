@@ -52,7 +52,7 @@
       "settings": {
         "copyright_text": "© 2026 Tucker & Bloom",
         "display_payment_methods": false,
-        "social_icons_enabled": true,
+        "social_icons_enabled": false,
         "enable_follow_on_shop": false,
         "show_locale_selector": true,
         "show_currency_selector": true

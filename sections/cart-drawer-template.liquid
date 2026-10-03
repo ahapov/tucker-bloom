@@ -119,24 +119,18 @@
             </div>
           </div>
         {% endfor %}
-      </div>
 
-      <div class="cart-drawer__details text-align-right">
         {% if settings.display_special_instructions %}
           <div class="cart-drawer__notes text-align-left">
             <label for="cart-drawer-note">
               {{- 'cart.general.note' | t: shop_name: shop.name -}}:
             </label>
-            <textarea
-              id="cart-drawer-note"
-              name="note"
-              rows="2"
-            >
-              {{ cart.note }}
-            </textarea>
+            <textarea id="cart-drawer-note" name="note" rows="2">{{ cart.note }}</textarea>
           </div>
         {% endif %}
+      </div>
 
+      <div class="cart-drawer__details text-align-right">
         {% if cart.cart_level_discount_applications != blank %}
           <p class="cart-drawer__discounts-heading">{{ 'cart.general.discount' | t }}:</p>
 

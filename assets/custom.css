@@ -330,3 +330,55 @@
 .product-custom-info__content strong {
   font-weight: 600;
 }
+
+/* ------------------------------------------------------------------
+   Cart drawer — mobile-first
+   Header and checkout footer are pinned; only the line items scroll.
+   Sized with height: 100% rather than 100vh so iOS Safari's toolbar
+   never covers the checkout button.
+   ------------------------------------------------------------------ */
+.cart-drawer {
+  height: 100%;
+  max-height: none;
+  padding: 0 1.25rem;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.cart-drawer__header {
+  flex: 0 0 auto;
+}
+
+.cart-drawer__form {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  justify-content: flex-start;
+}
+
+.cart-drawer__items {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cart-drawer__notes {
+  margin-bottom: 1.5rem;
+}
+
+.cart-drawer__details {
+  flex: 0 0 auto;
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+}
+
+/* Shopify Inbox launcher floats over the pinned footer; hide it while a drawer or modal is open. */
+html.scroll-locked shopify-chat {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-drawer {
+    padding: 0 2.5rem;
+  }
+}
